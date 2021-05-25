@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6929bf224f8748629ca5a2dcdc3b9c4d" Name="Diagram1">
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.BoMon" Width="1.5" PointX="1.5" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.ChuyenNganh" Width="1.5" PointX="0.75" PointY="20.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.Diem" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.GiangVien" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.HanhKiem" Width="1.5" PointX="6" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.HocKi" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.Khoa" Width="1.5" PointX="1.5" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.KhoaHoc" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.LichSu" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.Lop" Width="1.5" PointX="3" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.MonHoc" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.PhanHoiSinhVien" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.PhanQuyen" Width="1.5" PointX="8.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.SinhVien" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.sysdiagram" Width="1.5" PointX="9.75" PointY="0.875" IsExpanded="true" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_BoMon_Khoa" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_GiangVien_BoMon" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_ChuyenNganh_Khoa" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_Lop_ChuyenNganh" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_Diem_HocKi" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_Diem_MonHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_Diem_SinhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_KhoaHoc_GiangVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_Lop_GiangVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_HanhKiem_HocKi" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_HanhKiem_SinhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_KhoaHoc_HocKi" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_KhoaHoc_MonHoc" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_KhoaHoc_MonHoc1" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_LichSu_SinhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_SinhVien_Lop" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.FK_PhanHoiSinhVien_SinhVien" ManuallyRouted="false" />
+        <AssociationConnector Association="QuanLiSinhVienModel.CTKhoaHoc" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
