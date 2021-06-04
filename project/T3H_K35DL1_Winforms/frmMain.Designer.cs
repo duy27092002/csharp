@@ -34,14 +34,16 @@ namespace T3H_K35DL1_Winforms
             this.btnShowPanel = new System.Windows.Forms.Button();
             this.btnShowPage = new System.Windows.Forms.Button();
             this.pnMain = new System.Windows.Forms.Panel();
+            this.btnGiangVien = new System.Windows.Forms.Button();
             this.test.SuspendLayout();
             this.SuspendLayout();
             // 
             // test
             // 
             this.test.Controls.Add(this.btnSinhVien);
-            this.test.Controls.Add(this.btnShowPanel);
+            this.test.Controls.Add(this.btnGiangVien);
             this.test.Controls.Add(this.btnShowPage);
+            this.test.Controls.Add(this.btnShowPanel);
             this.test.Dock = System.Windows.Forms.DockStyle.Left;
             this.test.Location = new System.Drawing.Point(0, 0);
             this.test.Name = "test";
@@ -60,7 +62,7 @@ namespace T3H_K35DL1_Winforms
             // 
             // btnShowPanel
             // 
-            this.btnShowPanel.Location = new System.Drawing.Point(3, 32);
+            this.btnShowPanel.Location = new System.Drawing.Point(3, 90);
             this.btnShowPanel.Name = "btnShowPanel";
             this.btnShowPanel.Size = new System.Drawing.Size(160, 23);
             this.btnShowPanel.TabIndex = 1;
@@ -86,6 +88,16 @@ namespace T3H_K35DL1_Winforms
             this.pnMain.Size = new System.Drawing.Size(980, 542);
             this.pnMain.TabIndex = 1;
             // 
+            // btnGiangVien
+            // 
+            this.btnGiangVien.Location = new System.Drawing.Point(3, 32);
+            this.btnGiangVien.Name = "btnGiangVien";
+            this.btnGiangVien.Size = new System.Drawing.Size(160, 23);
+            this.btnGiangVien.TabIndex = 3;
+            this.btnGiangVien.Text = "Giảng viên";
+            this.btnGiangVien.UseVisualStyleBackColor = true;
+            this.btnGiangVien.Click += new System.EventHandler(this.btnGiangVien_Click);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -109,6 +121,7 @@ namespace T3H_K35DL1_Winforms
         private System.Windows.Forms.Button btnShowPanel;
         private System.Windows.Forms.Panel pnMain;
         private System.Windows.Forms.Button btnShowPage;
+        private System.Windows.Forms.Button btnGiangVien;
     }
 }
 

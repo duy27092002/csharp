@@ -76,6 +76,11 @@
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\DAO\BaseDAO.cs" />
+    <Compile Include="Models\DAO\BoMonDAO.cs" />
+    <Compile Include="Models\DAO\ChuyenNganhDAO.cs" />
+    <Compile Include="Models\DAO\GiangVienDAO.cs" />
+    <Compile Include="Models\DAO\KhoaDAO.cs" />
+    <Compile Include="Models\DAO\LopDAO.cs" />
     <Compile Include="Models\DAO\SinhVienDAO.cs" />
     <Compile Include="Models\EF\BoMon.cs">
       <DependentUpon>Model1.tt</DependentUpon>
@@ -137,6 +142,36 @@
     <Compile Include="Models\EF\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Presenstation\UIGiangVien\frmGiangVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIGiangVien\frmGiangVien.Designer.cs">
+      <DependentUpon>frmGiangVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UIGiangVien\frmSelectBoMon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIGiangVien\frmSelectBoMon.Designer.cs">
+      <DependentUpon>frmSelectBoMon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UIGiangVien\ucGiangVien.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIGiangVien\ucGiangVien.Designer.cs">
+      <DependentUpon>ucGiangVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UISinhVien\frmSelectMaLop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UISinhVien\frmSelectMaLop.Designer.cs">
+      <DependentUpon>frmSelectMaLop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UISinhVien\frmSinhVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UISinhVien\frmSinhVien.Designer.cs">
+      <DependentUpon>frmSinhVien.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presenstation\UISinhVien\ucSinhVien.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -162,6 +197,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIGiangVien\frmGiangVien.resx">
+      <DependentUpon>frmGiangVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIGiangVien\frmSelectBoMon.resx">
+      <DependentUpon>frmSelectBoMon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIGiangVien\ucGiangVien.resx">
+      <DependentUpon>ucGiangVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UISinhVien\frmSelectMaLop.resx">
+      <DependentUpon>frmSelectMaLop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UISinhVien\frmSinhVien.resx">
+      <DependentUpon>frmSinhVien.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presenstation\UISinhVien\ucSinhVien.resx">
       <DependentUpon>ucSinhVien.cs</DependentUpon>

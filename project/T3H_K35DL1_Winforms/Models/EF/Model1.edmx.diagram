@@ -14,12 +14,12 @@
         <EntityTypeShape EntityType="QuanLiSinhVienModel.Khoa" Width="1.5" PointX="1.5" PointY="16.75" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiSinhVienModel.KhoaHoc" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiSinhVienModel.LichSu" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiSinhVienModel.Lop" Width="1.5" PointX="3" PointY="20.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.Lop" Width="1.5" PointX="4" PointY="14.625" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiSinhVienModel.MonHoc" Width="1.5" PointX="0.75" PointY="2.375" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiSinhVienModel.PhanHoiSinhVien" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiSinhVienModel.PhanQuyen" Width="1.5" PointX="8.75" PointY="5.875" IsExpanded="true" />
         <EntityTypeShape EntityType="QuanLiSinhVienModel.SinhVien" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="QuanLiSinhVienModel.sysdiagram" Width="1.5" PointX="9.75" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="QuanLiSinhVienModel.sysdiagram" Width="1.5" PointX="3.375" PointY="9.75" IsExpanded="true" />
         <AssociationConnector Association="QuanLiSinhVienModel.FK_BoMon_Khoa" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLiSinhVienModel.FK_GiangVien_BoMon" ManuallyRouted="false" />
         <AssociationConnector Association="QuanLiSinhVienModel.FK_ChuyenNganh_Khoa" ManuallyRouted="false" />

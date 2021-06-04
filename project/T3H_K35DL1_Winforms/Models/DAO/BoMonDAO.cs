@@ -8,61 +8,37 @@ using T3H_K35DL1_Winforms.Models.EF;
 
 namespace T3H_K35DL1_Winforms.Models.DAO
 {
-    public class SinhVienDAO : BaseDAO
+    public class BoMonDAO : BaseDAO
     {
-        public List<SinhVien> GetAll()
+        public List<BoMon> GetAll()
         {
-            return db_.SinhViens.ToList();
+            return db_.BoMons.ToList();
+        }
+
+        public List<BoMon> GetByMaKhoa(string maKhoa)
+        {
+            return db_.BoMons.Where(t => t.MaKhoa == maKhoa).ToList();
         }
 
         // tìm kiếm theo keyword
-        public List<SinhVien> GetByKeyword(string keyword)
+        public List<BoMon> GetByKeyword(string keyword)
         {
-            return db_.SinhViens.Where(t => t.MaSV == keyword || t.HoTen.Contains(keyword)).ToList();
+            return db_.BoMons.Where(t => t.MaBM == keyword || t.TenBM.Contains(keyword)).ToList();
         }
 
         // lấy theo ID
-        public SinhVien GetSingleByID(string maSV)
+        public BoMon GetSingleByID(string maBM)
         {
-            return db_.SinhViens.Where(t => t.MaSV == maSV).FirstOrDefault();
+            return db_.BoMons.Where(t => t.MaBM == maBM).FirstOrDefault();
         }
 
-        // thêm Sinh Viên
-        public bool Add(SinhVien info)
+        // thêm bộ môn
+        public bool Add(BoMon info)
         {
             try
             {
-                db_.SinhViens.Add(info);
+                db_.BoMons.Add(info);
                 db_.SaveChanges();
-            } catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-            return true;
-        }
-
-        // Sửa thông tin
-        public bool Edit(SinhVien info)
-        {
-            try
-            {
-                var info0 = GetSingleByID(info.MaSV);
-                if (info0 != null)
-                {
-                    info0.HoTen = info.HoTen;
-                    info0.GioiTinh = info.GioiTinh;
-                    info0.NgaySinh = info.NgaySinh;
-                    info0.QueQuan = info.QueQuan;
-                    info0.DiaChi = info.DiaChi;
-                    info0.EMail = info.EMail;
-                    info0.SDT = info.SDT;
-                    info0.MaLop = info.MaLop;
-                    info0.Pic = info.Pic;
-
-                    db_.SaveChanges();
-                }
-                
             }
             catch (Exception ex)
             {
@@ -72,15 +48,38 @@ namespace T3H_K35DL1_Winforms.Models.DAO
             return true;
         }
 
-        // xóa theo mã Sinh Viên
-        public bool Delete(string maSV)
+        // Sửa thông tin
+        public bool Edit(BoMon info)
         {
             try
             {
-                var info0 = GetSingleByID(maSV);
+                var info0 = GetSingleByID(info.MaBM);
                 if (info0 != null)
                 {
-                    db_.SinhViens.Remove(info0);
+                    info0.TenBM = info.TenBM;
+                    info0.MaKhoa = info.MaKhoa;
+
+                    db_.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+            return true;
+        }
+
+        // xóa theo mã bộ môn
+        public bool Delete(string maBM)
+        {
+            try
+            {
+                var info0 = GetSingleByID(maBM);
+                if (info0 != null)
+                {
+                    db_.BoMons.Remove(info0);
 
                     db_.SaveChanges();
                 }

@@ -8,61 +8,36 @@ using T3H_K35DL1_Winforms.Models.EF;
 
 namespace T3H_K35DL1_Winforms.Models.DAO
 {
-    public class SinhVienDAO : BaseDAO
+    // kế thừa BaseDAO để liên kết với DB
+    public class GiangVienDAO : BaseDAO
     {
-        public List<SinhVien> GetAll()
+        // lấy tất cả thông tin Giảng Viên trong DB
+        public List<GiangVien> GetAll()
         {
-            return db_.SinhViens.ToList();
+            return db_.GiangViens.ToList();
         }
 
-        // tìm kiếm theo keyword
-        public List<SinhVien> GetByKeyword(string keyword)
+        // tìm kiếm Giảng Viên theo keyword
+        public List<GiangVien> GetByKeyword(string keyword)
         {
-            return db_.SinhViens.Where(t => t.MaSV == keyword || t.HoTen.Contains(keyword)).ToList();
+            return db_.GiangViens.Where(t => t.MaGV == keyword || t.HoTen.Contains(keyword)).ToList();
         }
 
-        // lấy theo ID
-        public SinhVien GetSingleByID(string maSV)
+        // lấy Giảng Viên theo maGV
+        public GiangVien GetSingleByID(string maGV)
         {
-            return db_.SinhViens.Where(t => t.MaSV == maSV).FirstOrDefault();
+            return db_.GiangViens.Where(t => t.MaGV == maGV).FirstOrDefault();
         }
 
-        // thêm Sinh Viên
-        public bool Add(SinhVien info)
+        // thêm Giảng Viên (insert)
+        public bool Add(GiangVien info)
         {
             try
             {
-                db_.SinhViens.Add(info);
+                // thực hiện thêm dữ liệu vào DB
+                db_.GiangViens.Add(info);
+                // lưu thông tin đã thêm
                 db_.SaveChanges();
-            } catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return false;
-            }
-            return true;
-        }
-
-        // Sửa thông tin
-        public bool Edit(SinhVien info)
-        {
-            try
-            {
-                var info0 = GetSingleByID(info.MaSV);
-                if (info0 != null)
-                {
-                    info0.HoTen = info.HoTen;
-                    info0.GioiTinh = info.GioiTinh;
-                    info0.NgaySinh = info.NgaySinh;
-                    info0.QueQuan = info.QueQuan;
-                    info0.DiaChi = info.DiaChi;
-                    info0.EMail = info.EMail;
-                    info0.SDT = info.SDT;
-                    info0.MaLop = info.MaLop;
-                    info0.Pic = info.Pic;
-
-                    db_.SaveChanges();
-                }
-                
             }
             catch (Exception ex)
             {
@@ -72,15 +47,45 @@ namespace T3H_K35DL1_Winforms.Models.DAO
             return true;
         }
 
-        // xóa theo mã Sinh Viên
-        public bool Delete(string maSV)
+        // Sửa thông tin Giảng Viên (update)
+        public bool Edit(GiangVien info)
         {
             try
             {
-                var info0 = GetSingleByID(maSV);
+                var info0 = GetSingleByID(info.MaGV);
                 if (info0 != null)
                 {
-                    db_.SinhViens.Remove(info0);
+                    info0.HoTen = info.HoTen;
+                    info0.GioiTinh = info.GioiTinh;
+                    info0.NgaySinh = info.NgaySinh;
+                    info0.QueQuan = info.QueQuan;
+                    info0.DiaChi = info.DiaChi;
+                    info0.EMail = info.EMail;
+                    info0.SDT = info.SDT;
+                    info0.MaBM = info.MaBM;
+                    info0.Pic = info.Pic;
+
+                    db_.SaveChanges();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                return false;
+            }
+            return true;
+        }
+
+        // xóa theo mã Giảng Viên
+        public bool Delete(string maGV)
+        {
+            try
+            {
+                var info0 = GetSingleByID(maGV);
+                if (info0 != null)
+                {
+                    db_.GiangViens.Remove(info0);
 
                     db_.SaveChanges();
                 }

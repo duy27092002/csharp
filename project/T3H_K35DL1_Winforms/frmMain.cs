@@ -15,7 +15,6 @@ namespace T3H_K35DL1_Winforms
         public frmMain()
         {
             InitializeComponent();
-
         }    
 
         private void Form1_Load(object sender, EventArgs e)
@@ -33,9 +32,6 @@ namespace T3H_K35DL1_Winforms
             AddControl(new Presenstation.UISinhVien.ucSinhVien());
         }
 
-
-
-
         private void btnShowPanel_Click(object sender, EventArgs e)
         {
             UC.UcMain ucMain = new UC.UcMain();
@@ -48,6 +44,11 @@ namespace T3H_K35DL1_Winforms
             UC.UcPage ucPage = new UC.UcPage();
             pnMain.Controls.Clear();
             pnMain.Controls.Add(ucPage);
+        }
+
+        private void btnGiangVien_Click(object sender, EventArgs e)
+        {
+            AddControl(new Presenstation.UIGiangVien.ucGiangVien());
         }
     }
 }
