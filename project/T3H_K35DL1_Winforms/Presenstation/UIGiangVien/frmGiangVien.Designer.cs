@@ -310,6 +310,7 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmGiangVien";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Giảng Viên";
             this.Load += new System.EventHandler(this.frmGiangVien_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbPic)).EndInit();

@@ -30,14 +30,14 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.dgvGiangVien = new System.Windows.Forms.DataGridView();
-            this.btnSearch = new System.Windows.Forms.Button();
-            this.txtKeyword = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
             this.btnAdd = new System.Windows.Forms.Button();
             this.btnEdit = new System.Windows.Forms.Button();
             this.btnDelete = new System.Windows.Forms.Button();
+            this.btnSearch = new System.Windows.Forms.Button();
+            this.txtKeyword = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.dgvGiangVien = new System.Windows.Forms.DataGridView();
             this.MaGV = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.HoTen = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GioiTinh = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,6 +48,9 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.SDT = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MaBM = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Pic = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.KhoaHocs = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Lops = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.BoMon = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvGiangVien)).BeginInit();
@@ -66,66 +69,6 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1174, 72);
             this.panel1.TabIndex = 0;
-            // 
-            // panel2
-            // 
-            this.panel2.Controls.Add(this.dgvGiangVien);
-            this.panel2.Location = new System.Drawing.Point(4, 82);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1165, 471);
-            this.panel2.TabIndex = 1;
-            // 
-            // dgvGiangVien
-            // 
-            this.dgvGiangVien.AllowUserToAddRows = false;
-            this.dgvGiangVien.AllowUserToDeleteRows = false;
-            this.dgvGiangVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvGiangVien.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.MaGV,
-            this.HoTen,
-            this.GioiTinh,
-            this.NgaySinh,
-            this.QueQuan,
-            this.DiaChi,
-            this.EMail,
-            this.SDT,
-            this.MaBM,
-            this.Pic});
-            this.dgvGiangVien.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dgvGiangVien.Location = new System.Drawing.Point(0, 0);
-            this.dgvGiangVien.Name = "dgvGiangVien";
-            this.dgvGiangVien.ReadOnly = true;
-            this.dgvGiangVien.RowHeadersWidth = 51;
-            this.dgvGiangVien.RowTemplate.Height = 24;
-            this.dgvGiangVien.Size = new System.Drawing.Size(1165, 471);
-            this.dgvGiangVien.TabIndex = 0;
-            // 
-            // btnSearch
-            // 
-            this.btnSearch.AutoSize = true;
-            this.btnSearch.Location = new System.Drawing.Point(314, 23);
-            this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(75, 27);
-            this.btnSearch.TabIndex = 5;
-            this.btnSearch.Text = "Tìm kiếm";
-            this.btnSearch.UseVisualStyleBackColor = true;
-            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
-            // 
-            // txtKeyword
-            // 
-            this.txtKeyword.Location = new System.Drawing.Point(126, 25);
-            this.txtKeyword.Name = "txtKeyword";
-            this.txtKeyword.Size = new System.Drawing.Size(160, 22);
-            this.txtKeyword.TabIndex = 4;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(13, 25);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(97, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Nhập từ khóa:";
             // 
             // btnAdd
             // 
@@ -159,6 +102,70 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.btnDelete.Text = "Xóa";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
+            // 
+            // btnSearch
+            // 
+            this.btnSearch.AutoSize = true;
+            this.btnSearch.Location = new System.Drawing.Point(314, 23);
+            this.btnSearch.Name = "btnSearch";
+            this.btnSearch.Size = new System.Drawing.Size(75, 27);
+            this.btnSearch.TabIndex = 5;
+            this.btnSearch.Text = "Tìm kiếm";
+            this.btnSearch.UseVisualStyleBackColor = true;
+            this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
+            // 
+            // txtKeyword
+            // 
+            this.txtKeyword.Location = new System.Drawing.Point(126, 25);
+            this.txtKeyword.Name = "txtKeyword";
+            this.txtKeyword.Size = new System.Drawing.Size(160, 22);
+            this.txtKeyword.TabIndex = 4;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 25);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(97, 17);
+            this.label1.TabIndex = 3;
+            this.label1.Text = "Nhập từ khóa:";
+            // 
+            // panel2
+            // 
+            this.panel2.Controls.Add(this.dgvGiangVien);
+            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel2.Location = new System.Drawing.Point(0, 72);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(1174, 484);
+            this.panel2.TabIndex = 1;
+            // 
+            // dgvGiangVien
+            // 
+            this.dgvGiangVien.AllowUserToAddRows = false;
+            this.dgvGiangVien.AllowUserToDeleteRows = false;
+            this.dgvGiangVien.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvGiangVien.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.MaGV,
+            this.HoTen,
+            this.GioiTinh,
+            this.NgaySinh,
+            this.QueQuan,
+            this.DiaChi,
+            this.EMail,
+            this.SDT,
+            this.MaBM,
+            this.Pic,
+            this.KhoaHocs,
+            this.Lops,
+            this.BoMon});
+            this.dgvGiangVien.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvGiangVien.Location = new System.Drawing.Point(0, 0);
+            this.dgvGiangVien.Name = "dgvGiangVien";
+            this.dgvGiangVien.ReadOnly = true;
+            this.dgvGiangVien.RowHeadersWidth = 51;
+            this.dgvGiangVien.RowTemplate.Height = 24;
+            this.dgvGiangVien.Size = new System.Drawing.Size(1174, 484);
+            this.dgvGiangVien.TabIndex = 0;
             // 
             // MaGV
             // 
@@ -244,11 +251,41 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             // Pic
             // 
             this.Pic.DataPropertyName = "Pic";
-            this.Pic.HeaderText = "Picture";
+            this.Pic.HeaderText = "Avartar";
             this.Pic.MinimumWidth = 6;
             this.Pic.Name = "Pic";
             this.Pic.ReadOnly = true;
             this.Pic.Width = 125;
+            // 
+            // KhoaHocs
+            // 
+            this.KhoaHocs.DataPropertyName = "KhoaHocs";
+            this.KhoaHocs.HeaderText = "Khóa học";
+            this.KhoaHocs.MinimumWidth = 6;
+            this.KhoaHocs.Name = "KhoaHocs";
+            this.KhoaHocs.ReadOnly = true;
+            this.KhoaHocs.Visible = false;
+            this.KhoaHocs.Width = 125;
+            // 
+            // Lops
+            // 
+            this.Lops.DataPropertyName = "Lops";
+            this.Lops.HeaderText = "Lớp";
+            this.Lops.MinimumWidth = 6;
+            this.Lops.Name = "Lops";
+            this.Lops.ReadOnly = true;
+            this.Lops.Visible = false;
+            this.Lops.Width = 125;
+            // 
+            // BoMon
+            // 
+            this.BoMon.DataPropertyName = "BoMon";
+            this.BoMon.HeaderText = "Bộ môn";
+            this.BoMon.MinimumWidth = 6;
+            this.BoMon.Name = "BoMon";
+            this.BoMon.ReadOnly = true;
+            this.BoMon.Visible = false;
+            this.BoMon.Width = 125;
             // 
             // ucGiangVien
             // 
@@ -288,5 +325,8 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
         private System.Windows.Forms.DataGridViewTextBoxColumn SDT;
         private System.Windows.Forms.DataGridViewTextBoxColumn MaBM;
         private System.Windows.Forms.DataGridViewTextBoxColumn Pic;
+        private System.Windows.Forms.DataGridViewTextBoxColumn KhoaHocs;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Lops;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BoMon;
     }
 }

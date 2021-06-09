@@ -10,11 +10,10 @@ using System.Windows.Forms;
 using T3H_K35DL1_Winforms.Models.DAO;
 using T3H_K35DL1_Winforms.Models.EF;
 
-namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
+namespace T3H_K35DL1_Winforms.Presenstation.UILop
 {
-    public partial class frmGiangVien : Form
+    public partial class frmLop : Form
     {
-        // đánh dấu event mà người dùng chọn
         private bool isAdd_ = true;
         public bool IsAdd
         {
@@ -33,40 +32,35 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
                 return result_;
             }
         }
-        private string maGV_ = "";
-        public string MaGV
+        private string maLop_ = "";
+        public string MaLop_
         {
             set
             {
-                maGV_ = value;
+                maLop_ = value;
             }
         }
-
-        public frmGiangVien()
+        public frmLop()
         {
             InitializeComponent();
         }
 
-        // Hàm này sẽ load form Giảng Viên tùy thuộc vào trường đánh dấu isAdd
-        private void frmGiangVien_Load(object sender, EventArgs e)
+        private void frmLop_Load(object sender, EventArgs e)
         {
-            // Hiện form edit Giảng Viên
+            LoadMaGV();
+            LoadMaCN();
             if (!isAdd_)
             {
-                GiangVienDAO dao = new GiangVienDAO();
-                var info = dao.GetSingleByID(maGV_);
+                LopDAO dao = new LopDAO();
+                var info = dao.GetSingleByID(maLop_);
                 if (info != null)
                 {
                     // hiển thị dữ liệu tương ứng với từng control (nếu có dữ liệu)
-                    txtMaGV.Text = info.MaGV.Trim();
-                    txtHoTen.Text = info.HoTen.Trim();
-                    cbGioiTinh.Checked = (bool)info.GioiTinh;
-                    dtpNgaySinh.Value = (DateTime)info.NgaySinh;
-                    txtQueQuan.Text = info.QueQuan;
-                    txtDiaChi.Text = info.DiaChi;
-                    txtEMail.Text = info.EMail;
-                    txtSDT.Text = info.SDT;
-                    txtMaBM.Text = info.MaBM;
+                    txtMaLop.Text = info.MaLop.Trim();
+                    txtTenLop.Text = info.TenLop.Trim();
+                    cbbMaGV.SelectedValue = info.MaGV.Trim();
+                    cbbMaCN.SelectedValue = info.MaCN.Trim();
+                    nudNienKhoa.Value = info.NienKhoa.Value;
                 }
                 else
                 {
@@ -75,29 +69,41 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             }
         }
 
-        // Hàm này lấy dữ liệu đầu vào của người nhập và trả lại những thông tin nhập vào đó
-        private GiangVien InitGiangVien()
-        {
-            GiangVien giangVien = new GiangVien();
-            giangVien.MaGV = txtMaGV.Text.Trim();
-            giangVien.HoTen = txtHoTen.Text.Trim();
-            giangVien.GioiTinh = cbGioiTinh.Checked;
-            giangVien.NgaySinh = dtpNgaySinh.Value;
-            giangVien.QueQuan = txtQueQuan.Text.Trim();
-            giangVien.DiaChi = txtDiaChi.Text.Trim();
-            giangVien.EMail = txtEMail.Text.Trim();
-            giangVien.SDT = txtSDT.Text.Trim();
-            giangVien.MaBM = txtMaBM.Text.Trim();
-
-            return giangVien;
-        }
-
-        // Hàm này sẽ lưu lại những thông tin được sửa, thêm vào
-        private void btnSave_Click(object sender, EventArgs e)
+        private void LoadMaGV()
         {
             GiangVienDAO dao = new GiangVienDAO();
+
+            cbbMaGV.DisplayMember = "MaGV";
+            cbbMaGV.ValueMember = "MaGV";
+            cbbMaGV.DataSource = dao.GetAll();
+        }
+
+        private void LoadMaCN()
+        {
+            ChuyenNganhDAO dao = new ChuyenNganhDAO();
+
+            cbbMaCN.DisplayMember = "MaCN";
+            cbbMaCN.ValueMember = "MaCN";
+            cbbMaCN.DataSource = dao.GetAll();
+        }
+
+        private Lop InitLop()
+        {
+            Lop lop = new Lop();
+            lop.MaLop = txtMaLop.Text.Trim();
+            lop.TenLop = txtTenLop.Text.Trim();
+            lop.MaGV = cbbMaGV.SelectedValue.ToString();
+            lop.MaCN = cbbMaCN.SelectedValue.ToString();
+            lop.NienKhoa = (int)nudNienKhoa.Value;
+
+            return lop;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            LopDAO dao = new LopDAO();
             // tạo biến tham chiếu
-            GiangVien info = InitGiangVien();
+            Lop info = InitLop();
             if (isAdd_)
             {
                 if (dao.Add(info))
@@ -124,26 +130,12 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
                 {
                     MessageBox.Show("Sửa thất bại!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
             }
         }
 
-        private void btnCancle_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        // Hàm này cho phép người dùng khi click vào textBox mã bộ môn thì sẽ hiện form lựa chọn bộ môn
-        private void txtMaBM_Click(object sender, EventArgs e)
-        {
-            frmSelectBoMon frm = new frmSelectBoMon();
-            // hiển thị form lựa chọn bộ môn
-            frm.ShowDialog();
-
-            if (frm.Result_)
-            {
-                txtMaBM.Text = frm.MaBM_;
-            }
         }
     }
 }

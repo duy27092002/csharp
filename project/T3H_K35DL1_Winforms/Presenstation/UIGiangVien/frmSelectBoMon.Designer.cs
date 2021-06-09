@@ -30,6 +30,7 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnChonBM = new System.Windows.Forms.Button();
             this.cbbChuyenNganh = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cbbKhoa = new System.Windows.Forms.ComboBox();
@@ -38,7 +39,8 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.dgvBoMon = new System.Windows.Forms.DataGridView();
             this.MaBM = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TenBM = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnChonBM = new System.Windows.Forms.Button();
+            this.Khoa = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.GiangViens = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvBoMon)).BeginInit();
@@ -55,6 +57,16 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(1144, 72);
             this.panel1.TabIndex = 0;
+            // 
+            // btnChonBM
+            // 
+            this.btnChonBM.Location = new System.Drawing.Point(1042, 13);
+            this.btnChonBM.Name = "btnChonBM";
+            this.btnChonBM.Size = new System.Drawing.Size(75, 44);
+            this.btnChonBM.TabIndex = 1;
+            this.btnChonBM.Text = "Chọn Bộ Môn";
+            this.btnChonBM.UseVisualStyleBackColor = true;
+            this.btnChonBM.Click += new System.EventHandler(this.btnChonBM_Click);
             // 
             // cbbChuyenNganh
             // 
@@ -112,7 +124,9 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.dgvBoMon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBoMon.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.MaBM,
-            this.TenBM});
+            this.TenBM,
+            this.Khoa,
+            this.GiangViens});
             this.dgvBoMon.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvBoMon.Location = new System.Drawing.Point(3, 18);
             this.dgvBoMon.Name = "dgvBoMon";
@@ -138,15 +152,23 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.TenBM.Name = "TenBM";
             this.TenBM.ReadOnly = true;
             // 
-            // btnChonBM
+            // Khoa
             // 
-            this.btnChonBM.Location = new System.Drawing.Point(1042, 13);
-            this.btnChonBM.Name = "btnChonBM";
-            this.btnChonBM.Size = new System.Drawing.Size(75, 44);
-            this.btnChonBM.TabIndex = 1;
-            this.btnChonBM.Text = "Chọn Bộ Môn";
-            this.btnChonBM.UseVisualStyleBackColor = true;
-            this.btnChonBM.Click += new System.EventHandler(this.btnChonBM_Click);
+            this.Khoa.DataPropertyName = "Khoa";
+            this.Khoa.HeaderText = "Khoa";
+            this.Khoa.MinimumWidth = 6;
+            this.Khoa.Name = "Khoa";
+            this.Khoa.ReadOnly = true;
+            this.Khoa.Visible = false;
+            // 
+            // GiangViens
+            // 
+            this.GiangViens.DataPropertyName = "GiangViens";
+            this.GiangViens.HeaderText = "Giảng viên";
+            this.GiangViens.MinimumWidth = 6;
+            this.GiangViens.Name = "GiangViens";
+            this.GiangViens.ReadOnly = true;
+            this.GiangViens.Visible = false;
             // 
             // frmSelectBoMon
             // 
@@ -156,7 +178,10 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "frmSelectBoMon";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Chọn Bộ Môn";
             this.Load += new System.EventHandler(this.frmSelectBoMon_Load);
             this.panel1.ResumeLayout(false);
@@ -173,11 +198,13 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.DataGridView dgvBoMon;
-        private System.Windows.Forms.DataGridViewTextBoxColumn MaBM;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TenBM;
         private System.Windows.Forms.ComboBox cbbChuyenNganh;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cbbKhoa;
         private System.Windows.Forms.Button btnChonBM;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MaBM;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TenBM;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Khoa;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GiangViens;
     }
 }

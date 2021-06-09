@@ -57,7 +57,7 @@ namespace T3H_K35DL1_Winforms.Models.DAO
                 if (info0 != null)
                 {
                     info0.TenCN = info.TenCN;
-                    info0.MaCN = info.MaCN;
+                    info0.MaKhoa = info.MaKhoa;
 
                     db_.SaveChanges();
                 }

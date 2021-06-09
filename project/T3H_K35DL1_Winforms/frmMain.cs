@@ -50,5 +50,25 @@ namespace T3H_K35DL1_Winforms
         {
             AddControl(new Presenstation.UIGiangVien.ucGiangVien());
         }
+
+        private void btnKhoa_Click(object sender, EventArgs e)
+        {
+            AddControl(new Presenstation.UIKhoa.ucKhoa());
+        }
+
+        private void btnCN_Click(object sender, EventArgs e)
+        {
+            AddControl(new Presenstation.UIChuyenNganh.ucChuyenNganh());
+        }
+
+        private void btnBM_Click(object sender, EventArgs e)
+        {
+            AddControl(new Presenstation.UIBoMon.ucBoMon());
+        }
+
+        private void btnLop_Click(object sender, EventArgs e)
+        {
+            AddControl(new Presenstation.UILop.ucLop());
+        }
     }
 }

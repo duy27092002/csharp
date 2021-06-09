@@ -10,9 +10,9 @@ using System.Windows.Forms;
 using T3H_K35DL1_Winforms.Models.DAO;
 using T3H_K35DL1_Winforms.Models.EF;
 
-namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
+namespace T3H_K35DL1_Winforms.Presenstation.UIKhoa
 {
-    public partial class frmGiangVien : Form
+    public partial class frmKhoa : Form
     {
         // đánh dấu event mà người dùng chọn
         private bool isAdd_ = true;
@@ -33,40 +33,32 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
                 return result_;
             }
         }
-        private string maGV_ = "";
-        public string MaGV
+        private string maKhoa_ = "";
+        public string MaKhoa_
         {
             set
             {
-                maGV_ = value;
+                maKhoa_ = value;
             }
         }
-
-        public frmGiangVien()
+        public frmKhoa()
         {
             InitializeComponent();
         }
 
-        // Hàm này sẽ load form Giảng Viên tùy thuộc vào trường đánh dấu isAdd
-        private void frmGiangVien_Load(object sender, EventArgs e)
+        private void frmKhoa_Load(object sender, EventArgs e)
         {
-            // Hiện form edit Giảng Viên
             if (!isAdd_)
             {
-                GiangVienDAO dao = new GiangVienDAO();
-                var info = dao.GetSingleByID(maGV_);
+                KhoaDAO dao = new KhoaDAO();
+                var info = dao.GetSingleByID(maKhoa_);
                 if (info != null)
                 {
                     // hiển thị dữ liệu tương ứng với từng control (nếu có dữ liệu)
-                    txtMaGV.Text = info.MaGV.Trim();
-                    txtHoTen.Text = info.HoTen.Trim();
-                    cbGioiTinh.Checked = (bool)info.GioiTinh;
-                    dtpNgaySinh.Value = (DateTime)info.NgaySinh;
-                    txtQueQuan.Text = info.QueQuan;
-                    txtDiaChi.Text = info.DiaChi;
-                    txtEMail.Text = info.EMail;
-                    txtSDT.Text = info.SDT;
-                    txtMaBM.Text = info.MaBM;
+                    txtMaKhoa.Text = info.MaKhoa.Trim();
+                    txtTenKhoa.Text = info.TenKhoa.Trim();
+                    txtDiaChi.Text = info.DiaChi.Trim();
+                    txtSDT.Text = info.SoDienThoai.Trim();
                 }
                 else
                 {
@@ -75,29 +67,22 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             }
         }
 
-        // Hàm này lấy dữ liệu đầu vào của người nhập và trả lại những thông tin nhập vào đó
-        private GiangVien InitGiangVien()
+        private Khoa InitKhoa()
         {
-            GiangVien giangVien = new GiangVien();
-            giangVien.MaGV = txtMaGV.Text.Trim();
-            giangVien.HoTen = txtHoTen.Text.Trim();
-            giangVien.GioiTinh = cbGioiTinh.Checked;
-            giangVien.NgaySinh = dtpNgaySinh.Value;
-            giangVien.QueQuan = txtQueQuan.Text.Trim();
-            giangVien.DiaChi = txtDiaChi.Text.Trim();
-            giangVien.EMail = txtEMail.Text.Trim();
-            giangVien.SDT = txtSDT.Text.Trim();
-            giangVien.MaBM = txtMaBM.Text.Trim();
+            Khoa khoa = new Khoa();
+            khoa.MaKhoa = txtMaKhoa.Text.Trim();
+            khoa.TenKhoa = txtTenKhoa.Text.Trim();
+            khoa.DiaChi = txtDiaChi.Text.Trim();
+            khoa.SoDienThoai = txtSDT.Text.Trim();
 
-            return giangVien;
+            return khoa;
         }
 
-        // Hàm này sẽ lưu lại những thông tin được sửa, thêm vào
         private void btnSave_Click(object sender, EventArgs e)
         {
-            GiangVienDAO dao = new GiangVienDAO();
+            KhoaDAO dao = new KhoaDAO();
             // tạo biến tham chiếu
-            GiangVien info = InitGiangVien();
+            Khoa info = InitKhoa();
             if (isAdd_)
             {
                 if (dao.Add(info))
@@ -128,22 +113,9 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             }
         }
 
-        private void btnCancle_Click(object sender, EventArgs e)
+        private void btnClose_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        // Hàm này cho phép người dùng khi click vào textBox mã bộ môn thì sẽ hiện form lựa chọn bộ môn
-        private void txtMaBM_Click(object sender, EventArgs e)
-        {
-            frmSelectBoMon frm = new frmSelectBoMon();
-            // hiển thị form lựa chọn bộ môn
-            frm.ShowDialog();
-
-            if (frm.Result_)
-            {
-                txtMaBM.Text = frm.MaBM_;
-            }
         }
     }
 }

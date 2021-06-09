@@ -72,7 +72,10 @@ namespace T3H_K35DL1_Winforms.Presenstation.UISinhVien
 
             LopDAO dao = new LopDAO();
 
-            var list = dao.GetByMaChuyenNganh(maCN);
+            var list = dao.GetByMaChuyenNganh(maCN).Select(t => new {
+                MaLop = t.MaLop,
+                TenLop = t.TenLop
+            }).ToList();
 
             dgvLop.DataSource = list;
 
@@ -97,6 +100,7 @@ namespace T3H_K35DL1_Winforms.Presenstation.UISinhVien
 
         private void btnChosseClass_Click(object sender, EventArgs e)
         {
+            if (dgvLop.RowCount == 0) return;
             maLop_ = dgvLop.CurrentRow.Cells["MaLop"].Value.ToString();
 
             result_ = true;

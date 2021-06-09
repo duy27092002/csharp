@@ -142,6 +142,30 @@
     <Compile Include="Models\EF\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Presenstation\UIBoMon\frmBoMon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIBoMon\frmBoMon.Designer.cs">
+      <DependentUpon>frmBoMon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UIBoMon\ucBoMon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIBoMon\ucBoMon.Designer.cs">
+      <DependentUpon>ucBoMon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UIChuyenNganh\frmChuyenNganh.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIChuyenNganh\frmChuyenNganh.Designer.cs">
+      <DependentUpon>frmChuyenNganh.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UIChuyenNganh\ucChuyenNganh.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIChuyenNganh\ucChuyenNganh.Designer.cs">
+      <DependentUpon>ucChuyenNganh.cs</DependentUpon>
+    </Compile>
     <Compile Include="Presenstation\UIGiangVien\frmGiangVien.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -159,6 +183,30 @@
     </Compile>
     <Compile Include="Presenstation\UIGiangVien\ucGiangVien.Designer.cs">
       <DependentUpon>ucGiangVien.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UIKhoa\frmKhoa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIKhoa\frmKhoa.Designer.cs">
+      <DependentUpon>frmKhoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UIKhoa\ucKhoa.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UIKhoa\ucKhoa.Designer.cs">
+      <DependentUpon>ucKhoa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UILop\frmLop.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UILop\frmLop.Designer.cs">
+      <DependentUpon>frmLop.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Presenstation\UILop\ucLop.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Presenstation\UILop\ucLop.Designer.cs">
+      <DependentUpon>ucLop.cs</DependentUpon>
     </Compile>
     <Compile Include="Presenstation\UISinhVien\frmSelectMaLop.cs">
       <SubType>Form</SubType>
@@ -198,6 +246,18 @@
     <EmbeddedResource Include="frmMain.resx">
       <DependentUpon>frmMain.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIBoMon\frmBoMon.resx">
+      <DependentUpon>frmBoMon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIBoMon\ucBoMon.resx">
+      <DependentUpon>ucBoMon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIChuyenNganh\frmChuyenNganh.resx">
+      <DependentUpon>frmChuyenNganh.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIChuyenNganh\ucChuyenNganh.resx">
+      <DependentUpon>ucChuyenNganh.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Presenstation\UIGiangVien\frmGiangVien.resx">
       <DependentUpon>frmGiangVien.cs</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +266,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Presenstation\UIGiangVien\ucGiangVien.resx">
       <DependentUpon>ucGiangVien.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIKhoa\frmKhoa.resx">
+      <DependentUpon>frmKhoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UIKhoa\ucKhoa.resx">
+      <DependentUpon>ucKhoa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UILop\frmLop.resx">
+      <DependentUpon>frmLop.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Presenstation\UILop\ucLop.resx">
+      <DependentUpon>ucLop.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Presenstation\UISinhVien\frmSelectMaLop.resx">
       <DependentUpon>frmSelectMaLop.cs</DependentUpon>
