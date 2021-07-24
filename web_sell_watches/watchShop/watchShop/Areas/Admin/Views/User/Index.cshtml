@@ -1,0 +1,73 @@
+﻿@model IEnumerable<watchShop.Models.EF.tb_users>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center mt-3">Danh Sách Người Dùng</h2>
+
+<p>
+    <a class="btn btn-sm btn-success" href="/Admin/User/Create"><i class="fas fa-plus"></i>&nbsp;Thêm Mới</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped text-center">
+        <tr>
+            <th>Avatar</th>
+            <th>Tên</th>
+            <th>Tên Đăng Nhập</th>
+            <th>Giới Tính</th>
+            <th>Ngày Sinh</th>
+            <th>Địa Chỉ</th>
+            <th>EMail</th>
+            <th>SĐT</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{
+                        if (item.avatar != null)
+                        {
+                            var getUrlImg = item.avatar.ToString().Replace("~", "../../..");
+                            <img src="@getUrlImg" class="img-fluid rounded-circle" style="width:50px" />
+                        }
+                        else
+                        {
+                            <img src="../../Content/images/avatars/add.jpg" class="img-fluid rounded-circle" style="width:50px" />
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @{
+                        var gender = item.gender == true ? "Nam" : "Nữ";
+                    }
+                    @gender
+                </td>
+                <td>
+                    @{
+                        var getBirthday = item.birthday.Value.ToString("MM/dd/yyyy");
+                    }
+                    @getBirthday
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phonenumber)
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

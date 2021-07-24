@@ -1,0 +1,70 @@
+﻿@model watchShop.Models.EF.tb_inport_invoice
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2>Bạn có thực sự muốn xóa không?</h2>
+            <hr />
+            @Html.HiddenFor(model => model.inportInvoiceID)
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Thời Gian Nhập</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control bg-white" id="time" name="time" readonly value="@Model.time.Value.ToString("MM/dd/yyyy")" />
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <label class="form-label fw-bold">Nhà Cung Cấp</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control bg-white" id="supplierID" name="supplierID" readonly value="@Model.tb_supplier.name" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Nhân Viên Nhập</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control bg-white" id="staffID" name="staffID" readonly value="@Model.tb_users.name" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <h3 class="text-center">Danh Mục Sản Phẩm</h3>
+                <div class="table-responsive">
+                    <table id="tb-items" class="table table-bordered table-sm table-hover text-center">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tên</th>
+                                <th>Danh Mục</th>
+                                <th>Nhà Sản Xuất</th>
+                                <th>Số Lượng</th>
+                                <th>Đơn Giá</th>
+                                <th>Tổng</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <th id="total" colspan="7" style="text-align:right;">Thành Tiền: </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="submit" value="Xóa" class="btn btn-sm btn-danger" />
+                @Html.ActionLink("Quay Lại", "Index", null, htmlAttributes: new { @class = "btn btn-sm btn-secondary" })
+            </div>
+        </div>
+    </div>
+}

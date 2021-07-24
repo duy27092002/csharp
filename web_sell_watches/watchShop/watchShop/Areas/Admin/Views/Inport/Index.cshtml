@@ -1,0 +1,53 @@
+﻿@model IEnumerable<watchShop.Models.EF.tb_inport_invoice>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center mt-3">Danh Sách Hóa Đơn Nhập</h2>
+
+<p>
+    <a class="btn btn-sm btn-success" href="/Admin/Inport/Create"><i class="fas fa-plus"></i>&nbsp;Thêm Mới</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+        <tr class="text-center">
+            <th>Thời Gian Nhập</th>
+            <th>Nhà Cung Cấp</th>
+            <th>Nhân Viên Nhập</th>
+            <th>Tổng Tiền</th>
+            <th>Thao Tác</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="text-center">
+                    @{
+                        var getTime = item.time.Value.ToString("MM/dd/yyyy");
+                    }
+                    @getTime
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.tb_supplier.name)
+                </td>
+                <td class="text-center">
+                    @Html.DisplayFor(modelItem => item.tb_users.name)
+                </td>
+                <td class="float-right">
+                    @{
+                        var getTotalPrice = String.Format("{0:0,0}", item.totalPrice);
+                    }
+                    @getTotalPrice
+                </td>
+                <td class="text-nowrap" style="width:1px">
+                    <a class="btn btn-sm btn-warning" href="/Admin/Inport/Edit/@item.inportInvoiceID"><i class="fas fa-pencil-alt"></i>&nbsp;Sửa</a>
+                    <a class="btn btn-sm btn-primary" href="/Admin/Inport/Details/@item.inportInvoiceID"><i class="fas fa-eye"></i>&nbsp;Chi Tiết</a>
+                    <a class="btn btn-sm btn-danger" href="/Admin/Inport/Delete/@item.inportInvoiceID"><i class="fas fa-trash-alt"></i>&nbsp;Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

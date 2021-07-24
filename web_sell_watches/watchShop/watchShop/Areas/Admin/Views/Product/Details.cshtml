@@ -1,0 +1,85 @@
+﻿@model watchShop.Models.EF.tb_products
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2>Chi Tiết Thông Tin Sản Phẩm</h2>
+            <hr />
+            @Html.HiddenFor(model => model.watchID)
+
+            <div class="row">
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Tên</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control bg-white" id="name" name="name" readonly value="@Model.name" />
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Danh Mục</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control bg-white" id="category_name" name="category_name" readonly value="@Model.tb_category.name" />
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Số Lượng</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control bg-white" id="amount" name="amount" readonly value="@String.Format("{0:0,0}", Model.amount)" />
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Giá</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control bg-white" id="price" name="price" readonly value="@String.Format("{0:0,0}", Model.price)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Màu Sắc</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control bg-white" id="color" name="color" readonly value="@Model.color" />
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Mô Tả</label>
+                    <div class="col-md-12">
+                        <textarea rows="5" class="form-control bg-white" id="desc_" name="desc_" readonly>@Model.desc_</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Hình Ảnh</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control bg-white" id="pic" name="pic" readonly value="@Model.pic" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Tên Nhà Sản Xuất</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control bg-white" id="producer_name" name="producer_name" readonly value="@Model.tb_producer.name" />
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.watchID }, new { @class = "btn btn-sm btn-warning" })
+                @Html.ActionLink("Quay Lại", "Index", null, htmlAttributes: new { @class = "btn btn-sm btn-secondary" })
+            </div>
+        </div>
+    </div>
+}

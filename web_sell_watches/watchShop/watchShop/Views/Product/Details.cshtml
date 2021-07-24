@@ -1,0 +1,277 @@
+﻿@model watchShop.Models.EF.tb_products
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*
+    <h2>Details</h2>
+
+    <div>
+        <h4>tb_products</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.amount)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.amount)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.price)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.price)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.color)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.color)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.desc_)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.desc_)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.pic)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.pic)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.tb_category.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tb_category.name)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.tb_producer.name)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.tb_producer.name)
+            </dd>
+
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.watchID }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content bg-white padding-y">
+    <div class="container">
+
+        <!-- ============================ ITEM DETAIL ======================== -->
+        <div class="row">
+            <aside class="col-md-6">
+                <div class="card">
+                    <article class="gallery-wrap">
+                        <div class="img-big-wrap">
+                            <div> <a href="#"><img src="~/Content/images/items/15.jpg"></a></div>
+                        </div> <!-- slider-product.// -->
+                        <div class="thumbs-wrap">
+                            <a href="#" class="item-thumb"> <img src="~/Content/images/items/15.jpg"></a>
+                            <a href="#" class="item-thumb"> <img src="~/Content/images/items/15-1.jpg"></a>
+                            <a href="#" class="item-thumb"> <img src="~/Content/images/items/15-2.jpg"></a>
+                            <a href="#" class="item-thumb"> <img src="~/Content/images/items/15-1.jpg"></a>
+                        </div> <!-- slider-nav.// -->
+                    </article> <!-- gallery-wrap .end// -->
+                </div> <!-- card.// -->
+            </aside>
+            <main class="col-md-6">
+                <article class="product-info-aside">
+
+                    <h2 class="title mt-3">Tên đồng hồ </h2>
+
+                    <div class="rating-wrap my-3">
+                        <ul class="rating-stars">
+                            <li style="width:80%" class="stars-active">
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                            <li>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i> <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </li>
+                        </ul>
+                        <small class="label-rating text-muted">132 đánh giá</small>
+                        <small class="label-rating text-success"> <i class="fa fa-clipboard-check"></i> 154 đơn đặt hàng </small>
+                    </div> <!-- rating-wrap.// -->
+
+                    <div class="mb-3">
+                        <var class="price h4">USD 465,00</var>
+                        <span class="text-muted">USD 562.65 incl. VAT</span>
+                    </div> <!-- price-detail-wrap .// -->
+
+                    <p>
+                        Compact sport shoe for running, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat
+                    </p>
+
+
+                    <dl class="row">
+                        <dt class="col-sm-3">Nhà sản xuất</dt>
+                        <dd class="col-sm-9"><a href="#">Great textile Ltd.</a></dd>
+
+                        <dt class="col-sm-3">Số bài viết</dt>
+                        <dd class="col-sm-9">596 065</dd>
+
+                        <dt class="col-sm-3">Bảo hành</dt>
+                        <dd class="col-sm-9">2 năm</dd>
+
+                        <dt class="col-sm-3">Thời gian giao hàng</dt>
+                        <dd class="col-sm-9">3-4 ngày</dd>
+                    </dl>
+
+                    <div class="form-row  mt-4">
+                        <div class="form-group col-md flex-grow-0">
+                            <div class="input-group mb-3 input-spinner">
+                                <div class="input-group-prepend">
+                                    <button class="btn btn-light" type="button" id="button-plus"> + </button>
+                                </div>
+                                <input type="text" class="form-control" value="1">
+                                <div class="input-group-append">
+                                    <button class="btn btn-light" type="button" id="button-minus"> &minus; </button>
+                                </div>
+                            </div>
+                        </div> <!-- col.// -->
+                        <div class="form-group col-md">
+                            <a href="#" class="btn  btn-primary">
+                                <i class="fas fa-shopping-cart"></i> <span class="text">Thêm vào giỏ hàng</span>
+                            </a>
+                            <a href="#" class="btn btn-light">
+                                <i class="fas fa-envelope"></i> <span class="text">Liên hệ nhà cung cấp</span>
+                            </a>
+                        </div> <!-- col.// -->
+                    </div> <!-- row.// -->
+
+                </article> <!-- product-info-aside .// -->
+            </main> <!-- col.// -->
+        </div> <!-- row.// -->
+        <!-- ================ ITEM DETAIL END .// ================= -->
+
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->
+<!-- ========================= SECTION  ========================= -->
+<section class="section-name padding-y bg">
+    <div class="container">
+
+        <div class="row">
+            <div class="col-md-8">
+                <h5 class="title-description">Mô tả</h5>
+                <p>
+                    Lava stone grill, suitable for natural gas, with cast-iron cooking grid, piezo ignition, stainless steel burners, water tank, and thermocouple. Thermostatic adjustable per zone. Comes complete with lava rocks. Adjustable legs. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat.
+                </p>
+                <ul class="list-check">
+                    <li>Chất liệu: Thép không gỉ</li>
+                    <li>Cân nặng: 1kg</li>
+                </ul>
+
+                <h5 class="title-description">Thông số kỹ thuật</h5>
+                <table class="table table-bordered">
+                    <tr> <th colspan="2">Cơ bản</th> </tr>
+                    <tr> <td>Type of energy</td><td>Lava stone</td> </tr>
+                    <tr> <td>Number of zones</td><td>2</td> </tr>
+                    <tr> <td>Automatic connection	</td> <td> <i class="fa fa-check text-success"></i> Yes </td></tr>
+
+                    <tr> <th colspan="2">Kích thước</th> </tr>
+                    <tr> <td>Width</td><td>500mm</td> </tr>
+                    <tr> <td>Depth</td><td>400mm</td> </tr>
+                    <tr> <td>Height	</td><td>700mm</td> </tr>
+
+                    <tr> <th colspan="2">Chất liệu</th> </tr>
+                    <tr> <td>Exterior</td><td>Stainless steel</td> </tr>
+                    <tr> <td>Interior</td><td>Iron</td> </tr>
+
+                    <tr> <th colspan="2">Kết nối</th> </tr>
+                    <tr> <td>Heating Type</td><td>Gas</td> </tr>
+                    <tr> <td>Connected load gas</td><td>15 Kw</td> </tr>
+
+                </table>
+            </div> <!-- col.// -->
+
+            <aside class="col-md-4">
+
+                <div class="box">
+
+                    <h5 class="title-description">Các tệp tin</h5>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                        proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+
+                    <h5 class="title-description">Videos</h5>
+
+
+                    <article class="media mb-3">
+                        <a href="#"><img class="img-sm mr-3" src="~/Content/images/posts/3.jpg"></a>
+                        <div class="media-body">
+                            <h6 class="mt-0"><a href="#">Làm thế nào để sử dụng mặt hàng này</a></h6>
+                            <p class="mb-2"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin </p>
+                        </div>
+                    </article>
+
+                    <article class="media mb-3">
+                        <a href="#"><img class="img-sm mr-3" src="~/Content/images/posts/2.jpg"></a>
+                        <div class="media-body">
+                            <h6 class="mt-0"><a href="#">Mẹo và thủ thuật mới</a></h6>
+                            <p class="mb-2"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin </p>
+                        </div>
+                    </article>
+
+                    <article class="media mb-3">
+                        <a href="#"><img class="img-sm mr-3" src="~/Content/images/posts/1.jpg"></a>
+                        <div class="media-body">
+                            <h6 class="mt-0"><a href="#">Mẹo và thủ thuật mới</a></h6>
+                            <p class="mb-2"> Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin </p>
+                        </div>
+                    </article>
+
+
+
+                </div> <!-- box.// -->
+            </aside> <!-- col.// -->
+        </div> <!-- row.// -->
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->

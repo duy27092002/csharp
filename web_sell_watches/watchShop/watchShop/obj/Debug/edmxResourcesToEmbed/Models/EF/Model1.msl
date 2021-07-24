@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_QLBanDongHoModelStoreContainer" CdmEntityContainer="DB_QLBanDongHoEntities1">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_cart">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_cart">
+        <MappingFragment StoreEntitySet="tb_cart">
+          <ScalarProperty Name="cartID" ColumnName="cartID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="session" ColumnName="session" />
+          <ScalarProperty Name="watchID" ColumnName="watchID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="pic" ColumnName="pic" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_category">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_category">
+        <MappingFragment StoreEntitySet="tb_category">
+          <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_details_export">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_details_export">
+        <MappingFragment StoreEntitySet="tb_details_export">
+          <ScalarProperty Name="exportInvoiceID" ColumnName="exportInvoiceID" />
+          <ScalarProperty Name="watchID" ColumnName="watchID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_details_inport">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_details_inport">
+        <MappingFragment StoreEntitySet="tb_details_inport">
+          <ScalarProperty Name="inportInvoiceID" ColumnName="inportInvoiceID" />
+          <ScalarProperty Name="watchID" ColumnName="watchID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_export_invoice">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_export_invoice">
+        <MappingFragment StoreEntitySet="tb_export_invoice">
+          <ScalarProperty Name="exportInvoiceID" ColumnName="exportInvoiceID" />
+          <ScalarProperty Name="staffID" ColumnName="staffID" />
+          <ScalarProperty Name="customerID" ColumnName="customerID" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_inport_invoice">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_inport_invoice">
+        <MappingFragment StoreEntitySet="tb_inport_invoice">
+          <ScalarProperty Name="inportInvoiceID" ColumnName="inportInvoiceID" />
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="staffID" ColumnName="staffID" />
+          <ScalarProperty Name="totalPrice" ColumnName="totalPrice" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_order">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_order">
+        <MappingFragment StoreEntitySet="tb_order">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="watchID" ColumnName="watchID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="pic" ColumnName="pic" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_producer">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_producer">
+        <MappingFragment StoreEntitySet="tb_producer">
+          <ScalarProperty Name="producerID" ColumnName="producerID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+          <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_products">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_products">
+        <MappingFragment StoreEntitySet="tb_products">
+          <ScalarProperty Name="watchID" ColumnName="watchID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="categoryID" ColumnName="categoryID" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="desc_" ColumnName="desc_" />
+          <ScalarProperty Name="pic" ColumnName="pic" />
+          <ScalarProperty Name="producerID" ColumnName="producerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_slider">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_slider">
+        <MappingFragment StoreEntitySet="tb_slider">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nameSlider" ColumnName="nameSlider" />
+          <ScalarProperty Name="pic" ColumnName="pic" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_supplier">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_supplier">
+        <MappingFragment StoreEntitySet="tb_supplier">
+          <ScalarProperty Name="supplierID" ColumnName="supplierID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="EMail" ColumnName="EMail" />
+          <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_users">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_users">
+        <MappingFragment StoreEntitySet="tb_users">
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="gender" ColumnName="gender" />
+          <ScalarProperty Name="birthday" ColumnName="birthday" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="phonenumber" ColumnName="phonenumber" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="avatar" ColumnName="avatar" />
+          <ScalarProperty Name="isAdmin" ColumnName="isAdmin" />
+          <ScalarProperty Name="isCustomer" ColumnName="isCustomer" />
+          <ScalarProperty Name="isStaff" ColumnName="isStaff" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tb_wishlist">
+      <EntityTypeMapping TypeName="DB_QLBanDongHoModel.tb_wishlist">
+        <MappingFragment StoreEntitySet="tb_wishlist">
+          <ScalarProperty Name="wishlistID" ColumnName="wishlistID" />
+          <ScalarProperty Name="watchID" ColumnName="watchID" />
+          <ScalarProperty Name="userID" ColumnName="userID" />
+          <ScalarProperty Name="nameWatch" ColumnName="nameWatch" />
+          <ScalarProperty Name="price" ColumnName="price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,190 @@
+﻿@model IEnumerable<watchShop.Models.EF.tb_category>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.categoryID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.categoryID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.categoryID })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="container">
+
+        <nav class="row">
+            <div class="col-md-3">
+
+                <div class="card card-category">
+                    <div class="img-wrap" style="background: #ffd7d7">
+                        <img src="~/Content/images/items/1.jpg">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">Danh mục 1</a></h4>
+                        <ul class="list-menu">
+                            <li><a href="">SP 1</a></li>
+                            <li><a href="">SP 2</a></li>
+                            <li><a href="">SP 3</a></li>
+                            <li><a href="">SP 4</a></li>
+                            <li><a href="">SP 5</a></li>
+                            <li><a href="">SP 6</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+            <div class="col-md-3">
+                <div class="card card-category">
+                    <div class="img-wrap" style="background: #FFF68D">
+                        <img src="~/Content/images/items/2.jpg">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">Danh mục 2</a></h4>
+                        <ul class="list-menu">
+                            <li><a href="">SP 1</a></li>
+                            <li><a href="">SP 2</a></li>
+                            <li><a href="">SP 3</a></li>
+                            <li><a href="">SP 4</a></li>
+                            <li><a href="">SP 5</a></li>
+                            <li><a href="">SP 6</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+            <div class="col-md-3">
+                <div class="card card-category">
+                    <div class="img-wrap" style="background: #bcffb8">
+                        <img src="~/Content/images/items/3.jpg">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">Danh mục 3</a></h4>
+                        <ul class="list-menu">
+                            <li><a href="">SP 1</a></li>
+                            <li><a href="">SP 2</a></li>
+                            <li><a href="">SP 3</a></li>
+                            <li><a href="">SP 4</a></li>
+                            <li><a href="">SP 5</a></li>
+                            <li><a href="">SP 6</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+            <div class="col-md-3">
+                <div class="card card-category">
+                    <div class="img-wrap" style="background: #c9fff3">
+                        <img src="~/Content/images/items/4.jpg">
+                    </div>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">Danh mục 4</a></h4>
+                        <ul class="list-menu">
+                            <li><a href="">SP 1</a></li>
+                            <li><a href="">SP 2</a></li>
+                            <li><a href="">SP 3</a></li>
+                            <li><a href="">SP 4</a></li>
+                            <li><a href="">SP 5</a></li>
+                            <li><a href="">SP 6</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+            <div class="col-md-3">
+                <div class="card card-category">
+                    <a href="#" class="img-wrap" style="background: #ddffeb">
+                        <img src="~/Content/images/items/5.jpg">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">Danh mục 5</a></h4>
+                        <ul class="list-menu">
+                            <li><a href="">SP 1</a></li>
+                            <li><a href="">SP 2</a></li>
+                            <li><a href="">SP 3</a></li>
+                            <li><a href="">SP 4</a></li>
+                            <li><a href="">SP 5</a></li>
+                            <li><a href="">SP 6</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+            <div class="col-md-3">
+                <div class="card card-category">
+                    <a href="#" class="img-wrap" style="background: #dee4ff">
+                        <img src="~/Content/images/items/6.jpg">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">Danh mục 6</a></h4>
+                        <ul class="list-menu">
+                            <li><a href="">SP 1</a></li>
+                            <li><a href="">SP 2</a></li>
+                            <li><a href="">SP 3</a></li>
+                            <li><a href="">SP 4</a></li>
+                            <li><a href="">SP 5</a></li>
+                            <li><a href="">SP 6</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+            <div class="col-md-3">
+                <div class="card card-category">
+                    <a href="#" class="img-wrap" style="background: #ddffeb">
+                        <img src="~/Content/images/items/2.jpg">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">Danh mục 7</a></h4>
+                        <ul class="list-menu">
+                            <li><a href="">SP 1</a></li>
+                            <li><a href="">SP 2</a></li>
+                            <li><a href="">SP 3</a></li>
+                            <li><a href="">SP 4</a></li>
+                            <li><a href="">SP 5</a></li>
+                            <li><a href="">SP 6</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+            <div class="col-md-3">
+                <div class="card card-category">
+                    <a href="#" class="img-wrap" style="background: #dee4ff">
+                        <img src="~/Content/images/items/1.jpg">
+                    </a>
+                    <div class="card-body">
+                        <h4 class="card-title"><a href="#">Danh mục 8</a></h4>
+                        <ul class="list-menu">
+                            <li><a href="">SP 1</a></li>
+                            <li><a href="">SP 2</a></li>
+                            <li><a href="">SP 3</a></li>
+                            <li><a href="">SP 4</a></li>
+                            <li><a href="">SP 5</a></li>
+                            <li><a href="">SP 6</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div> <!-- col.// -->
+        </nav> <!-- row.// -->
+
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->

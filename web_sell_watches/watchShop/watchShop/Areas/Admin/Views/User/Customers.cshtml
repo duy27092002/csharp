@@ -1,0 +1,76 @@
+﻿@model IEnumerable<watchShop.Models.EF.tb_users>
+
+@{
+    ViewBag.Title = "Customers";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center my-3">Danh Sách Khách Hàng</h2>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped text-center">
+        <tr>
+            <th>Avatar</th>
+            <th>Tên</th>
+            <th>Tên Đăng Nhập</th>
+            <th>Giới Tính</th>
+            <th>Ngày Sinh</th>
+            <th>Địa Chỉ</th>
+            <th>EMail</th>
+            <th>SĐT</th>
+            <th>Thao Tác</th>
+        </tr>
+
+        @foreach (var item in Model.Where(t => t.isCustomer == true))
+        {
+            <tr>
+                <td>
+                    @{
+                        if (item.avatar != null)
+                        {
+                            var getUrlImg = item.avatar.ToString().Replace("~", "../../..");
+                            <img src="@getUrlImg" class="img-fluid rounded-circle" style="width:50px" />
+                        }
+                        else
+                        {
+                            <img src="../../Content/images/avatars/add.jpg" class="img-fluid rounded-circle" style="width:50px" />
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.userName)
+                </td>
+                <td>
+                    @{
+                        var gender = item.gender == true ? "Nam" : "Nữ";
+                    }
+                    @gender
+                </td>
+                <td>
+                    @{
+                        var getBirthday = item.birthday.Value.ToString("MM/dd/yyyy");
+                    }
+                    @getBirthday
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.phonenumber)
+                </td>
+                <td class="text-nowrap" style="width:1px">
+                    @*<a class="btn btn-sm btn-warning" href="/Admin/User/Edit/@item.userID"><i class="fas fa-pencil-alt"></i>&nbsp;Sửa</a>*@
+                    <a class="btn btn-sm btn-primary" href="/Admin/User/Details/@item.userID"><i class="fas fa-eye"></i>&nbsp;Chi Tiết</a>
+                    <a class="btn btn-sm btn-danger" href="/Admin/User/Delete/@item.userID"><i class="fas fa-trash-alt"></i>&nbsp;Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

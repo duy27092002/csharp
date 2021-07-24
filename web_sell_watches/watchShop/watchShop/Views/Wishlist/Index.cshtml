@@ -1,0 +1,128 @@
+﻿@model IEnumerable<watchShop.Models.EF.tb_wishlist>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.nameWatch)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tb_products.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tb_users.name)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nameWatch)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tb_products.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tb_users.name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.wishlistID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.wishlistID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.wishlistID })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg-gray">
+    <div class="container">
+        <h2 class="title-page">Tài Khoản Của Tôi</h2>
+    </div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">
+            <aside class="col-md-3">
+                <nav class="list-group">
+                    <a class="list-group-item" href=""> Hồ sơ </a>
+                    <a class="list-group-item" href=""> Địa chỉ </a>
+                    <a class="list-group-item" href=""> Đơn hàng </a>
+                    <a class="list-group-item active" href=""> Sản phẩm yêu thích </a>
+                    <a class="list-group-item" href=""> Các mặt hàng bán chạy của tôi </a>
+                    <a class="list-group-item" href=""> Cài đặt thông tin </a>
+                    <a class="list-group-item" href=""> Đăng xuất </a>
+                </nav>
+            </aside> <!-- col.// -->
+            <main class="col-md-9">
+
+                <article class="card">
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <figure class="itemside mb-4">
+                                    <div class="aside"><img src="~/Content/images/items/1.jpg" class="border img-md"></div>
+                                    <figcaption class="info">
+                                        <a href="#" class="title">SP 1</a>
+                                        <p class="price mb-2">$80</p>
+                                        <a href="#" class="btn btn-secondary btn-sm"> Thêm vào giỏ hàng </a>
+                                        <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" title="" data-original-title="Xóa khỏi danh sách yêu thích"> <i class="fa fa-times"></i> </a>
+                                    </figcaption>
+                                </figure>
+                            </div> <!-- col.// -->
+
+                            <div class="col-md-6">
+                                <figure class="itemside mb-4">
+                                    <div class="aside"><img src="~/Content/images/items/2.jpg" class="border img-md"></div>
+                                    <figcaption class="info">
+                                        <a href="#" class="title">SP 2</a>
+                                        <p class="price mb-2">$1280</p>
+                                        <a href="#" class="btn btn-secondary btn-sm"> Thêm vào giỏ hàng </a>
+                                        <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" title="" data-original-title="Xóa khỏi danh sách yêu thích"> <i class="fa fa-times"></i> </a>
+                                    </figcaption>
+                                </figure>
+                            </div> <!-- col.// -->
+
+                            <div class="col-md-6">
+                                <figure class="itemside mb-4">
+                                    <div class="aside"><img src="~/Content/images/items/3.jpg" class="border img-md"></div>
+                                    <figcaption class="info">
+                                        <a href="#" class="title">SP 3</a>
+                                        <p class="price mb-2">$280</p>
+                                        <a href="#" class="btn btn-secondary btn-sm"> Thêm vào giỏ hàng </a>
+                                        <a href="#" class="btn btn-danger btn-sm" data-toggle="tooltip" title="" data-original-title="Xóa khỏi danh sách yêu thích"> <i class="fa fa-times"></i> </a>
+                                    </figcaption>
+                                </figure>
+                            </div> <!-- col.// -->
+                        </div> <!-- row .//  -->
+
+                    </div> <!-- card-body.// -->
+                </article>
+
+
+            </main> <!-- col.// -->
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->

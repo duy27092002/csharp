@@ -1,0 +1,442 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_QLBanDongHoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tb_cart">
+    <Key>
+      <PropertyRef Name="cartID" />
+    </Key>
+    <Property Name="cartID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="session" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="watchID" Type="Int32" />
+    <Property Name="amount" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tb_products" Relationship="Self.FK_tb_cart_tb_products" FromRole="tb_cart" ToRole="tb_products" />
+    <NavigationProperty Name="tb_users" Relationship="Self.FK_tb_cart_tb_users" FromRole="tb_cart" ToRole="tb_users" />
+  </EntityType>
+  <EntityType Name="tb_category">
+    <Key>
+      <PropertyRef Name="categoryID" />
+    </Key>
+    <Property Name="categoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="tb_products" Relationship="Self.FK_tb_products_tb_category" FromRole="tb_category" ToRole="tb_products" />
+  </EntityType>
+  <EntityType Name="tb_details_export">
+    <Key>
+      <PropertyRef Name="exportInvoiceID" />
+      <PropertyRef Name="watchID" />
+    </Key>
+    <Property Name="exportInvoiceID" Type="Int32" Nullable="false" />
+    <Property Name="watchID" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Int32" />
+    <Property Name="price" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="tb_export_invoice" Relationship="Self.FK_tb_details_export_tb_export_invoice" FromRole="tb_details_export" ToRole="tb_export_invoice" />
+    <NavigationProperty Name="tb_products" Relationship="Self.FK_tb_details_export_tb_products" FromRole="tb_details_export" ToRole="tb_products" />
+  </EntityType>
+  <EntityType Name="tb_details_inport">
+    <Key>
+      <PropertyRef Name="inportInvoiceID" />
+      <PropertyRef Name="watchID" />
+    </Key>
+    <Property Name="inportInvoiceID" Type="Int32" Nullable="false" />
+    <Property Name="watchID" Type="Int32" Nullable="false" />
+    <Property Name="amount" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <NavigationProperty Name="tb_inport_invoice" Relationship="Self.FK_tb_details_inport_tb_inport_invoice" FromRole="tb_details_inport" ToRole="tb_inport_invoice" />
+    <NavigationProperty Name="tb_products" Relationship="Self.FK_tb_details_inport_tb_products" FromRole="tb_details_inport" ToRole="tb_products" />
+  </EntityType>
+  <EntityType Name="tb_export_invoice">
+    <Key>
+      <PropertyRef Name="exportInvoiceID" />
+    </Key>
+    <Property Name="exportInvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="staffID" Type="Int32" />
+    <Property Name="customerID" Type="Int32" />
+    <Property Name="time" Type="DateTime" Precision="0" />
+    <Property Name="totalPrice" Type="Int32" />
+    <NavigationProperty Name="tb_details_export" Relationship="Self.FK_tb_details_export_tb_export_invoice" FromRole="tb_export_invoice" ToRole="tb_details_export" />
+    <NavigationProperty Name="tb_users" Relationship="Self.FK_tb_export_invoice_tb_users" FromRole="tb_export_invoice" ToRole="tb_users" />
+  </EntityType>
+  <EntityType Name="tb_inport_invoice">
+    <Key>
+      <PropertyRef Name="inportInvoiceID" />
+    </Key>
+    <Property Name="inportInvoiceID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="supplierID" Type="Int32" />
+    <Property Name="time" Type="DateTime" Precision="0" />
+    <Property Name="staffID" Type="Int32" />
+    <Property Name="totalPrice" Type="Int32" />
+    <NavigationProperty Name="tb_details_inport" Relationship="Self.FK_tb_details_inport_tb_inport_invoice" FromRole="tb_inport_invoice" ToRole="tb_details_inport" />
+    <NavigationProperty Name="tb_supplier" Relationship="Self.FK_tb_inport_invoice_tb_supplier" FromRole="tb_inport_invoice" ToRole="tb_supplier" />
+    <NavigationProperty Name="tb_users" Relationship="Self.FK_tb_inport_invoice_tb_users" FromRole="tb_inport_invoice" ToRole="tb_users" />
+  </EntityType>
+  <EntityType Name="tb_order">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="watchID" Type="Int32" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="amount" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="time" Type="DateTime" Precision="0" />
+    <Property Name="status" Type="Boolean" />
+    <NavigationProperty Name="tb_products" Relationship="Self.FK_tb_order_tb_products" FromRole="tb_order" ToRole="tb_products" />
+    <NavigationProperty Name="tb_users" Relationship="Self.FK_tb_order_tb_users" FromRole="tb_order" ToRole="tb_users" />
+  </EntityType>
+  <EntityType Name="tb_producer">
+    <Key>
+      <PropertyRef Name="producerID" />
+    </Key>
+    <Property Name="producerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="EMail" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+    <Property Name="phonenumber" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="tb_products" Relationship="Self.FK_tb_products_tb_producer" FromRole="tb_producer" ToRole="tb_products" />
+  </EntityType>
+  <EntityType Name="tb_products">
+    <Key>
+      <PropertyRef Name="watchID" />
+    </Key>
+    <Property Name="watchID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="categoryID" Type="Int32" />
+    <Property Name="amount" Type="Int32" />
+    <Property Name="price" Type="Int32" />
+    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="desc_" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="pic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="producerID" Type="Int32" />
+    <NavigationProperty Name="tb_cart" Relationship="Self.FK_tb_cart_tb_products" FromRole="tb_products" ToRole="tb_cart" />
+    <NavigationProperty Name="tb_category" Relationship="Self.FK_tb_products_tb_category" FromRole="tb_products" ToRole="tb_category" />
+    <NavigationProperty Name="tb_details_export" Relationship="Self.FK_tb_details_export_tb_products" FromRole="tb_products" ToRole="tb_details_export" />
+    <NavigationProperty Name="tb_details_inport" Relationship="Self.FK_tb_details_inport_tb_products" FromRole="tb_products" ToRole="tb_details_inport" />
+    <NavigationProperty Name="tb_order" Relationship="Self.FK_tb_order_tb_products" FromRole="tb_products" ToRole="tb_order" />
+    <NavigationProperty Name="tb_producer" Relationship="Self.FK_tb_products_tb_producer" FromRole="tb_products" ToRole="tb_producer" />
+    <NavigationProperty Name="tb_wishlist" Relationship="Self.FK_tb_wishlist_tb_products" FromRole="tb_products" ToRole="tb_wishlist" />
+  </EntityType>
+  <EntityType Name="tb_slider">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nameSlider" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="pic" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="tb_supplier">
+    <Key>
+      <PropertyRef Name="supplierID" />
+    </Key>
+    <Property Name="supplierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EMail" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+    <Property Name="phonenumber" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <NavigationProperty Name="tb_inport_invoice" Relationship="Self.FK_tb_inport_invoice_tb_supplier" FromRole="tb_supplier" ToRole="tb_inport_invoice" />
+  </EntityType>
+  <EntityType Name="tb_users">
+    <Key>
+      <PropertyRef Name="userID" />
+    </Key>
+    <Property Name="userID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="gender" Type="Boolean" />
+    <Property Name="birthday" Type="DateTime" Precision="0" />
+    <Property Name="address" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="true" Unicode="false" />
+    <Property Name="phonenumber" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+    <Property Name="userName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="password" Type="String" MaxLength="16" FixedLength="true" Unicode="false" />
+    <Property Name="avatar" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="isAdmin" Type="Boolean" />
+    <Property Name="isCustomer" Type="Boolean" />
+    <Property Name="isStaff" Type="Boolean" />
+    <NavigationProperty Name="tb_cart" Relationship="Self.FK_tb_cart_tb_users" FromRole="tb_users" ToRole="tb_cart" />
+    <NavigationProperty Name="tb_export_invoice" Relationship="Self.FK_tb_export_invoice_tb_users" FromRole="tb_users" ToRole="tb_export_invoice" />
+    <NavigationProperty Name="tb_inport_invoice" Relationship="Self.FK_tb_inport_invoice_tb_users" FromRole="tb_users" ToRole="tb_inport_invoice" />
+    <NavigationProperty Name="tb_order" Relationship="Self.FK_tb_order_tb_users" FromRole="tb_users" ToRole="tb_order" />
+    <NavigationProperty Name="tb_wishlist" Relationship="Self.FK_tb_wishlist_tb_users" FromRole="tb_users" ToRole="tb_wishlist" />
+  </EntityType>
+  <EntityType Name="tb_wishlist">
+    <Key>
+      <PropertyRef Name="wishlistID" />
+    </Key>
+    <Property Name="wishlistID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="watchID" Type="Int32" />
+    <Property Name="userID" Type="Int32" />
+    <Property Name="nameWatch" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="price" Type="Int32" />
+    <NavigationProperty Name="tb_products" Relationship="Self.FK_tb_wishlist_tb_products" FromRole="tb_wishlist" ToRole="tb_products" />
+    <NavigationProperty Name="tb_users" Relationship="Self.FK_tb_wishlist_tb_users" FromRole="tb_wishlist" ToRole="tb_users" />
+  </EntityType>
+  <Association Name="FK_tb_cart_tb_products">
+    <End Role="tb_products" Type="Self.tb_products" Multiplicity="0..1" />
+    <End Role="tb_cart" Type="Self.tb_cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_products">
+        <PropertyRef Name="watchID" />
+      </Principal>
+      <Dependent Role="tb_cart">
+        <PropertyRef Name="amount" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_cart_tb_users">
+    <End Role="tb_users" Type="Self.tb_users" Multiplicity="0..1" />
+    <End Role="tb_cart" Type="Self.tb_cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="tb_cart">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_products_tb_category">
+    <End Role="tb_category" Type="Self.tb_category" Multiplicity="0..1" />
+    <End Role="tb_products" Type="Self.tb_products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_category">
+        <PropertyRef Name="categoryID" />
+      </Principal>
+      <Dependent Role="tb_products">
+        <PropertyRef Name="categoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_details_export_tb_export_invoice">
+    <End Role="tb_export_invoice" Type="Self.tb_export_invoice" Multiplicity="1" />
+    <End Role="tb_details_export" Type="Self.tb_details_export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_export_invoice">
+        <PropertyRef Name="exportInvoiceID" />
+      </Principal>
+      <Dependent Role="tb_details_export">
+        <PropertyRef Name="exportInvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_details_export_tb_products">
+    <End Role="tb_products" Type="Self.tb_products" Multiplicity="1" />
+    <End Role="tb_details_export" Type="Self.tb_details_export" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_products">
+        <PropertyRef Name="watchID" />
+      </Principal>
+      <Dependent Role="tb_details_export">
+        <PropertyRef Name="watchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_details_inport_tb_inport_invoice">
+    <End Role="tb_inport_invoice" Type="Self.tb_inport_invoice" Multiplicity="1" />
+    <End Role="tb_details_inport" Type="Self.tb_details_inport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_inport_invoice">
+        <PropertyRef Name="inportInvoiceID" />
+      </Principal>
+      <Dependent Role="tb_details_inport">
+        <PropertyRef Name="inportInvoiceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_details_inport_tb_products">
+    <End Role="tb_products" Type="Self.tb_products" Multiplicity="1" />
+    <End Role="tb_details_inport" Type="Self.tb_details_inport" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_products">
+        <PropertyRef Name="watchID" />
+      </Principal>
+      <Dependent Role="tb_details_inport">
+        <PropertyRef Name="watchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_export_invoice_tb_users">
+    <End Role="tb_users" Type="Self.tb_users" Multiplicity="0..1" />
+    <End Role="tb_export_invoice" Type="Self.tb_export_invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="tb_export_invoice">
+        <PropertyRef Name="staffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_inport_invoice_tb_supplier">
+    <End Role="tb_supplier" Type="Self.tb_supplier" Multiplicity="0..1" />
+    <End Role="tb_inport_invoice" Type="Self.tb_inport_invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_supplier">
+        <PropertyRef Name="supplierID" />
+      </Principal>
+      <Dependent Role="tb_inport_invoice">
+        <PropertyRef Name="supplierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_inport_invoice_tb_users">
+    <End Role="tb_users" Type="Self.tb_users" Multiplicity="0..1" />
+    <End Role="tb_inport_invoice" Type="Self.tb_inport_invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="tb_inport_invoice">
+        <PropertyRef Name="staffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_order_tb_products">
+    <End Role="tb_products" Type="Self.tb_products" Multiplicity="0..1" />
+    <End Role="tb_order" Type="Self.tb_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_products">
+        <PropertyRef Name="watchID" />
+      </Principal>
+      <Dependent Role="tb_order">
+        <PropertyRef Name="watchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_order_tb_users">
+    <End Role="tb_users" Type="Self.tb_users" Multiplicity="0..1" />
+    <End Role="tb_order" Type="Self.tb_order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="tb_order">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_products_tb_producer">
+    <End Role="tb_producer" Type="Self.tb_producer" Multiplicity="0..1" />
+    <End Role="tb_products" Type="Self.tb_products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_producer">
+        <PropertyRef Name="producerID" />
+      </Principal>
+      <Dependent Role="tb_products">
+        <PropertyRef Name="producerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_wishlist_tb_products">
+    <End Role="tb_products" Type="Self.tb_products" Multiplicity="0..1" />
+    <End Role="tb_wishlist" Type="Self.tb_wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_products">
+        <PropertyRef Name="watchID" />
+      </Principal>
+      <Dependent Role="tb_wishlist">
+        <PropertyRef Name="watchID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_wishlist_tb_users">
+    <End Role="tb_users" Type="Self.tb_users" Multiplicity="0..1" />
+    <End Role="tb_wishlist" Type="Self.tb_wishlist" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="tb_wishlist">
+        <PropertyRef Name="userID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_QLBanDongHoEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tb_cart" EntityType="Self.tb_cart" />
+    <EntitySet Name="tb_category" EntityType="Self.tb_category" />
+    <EntitySet Name="tb_details_export" EntityType="Self.tb_details_export" />
+    <EntitySet Name="tb_details_inport" EntityType="Self.tb_details_inport" />
+    <EntitySet Name="tb_export_invoice" EntityType="Self.tb_export_invoice" />
+    <EntitySet Name="tb_inport_invoice" EntityType="Self.tb_inport_invoice" />
+    <EntitySet Name="tb_order" EntityType="Self.tb_order" />
+    <EntitySet Name="tb_producer" EntityType="Self.tb_producer" />
+    <EntitySet Name="tb_products" EntityType="Self.tb_products" />
+    <EntitySet Name="tb_slider" EntityType="Self.tb_slider" />
+    <EntitySet Name="tb_supplier" EntityType="Self.tb_supplier" />
+    <EntitySet Name="tb_users" EntityType="Self.tb_users" />
+    <EntitySet Name="tb_wishlist" EntityType="Self.tb_wishlist" />
+    <AssociationSet Name="FK_tb_cart_tb_products" Association="Self.FK_tb_cart_tb_products">
+      <End Role="tb_products" EntitySet="tb_products" />
+      <End Role="tb_cart" EntitySet="tb_cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_cart_tb_users" Association="Self.FK_tb_cart_tb_users">
+      <End Role="tb_users" EntitySet="tb_users" />
+      <End Role="tb_cart" EntitySet="tb_cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_products_tb_category" Association="Self.FK_tb_products_tb_category">
+      <End Role="tb_category" EntitySet="tb_category" />
+      <End Role="tb_products" EntitySet="tb_products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_details_export_tb_export_invoice" Association="Self.FK_tb_details_export_tb_export_invoice">
+      <End Role="tb_export_invoice" EntitySet="tb_export_invoice" />
+      <End Role="tb_details_export" EntitySet="tb_details_export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_details_export_tb_products" Association="Self.FK_tb_details_export_tb_products">
+      <End Role="tb_products" EntitySet="tb_products" />
+      <End Role="tb_details_export" EntitySet="tb_details_export" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_details_inport_tb_inport_invoice" Association="Self.FK_tb_details_inport_tb_inport_invoice">
+      <End Role="tb_inport_invoice" EntitySet="tb_inport_invoice" />
+      <End Role="tb_details_inport" EntitySet="tb_details_inport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_details_inport_tb_products" Association="Self.FK_tb_details_inport_tb_products">
+      <End Role="tb_products" EntitySet="tb_products" />
+      <End Role="tb_details_inport" EntitySet="tb_details_inport" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_export_invoice_tb_users" Association="Self.FK_tb_export_invoice_tb_users">
+      <End Role="tb_users" EntitySet="tb_users" />
+      <End Role="tb_export_invoice" EntitySet="tb_export_invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_inport_invoice_tb_supplier" Association="Self.FK_tb_inport_invoice_tb_supplier">
+      <End Role="tb_supplier" EntitySet="tb_supplier" />
+      <End Role="tb_inport_invoice" EntitySet="tb_inport_invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_inport_invoice_tb_users" Association="Self.FK_tb_inport_invoice_tb_users">
+      <End Role="tb_users" EntitySet="tb_users" />
+      <End Role="tb_inport_invoice" EntitySet="tb_inport_invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_order_tb_products" Association="Self.FK_tb_order_tb_products">
+      <End Role="tb_products" EntitySet="tb_products" />
+      <End Role="tb_order" EntitySet="tb_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_order_tb_users" Association="Self.FK_tb_order_tb_users">
+      <End Role="tb_users" EntitySet="tb_users" />
+      <End Role="tb_order" EntitySet="tb_order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_products_tb_producer" Association="Self.FK_tb_products_tb_producer">
+      <End Role="tb_producer" EntitySet="tb_producer" />
+      <End Role="tb_products" EntitySet="tb_products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_wishlist_tb_products" Association="Self.FK_tb_wishlist_tb_products">
+      <End Role="tb_products" EntitySet="tb_products" />
+      <End Role="tb_wishlist" EntitySet="tb_wishlist" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_wishlist_tb_users" Association="Self.FK_tb_wishlist_tb_users">
+      <End Role="tb_users" EntitySet="tb_users" />
+      <End Role="tb_wishlist" EntitySet="tb_wishlist" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

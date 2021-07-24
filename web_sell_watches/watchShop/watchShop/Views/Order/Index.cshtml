@@ -1,0 +1,281 @@
+﻿@model IEnumerable<watchShop.Models.EF.tb_order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*
+    <h2>Index</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.amount)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.pic)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.status)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tb_products.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.tb_users.name)
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.amount)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pic)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tb_products.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tb_users.name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.orderID }) |
+                @Html.ActionLink("Details", "Details", new { id=item.orderID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.orderID })
+            </td>
+        </tr>
+    }
+
+    </table>*@
+<!-- ========================= SECTION PAGETOP ========================= -->
+<section class="section-pagetop bg-gray">
+    <div class="container">
+        <h2 class="title-page">Tài Khoản Của Tôi</h2>
+    </div> <!-- container //  -->
+</section>
+<!-- ========================= SECTION PAGETOP END// ========================= -->
+<!-- ========================= SECTION CONTENT ========================= -->
+<section class="section-content padding-y">
+    <div class="container">
+
+        <div class="row">
+            <aside class="col-md-3">
+                <nav class="list-group">
+                    <a class="list-group-item" href=""> Hồ sơ </a>
+                    <a class="list-group-item" href=""> Địa chỉ </a>
+                    <a class="list-group-item active" href=""> Đơn hàng </a>
+                    <a class="list-group-item" href=""> Sản phẩm yêu thích </a>
+                    <a class="list-group-item" href=""> Các mặt hàng bán chạy của tôi </a>
+                    <a class="list-group-item" href=""> Cài đặt thông tin </a>
+                    <a class="list-group-item" href=""> Đăng xuất </a>
+                </nav>
+            </aside> <!-- col.// -->
+            <main class="col-md-9">
+
+                <article class="card mb-4">
+                    <header class="card-header">
+                        <a href="#" class="float-right"> <i class="fa fa-print"></i> In</a>
+                        <strong class="d-inline-block mr-3">ID đơn hàng: 6123456789</strong>
+                        <span>Ngày đặt hàng: 16/12/2018</span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6 class="text-muted">Chuyển tới</h6>
+                                <p>
+                                    Michael Jackson <br>
+                                    SĐT +1234567890, Email: myname@gmail.com <br>
+                                    Vị trí: Home number, Building name, Street 123, <br>
+                                    Mã bưu chính: 100123
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-muted">Thanh toán</h6>
+                                <span class="text-success">
+                                    <i class="fab fa-lg fa-cc-visa"></i>
+                                    Visa  **** 4216
+                                </span>
+                                <p>
+                                    Tổng tiền: $356 <br>
+                                    Phí vận chuyển:  $56 <br>
+                                    <span class="b">Thành tiền:  $456 </span>
+                                </p>
+                            </div>
+                        </div> <!-- row.// -->
+                    </div> <!-- card-body .// -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td width="65">
+                                        <img src="~/Content/images/items/1.jpg" class="img-xs border">
+                                    </td>
+                                    <td>
+                                        <p class="title mb-0">SP 1 </p>
+                                        <var class="price text-muted">USD 145</var>
+                                    </td>
+                                    <td> Người bán <br> Nike clothing </td>
+                                    <td width="250">
+                                        <a href="#" class="btn btn-outline-primary">Theo dõi</a>
+                                        <div class="dropdown d-inline-block">
+                                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-outline-secondary">Thao tác</a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item">Trở lại</a>
+                                                <a href="#" class="dropdown-item">Hủy đơn hàng</a>
+                                            </div>
+                                        </div> <!-- dropdown.// -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="~/Content/images/items/2.jpg" class="img-xs border">
+                                    </td>
+                                    <td>
+                                        <p class="title mb-0">SP 2 </p>
+                                        <var class="price text-muted">USD 15</var>
+                                    </td>
+                                    <td> Người bán <br> ABC shop </td>
+                                    <td>
+                                        <a href="#" class="btn btn-outline-primary">Theo dõi</a>
+                                        <div class="dropdown d-inline-block">
+                                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-outline-secondary">Thao tác</a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item">Trở lại</a>
+                                                <a href="#" class="dropdown-item">Hủy đơn hàng</a>
+                                            </div>
+                                        </div> <!-- dropdown.// -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="~/Content/images/items/3.jpg" class="img-xs border">
+                                    </td>
+                                    <td>
+                                        <p class="title mb-0">SP 3 </p>
+                                        <var class="price text-muted">USD 145</var>
+                                    </td>
+                                    <td> Người bán <br> Wallmart </td>
+                                    <td>
+                                        <a href="#" class="btn btn-outline-primary">Theo dõi</a>
+                                        <div class="dropdown d-inline-block">
+                                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-outline-secondary">Thao tác</a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item">Trở lại</a>
+                                                <a href="#" class="dropdown-item">Hủy đơn hàng</a>
+                                            </div>
+                                        </div> <!-- dropdown.// -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- table-responsive .end// -->
+                </article> <!-- card order-item .// -->
+
+
+                <article class="card order-item mb-4">
+                    <header class="card-header">
+                        <a href="#" class="float-right"> <i class="fa fa-print"></i> In</a>
+                        <strong class="d-inline-block mr-3">ID đơn hàng: 6123456789</strong>
+                        <span>Ngày đặt hàng: 16/11/2018</span>
+                    </header>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h6 class="text-muted">Chuyển tới</h6>
+                                <p>
+                                    Michael Jackson <br>
+                                    SĐT +1234567890, Email: myname@pixsellz.com <br>
+                                    Vị trí: Home number, Building name, Street 123,  Tashkent, UZB <br>
+                                    Mã bưu chính: 100123
+                                </p>
+                            </div>
+                            <div class="col-md-4">
+                                <h6 class="text-muted">Thanh toán</h6>
+                                <span class="text-success">
+                                    <i class="fab fa-lg fa-cc-visa"></i>
+                                    Visa  **** 4216
+                                </span>
+                                <p>
+                                    Tổng tiền: $356 <br>
+                                    Phí vận chuyển:  $56 <br>
+                                    <span class="b">Thành tiền:  $456 </span>
+                                </p>
+                            </div>
+                        </div> <!-- row.// -->
+                    </div> <!-- card-body .// -->
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <tbody>
+                                <tr>
+                                    <td width="65">
+                                        <img src="~/Content/images/items/1.jpg" class="img-xs border">
+                                    </td>
+                                    <td>
+                                        <p class="title mb-0">SP 1 </p>
+                                        <var class="price text-muted">USD 145</var>
+                                    </td>
+                                    <td> Người bán <br> Nike clothing </td>
+                                    <td width="250">
+                                        <a href="#" class="btn btn-outline-primary">Theo dõi</a>
+                                        <div class="dropdown d-inline-block">
+                                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-outline-secondary">Thao tác</a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item">Trở lại</a>
+                                                <a href="#" class="dropdown-item">Hủy đơn hàng</a>
+                                            </div>
+                                        </div> <!-- dropdown.// -->
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <img src="~/Content/images/items/2.jpg" class="img-xs border">
+                                    </td>
+                                    <td>
+                                        <p class="title mb-0">SP 2 </p>
+                                        <var class="price text-muted">USD 15</var>
+                                    </td>
+                                    <td> Người bán <br> ABC shop </td>
+                                    <td>
+                                        <a href="#" class="btn btn-outline-primary">Theo dõi</a>
+                                        <div class="dropdown d-inline-block">
+                                            <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-outline-secondary">Thao tác</a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item">Trở lại</a>
+                                                <a href="#" class="dropdown-item">Hủy đơn hàng</a>
+                                            </div>
+                                        </div> <!-- dropdown.// -->
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> <!-- table-responsive .end// -->
+                </article> <!-- card order-item .// -->
+
+
+            </main> <!-- col.// -->
+        </div>
+
+    </div> <!-- container .//  -->
+</section>
+<!-- ========================= SECTION CONTENT END// ========================= -->

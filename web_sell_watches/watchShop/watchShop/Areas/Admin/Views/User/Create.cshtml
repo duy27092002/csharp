@@ -1,0 +1,143 @@
+﻿@model watchShop.Models.EF.tb_users
+
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("Create", "User", FormMethod.Post, new { enctype = "multipart/form-data"}))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center">Thêm Mới</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="row">
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Tên <span class="text-danger">*</span></label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Giới Tính</label>
+                    <div class="col-md-12">
+                        <label class="mr-3">
+                            <input class="custom-control-input" checked="" type="radio" name="gender" value="True" >
+                            <span class="custom-control-label"> Nam </span>
+                        </label>
+                        <label class="mr-3">
+                            <input class="custom-control-input" type="radio" name="gender" value="False">
+                            <span class="custom-control-label"> Nữ </span>
+                        </label>
+                        <label>
+                            <input class="custom-control-input" type="radio" name="gender" value="Not Set">
+                            <span class="custom-control-label"> Khác </span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Ngày Sinh <span class="text-danger">*</span></label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.birthday, new { htmlAttributes = new { @class = "form-control", @type = "date", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.birthday, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Địa Chỉ</label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">EMail</label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">SĐT <span class="text-danger">*</span></label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.phonenumber, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.phonenumber, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Tên Đăng Nhập <span class="text-danger">*</span></label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.userName, new { htmlAttributes = new { @class = "form-control", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.userName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Mật Khẩu <span class="text-danger">*</span></label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.password, new { htmlAttributes = new { @class = "form-control", @type = "password", @required = "required" } })
+                        @Html.ValidationMessageFor(model => model.password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label fw-bold">Avatar <span class="text-danger">*</span></label>
+                    <div class="col-md-12">
+                        <img src="@Url.Content(Model.avatar)" class="img-fluid w-25" id="previewImg" />
+                        @Html.ValidationMessageFor(model => model.avatar, "", new { @class = "text-danger" })
+                    </div>
+                    <input type="file" class="mt-2" name="ImageUpload" onchange="ShowImagePreview(this, document.getElementById('previewImg'))" required/>
+                </div>
+
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                    <div class="row">
+                        <div class="form-group mb-3 col-6">
+                            <label class="form-label fw-bold">Admin</label>
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.isAdmin)
+                                    @Html.ValidationMessageFor(model => model.isAdmin, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group mb-3 col-6">
+                            <label class="form-label fw-bold">Nhân Viên</label>
+                            <div class="col-md-12">
+                                <div class="checkbox">
+                                    @Html.EditorFor(model => model.isStaff)
+                                    @Html.ValidationMessageFor(model => model.isStaff, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <small class="text-danger">
+                        <span class="fw-bold">Lưu ý</span>: Hãy cho biết chức vụ của bạn, <span class="fw-bold">True</span> là đúng; <span class="fw-bold">False, Not Set</span> là sai
+                    </small>
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="submit" value="Tạo" class="btn btn-sm btn-success" />
+                <input type="button" value="Quay lại" onclick="history.back(-1)" class="btn btn-sm btn-secondary" />
+            </div>
+        </div>
+    </div>
+}
