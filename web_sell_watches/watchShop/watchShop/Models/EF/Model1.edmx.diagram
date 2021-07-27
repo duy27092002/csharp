@@ -4,21 +4,21 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="96caf0502eda492fa88452045a38d05f" Name="Diagram1">
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.sysdiagram" Width="1.5" PointX="8.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_cart" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_category" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_details_export" Width="1.5" PointX="8.25" PointY="8.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_details_inport" Width="1.5" PointX="8.25" PointY="5.875" IsExpanded="true" />
+      <Diagram DiagramId="9d9606e78e12450fbf2dca313d1ae0f8" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.sysdiagram" Width="1.5" PointX="8.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_cart" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_category" Width="1.5" PointX="0.75" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_details_export" Width="1.5" PointX="8.25" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_details_inport" Width="1.5" PointX="8.25" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_export_invoice" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_inport_invoice" Width="1.5" PointX="6" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_inport_invoice" Width="1.5" PointX="6" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_order" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_producer" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_products" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_slider" Width="1.5" PointX="10.75" PointY="1.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_supplier" Width="1.5" PointX="3.75" PointY="13.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_producer" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_products" Width="1.5" PointX="3" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_slider" Width="1.5" PointX="10.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_supplier" Width="1.5" PointX="3.75" PointY="14" IsExpanded="true" />
         <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_users" Width="1.5" PointX="3" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_wishlist" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanDongHoModel.tb_wishlist" Width="1.5" PointX="8.25" PointY="11.875" IsExpanded="true" />
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_cart_tb_products" ManuallyRouted="false" />
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_cart_tb_users" ManuallyRouted="false" />
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_products_tb_category" ManuallyRouted="false" />
@@ -26,7 +26,8 @@
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_details_export_tb_products" ManuallyRouted="false" />
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_details_inport_tb_inport_invoice" ManuallyRouted="false" />
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_details_inport_tb_products" ManuallyRouted="false" />
-        <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_export_invoice_tb_users" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_export_invoice_tb_users2" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_export_invoice_tb_users3" ManuallyRouted="false" />
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_inport_invoice_tb_supplier" ManuallyRouted="false" />
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_inport_invoice_tb_users" ManuallyRouted="false" />
         <AssociationConnector Association="DB_QLBanDongHoModel.FK_tb_order_tb_products" ManuallyRouted="false" />

@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using watchShop.Models.EF;
@@ -39,9 +41,10 @@ namespace watchShop.Areas.Admin.Controllers
         // GET: Admin/Product/Create
         public ActionResult Create()
         {
+            tb_products tb_Products = new tb_products();
             ViewBag.categoryID = new SelectList(db.tb_category, "categoryID", "name");
             ViewBag.producerID = new SelectList(db.tb_producer, "producerID", "name");
-            return View();
+            return View(tb_Products);
         }
 
         // POST: Admin/Product/Create
@@ -49,10 +52,16 @@ namespace watchShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "watchID,name,categoryID,amount,price,color,desc_,pic,producerID")] tb_products tb_products)
+        public ActionResult Create(/*[Bind(Include = "watchID,name,categoryID,amount,price,color,desc_,pic,producerID")]*/ tb_products tb_products)
         {
-            if (ModelState.IsValid)
+            if (tb_products.ImageUpload != null)
             {
+                string fileName = Path.GetFileNameWithoutExtension(tb_products.ImageUpload.FileName);
+                string extention = Path.GetExtension(tb_products.ImageUpload.FileName);
+                fileName += extention;
+                tb_products.pic = "~/Content/images/items/" + fileName;
+                tb_products.ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/Content/images/items/"), fileName));
+
                 db.tb_products.Add(tb_products);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -85,10 +94,16 @@ namespace watchShop.Areas.Admin.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "watchID,name,categoryID,amount,price,color,desc_,pic,producerID")] tb_products tb_products)
+        public ActionResult Edit(/*[Bind(Include = "watchID,name,categoryID,amount,price,color,desc_,pic,producerID")]*/ tb_products tb_products)
         {
             if (ModelState.IsValid)
             {
+                string fileName = Path.GetFileNameWithoutExtension(tb_products.ImageUpload.FileName);
+                string extention = Path.GetExtension(tb_products.ImageUpload.FileName);
+                fileName += extention;
+                tb_products.pic = "~/Content/images/items/" + fileName;
+                tb_products.ImageUpload.SaveAs(Path.Combine(Server.MapPath("~/Content/images/items/"), fileName));
+
                 db.Entry(tb_products).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -131,6 +146,25 @@ namespace watchShop.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpGet]
+        public async Task<JsonResult> GetProByCategoryID(string json, int categoryId)
+        {
+            json = json.Replace("[", "").Replace("]", "");
+            int[] ids = json == string.Empty ? new int[0] : json.Split(',').Select(t => int.Parse(t)).ToArray();
+            var models = await db.tb_products.Where(t => !ids.Contains(t.watchID) && t.categoryID == categoryId).ToArrayAsync();
+            return Json(new
+            {
+                data = models.Select(t => new
+                {
+                    id = t.watchID,
+                    name = t.name,
+                    producer = t.tb_producer.name,
+                    count = t.amount,
+                    unitPrice = t.price
+                }).ToArray()
+            }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -14,7 +14,21 @@
             <hr />
             @Html.HiddenFor(model => model.watchID)
 
-            <div class="row">
+            <p class="text-center">
+                @{
+                    if (Model.pic != null)
+                    {
+                        var getUrlImg = Model.pic.ToString().Replace("~", "../../..");
+                        <img src="@getUrlImg" class="img-fluid rounded-circle" style="width:200px" />
+                    }
+                    else
+                    {
+                        <img src="../../../Content/images/items/add-product.png" class="img-fluid rounded-circle" style="width:200px" />
+                    }
+                }
+            </p>
+
+            <div class="row mt-3">
                 <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
                     <label class="form-label fw-bold">Tên</label>
                     <div class="col-md-12">
@@ -29,7 +43,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="row">
                 <div class="form-group mb-3 col-12 col-sm-12 col-md-6 col-lg-6">
                     <label class="form-label fw-bold">Số Lượng</label>
@@ -59,13 +73,6 @@
                     <div class="col-md-12">
                         <textarea rows="5" class="form-control bg-white" id="desc_" name="desc_" readonly>@Model.desc_</textarea>
                     </div>
-                </div>
-            </div>
-
-            <div class="form-group mb-3">
-                <label class="form-label fw-bold">Hình Ảnh</label>
-                <div class="col-md-12">
-                    <input type="text" class="form-control bg-white" id="pic" name="pic" readonly value="@Model.pic" />
                 </div>
             </div>
 

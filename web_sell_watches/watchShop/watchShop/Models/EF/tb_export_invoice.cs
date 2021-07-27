@@ -24,10 +24,11 @@ namespace watchShop.Models.EF
         public Nullable<int> staffID { get; set; }
         public Nullable<int> customerID { get; set; }
         public Nullable<System.DateTime> time { get; set; }
-        public Nullable<int> totalPrice { get; set; }
+        public Nullable<decimal> totalPrice { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_details_export> tb_details_export { get; set; }
         public virtual tb_users tb_users { get; set; }
+        public virtual tb_users tb_users1 { get; set; }
     }
 }

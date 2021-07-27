@@ -17,7 +17,7 @@ namespace watchShop.Areas.Admin.Controllers
         // GET: Admin/Export
         public ActionResult Index()
         {
-            var tb_export_invoice = db.tb_export_invoice.Include(t => t.tb_users);
+            var tb_export_invoice = db.tb_export_invoice.Include(t => t.tb_users).Include(t => t.tb_users1);
             return View(tb_export_invoice.ToList());
         }
 

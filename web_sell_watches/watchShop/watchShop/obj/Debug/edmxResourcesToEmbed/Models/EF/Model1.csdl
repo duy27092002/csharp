@@ -64,9 +64,10 @@
     <Property Name="staffID" Type="Int32" />
     <Property Name="customerID" Type="Int32" />
     <Property Name="time" Type="DateTime" Precision="0" />
-    <Property Name="totalPrice" Type="Int32" />
+    <Property Name="totalPrice" Type="Decimal" Precision="18" Scale="0" />
     <NavigationProperty Name="tb_details_export" Relationship="Self.FK_tb_details_export_tb_export_invoice" FromRole="tb_export_invoice" ToRole="tb_details_export" />
-    <NavigationProperty Name="tb_users" Relationship="Self.FK_tb_export_invoice_tb_users" FromRole="tb_export_invoice" ToRole="tb_users" />
+    <NavigationProperty Name="tb_users" Relationship="Self.FK_tb_export_invoice_tb_users2" FromRole="tb_export_invoice" ToRole="tb_users" />
+    <NavigationProperty Name="tb_users1" Relationship="Self.FK_tb_export_invoice_tb_users3" FromRole="tb_export_invoice" ToRole="tb_users" />
   </EntityType>
   <EntityType Name="tb_inport_invoice">
     <Key>
@@ -76,7 +77,7 @@
     <Property Name="supplierID" Type="Int32" />
     <Property Name="time" Type="DateTime" Precision="0" />
     <Property Name="staffID" Type="Int32" />
-    <Property Name="totalPrice" Type="Int32" />
+    <Property Name="totalPrice" Type="Decimal" Precision="18" Scale="0" />
     <NavigationProperty Name="tb_details_inport" Relationship="Self.FK_tb_details_inport_tb_inport_invoice" FromRole="tb_inport_invoice" ToRole="tb_details_inport" />
     <NavigationProperty Name="tb_supplier" Relationship="Self.FK_tb_inport_invoice_tb_supplier" FromRole="tb_inport_invoice" ToRole="tb_supplier" />
     <NavigationProperty Name="tb_users" Relationship="Self.FK_tb_inport_invoice_tb_users" FromRole="tb_inport_invoice" ToRole="tb_users" />
@@ -166,7 +167,8 @@
     <Property Name="isCustomer" Type="Boolean" />
     <Property Name="isStaff" Type="Boolean" />
     <NavigationProperty Name="tb_cart" Relationship="Self.FK_tb_cart_tb_users" FromRole="tb_users" ToRole="tb_cart" />
-    <NavigationProperty Name="tb_export_invoice" Relationship="Self.FK_tb_export_invoice_tb_users" FromRole="tb_users" ToRole="tb_export_invoice" />
+    <NavigationProperty Name="tb_export_invoice" Relationship="Self.FK_tb_export_invoice_tb_users2" FromRole="tb_users" ToRole="tb_export_invoice" />
+    <NavigationProperty Name="tb_export_invoice1" Relationship="Self.FK_tb_export_invoice_tb_users3" FromRole="tb_users" ToRole="tb_export_invoice" />
     <NavigationProperty Name="tb_inport_invoice" Relationship="Self.FK_tb_inport_invoice_tb_users" FromRole="tb_users" ToRole="tb_inport_invoice" />
     <NavigationProperty Name="tb_order" Relationship="Self.FK_tb_order_tb_users" FromRole="tb_users" ToRole="tb_order" />
     <NavigationProperty Name="tb_wishlist" Relationship="Self.FK_tb_wishlist_tb_users" FromRole="tb_users" ToRole="tb_wishlist" />
@@ -267,7 +269,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_tb_export_invoice_tb_users">
+  <Association Name="FK_tb_export_invoice_tb_users2">
     <End Role="tb_users" Type="Self.tb_users" Multiplicity="0..1" />
     <End Role="tb_export_invoice" Type="Self.tb_export_invoice" Multiplicity="*" />
     <ReferentialConstraint>
@@ -276,6 +278,18 @@
       </Principal>
       <Dependent Role="tb_export_invoice">
         <PropertyRef Name="staffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tb_export_invoice_tb_users3">
+    <End Role="tb_users" Type="Self.tb_users" Multiplicity="0..1" />
+    <End Role="tb_export_invoice" Type="Self.tb_export_invoice" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tb_users">
+        <PropertyRef Name="userID" />
+      </Principal>
+      <Dependent Role="tb_export_invoice">
+        <PropertyRef Name="customerID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -406,7 +420,11 @@
       <End Role="tb_products" EntitySet="tb_products" />
       <End Role="tb_details_inport" EntitySet="tb_details_inport" />
     </AssociationSet>
-    <AssociationSet Name="FK_tb_export_invoice_tb_users" Association="Self.FK_tb_export_invoice_tb_users">
+    <AssociationSet Name="FK_tb_export_invoice_tb_users2" Association="Self.FK_tb_export_invoice_tb_users2">
+      <End Role="tb_users" EntitySet="tb_users" />
+      <End Role="tb_export_invoice" EntitySet="tb_export_invoice" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tb_export_invoice_tb_users3" Association="Self.FK_tb_export_invoice_tb_users3">
       <End Role="tb_users" EntitySet="tb_users" />
       <End Role="tb_export_invoice" EntitySet="tb_export_invoice" />
     </AssociationSet>

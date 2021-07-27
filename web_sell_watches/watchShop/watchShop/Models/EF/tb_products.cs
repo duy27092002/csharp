@@ -11,7 +11,9 @@ namespace watchShop.Models.EF
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
+
     public partial class tb_products
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +24,8 @@ namespace watchShop.Models.EF
             this.tb_details_inport = new HashSet<tb_details_inport>();
             this.tb_order = new HashSet<tb_order>();
             this.tb_wishlist = new HashSet<tb_wishlist>();
+
+            pic = "~/Content/images/items/add-product.png";
         }
     
         public int watchID { get; set; }
@@ -46,5 +50,8 @@ namespace watchShop.Models.EF
         public virtual tb_producer tb_producer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_wishlist> tb_wishlist { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase ImageUpload { get; set; }
     }
 }

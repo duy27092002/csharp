@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using watchShop.Models.EF;
@@ -139,6 +141,56 @@ namespace watchShop.Areas.Admin.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> CreateConfirmed(tb_inport_invoice info, string json)
+        {
+            string msg = "OK";
+
+            List<tb_details_inport> detailsInport = JsonConvert.DeserializeObject<List<tb_details_inport>>(json);
+
+            try
+            {
+                info.totalPrice = detailsInport.Select(t => (decimal)t.amount * t.price).Sum();
+
+                db.tb_inport_invoice.Add(info);
+
+                await db.SaveChangesAsync();
+
+                foreach (var cT_HDNhap in detailsInport)
+                {
+                    cT_HDNhap.inportInvoiceID = info.inportInvoiceID;
+                }
+
+                db.tb_details_inport.AddRange(detailsInport);
+
+                await UpdateCount(detailsInport, 1);
+
+                await db.SaveChangesAsync();
+            }
+            catch (Exception ex)
+            {
+                msg = "Fail";
+            }
+
+            return Json(new { msg = msg });
+        }
+
+        private async Task UpdateCount(List<tb_details_inport> detailsInport, int type)
+        {
+            var watchIDs = detailsInport.Select(t => t.watchID).ToArray();
+
+            var products = await db.tb_products.Where(t => watchIDs.Contains(t.watchID)).ToListAsync();
+
+            foreach (var product in products)
+            {
+                var count = detailsInport.Where(t => t.watchID == product.watchID).FirstOrDefault().amount;
+
+                product.amount += count * type;
+            }
+
+            await db.SaveChangesAsync();
         }
     }
 }

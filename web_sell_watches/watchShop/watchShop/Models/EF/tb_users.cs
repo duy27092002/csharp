@@ -21,6 +21,7 @@ namespace watchShop.Models.EF
         {
             this.tb_cart = new HashSet<tb_cart>();
             this.tb_export_invoice = new HashSet<tb_export_invoice>();
+            this.tb_export_invoice1 = new HashSet<tb_export_invoice>();
             this.tb_inport_invoice = new HashSet<tb_inport_invoice>();
             this.tb_order = new HashSet<tb_order>();
             this.tb_wishlist = new HashSet<tb_wishlist>();
@@ -46,6 +47,8 @@ namespace watchShop.Models.EF
         public virtual ICollection<tb_cart> tb_cart { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_export_invoice> tb_export_invoice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tb_export_invoice> tb_export_invoice1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tb_inport_invoice> tb_inport_invoice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -11,7 +11,7 @@
     <a class="btn btn-sm btn-success" href="/Admin/Product/Create"><i class="fas fa-plus"></i>&nbsp;Thêm Mới</a>
 </p>
 <div class="table-responsive">
-    <table class="table table-bordered table-hover table-striped">
+    <table class="table table-sm table-bordered table-hover table-striped">
         <tr class="text-center">
             <th>Ảnh</th>
             <th>Tên</th>
@@ -28,7 +28,17 @@
         {
             <tr>
                 <td class="text-center">
-                    @Html.DisplayFor(modelItem => item.pic)
+                    @{
+                        if (item.pic != null)
+                        {
+                            var getUrlImg = item.pic.ToString().Replace("~", "../../..");
+                            <img src="@getUrlImg" class="img-fluid rounded-circle" style="width:50px" />
+                        }
+                        else
+                        {
+                            <img src="../../Content/images/items/add-proudct.png" class="img-fluid rounded-circle" style="width:50px" />
+                        }
+                    }
                 </td>
                 <td class="text-center">
                     @Html.DisplayFor(modelItem => item.name)
