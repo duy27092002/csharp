@@ -1,0 +1,63 @@
+﻿@model IEnumerable<T3H_K34DL1_WebMVC5.Models.EF.HoaDonXuat>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh Sách Hóa Đơn Xuất</h2>
+
+<p>
+    <a class="btn btn-sm btn-success" href="/HoaDonXuat/Create"><i class="fas fa-plus"></i>&nbsp;Thêm Mới</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-sm table-hover table-striped table-bordered text-center">
+        <tr>
+            <th>STT</th>
+            <th>Thời Gian Xuất Hàng</th>
+            <th>Nhân Viên Xuất</th>
+            <th>Tổng Tiền (VNĐ)</th>
+            <th>Khách Hàng</th>
+            <th>Thao Tác</th>
+        </tr>
+        @{ int i = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ if (item != null) { i++; }
+                    }
+                    @i
+                </td>
+                <td>
+                    @{
+                        var getTime = item.NgayXuat.Value.ToString("MM/dd/yyyy");
+                    }
+                    @getTime
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NhanVien.TenNV)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.TongTien)*@
+                    @{
+                        var custom = String.Format("{0:0,0}", item.TongTien);
+                    }
+                    @custom
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang.TenKH)
+                </td>
+                <td class="text-nowrap" style="width:1px">
+                    @*@Html.ActionLink("Sửa", "Edit", new { id = item.MaHDXuat }, new { @class = "btn btn-sm btn-warning" })
+                        @Html.ActionLink("Chi Tiết", "Details", new { id = item.MaHDXuat }, new { @class = "btn btn-sm btn-primary" })
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaHDXuat }, new { @class = "btn btn-sm btn-danger" })*@
+
+                    <a class="btn btn-sm btn-warning" href="/HoaDonXuat/Edit/@item.MaHDXuat"><i class="fas fa-pencil-alt"></i>&nbsp;Sửa</a>
+                    <a class="btn btn-sm btn-primary" href="/HoaDonXuat/Details/@item.MaHDXuat"><i class="fas fa-eye"></i>&nbsp;Chi Tiết</a>
+                    <a class="btn btn-sm btn-danger" href="/HoaDonXuat/Delete/@item.MaHDXuat"><i class="fas fa-trash-alt"></i>&nbsp;Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

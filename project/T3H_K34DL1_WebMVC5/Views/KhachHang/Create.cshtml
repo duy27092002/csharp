@@ -1,0 +1,65 @@
+﻿@model T3H_K34DL1_WebMVC5.Models.EF.KhachHang
+
+@{
+    ViewBag.Title = "Create";
+}
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="shadow container mt-3 py-3">
+    <div class="form-horizontal">
+        <h2 class="text-center">Tạo Mới</h2>
+        <h4>Khách Hàng</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group mb-3">
+            <label class="form-label fw-bold">Tên</label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.TenKH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TenKH, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label fw-bold">Giới Tính</label>
+            <div class="col-md-12">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.GioiTinh)
+                    @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label fw-bold">Ngày Sinh</label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.NgaySinh, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                @Html.ValidationMessageFor(model => model.NgaySinh, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label fw-bold">Địa Chỉ</label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.DiaChi, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DiaChi, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group mb-3">
+            <label class="form-label fw-bold">Số Điện Thoại</label>
+            <div class="col-md-12">
+                @Html.EditorFor(model => model.SDT, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group text-center">
+            <input type="submit" value="Tạo" class="btn btn-success" />
+            <a class="btn btn-sm btn-secondary p-2" href="/KhachHang/Index">Quay Lại</a>
+        </div>
+    </div>
+</div>
+}

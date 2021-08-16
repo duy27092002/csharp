@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5a8e4442787444f0ad5a64a7f3320af0" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.CT_HDNhap" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.CT_HDXuat" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.Giay" Width="1.5" PointX="3" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.HoaDonNhap" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.HoaDonXuat" Width="1.5" PointX="3" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.KhachHang" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.LoaiGiay" Width="1.5" PointX="0.75" PointY="4.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.NhaCC" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.NhanVien" Width="1.5" PointX="0.75" PointY="11.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.NhaSX" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_QLBanGiayModel.sysdiagram" Width="1.5" PointX="5.75" PointY="7" IsExpanded="true" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_CT_HDNhap_Giay" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_CT_HDNhap_HoaDonNhap" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_CT_HDXuat_Giay" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_CT_HDXuat_HoaDonXuat" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_Giay_LoaiGiay" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_Giay_NhaSX" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_HoaDonNhap_NhaCC" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_HoaDonNhap_NhanVien1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_HoaDonXuat_KhachHang1" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_QLBanGiayModel.FK_HoaDonXuat_NhanVien" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

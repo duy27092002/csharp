@@ -1,0 +1,19 @@
+﻿body {
+}
+.box {
+    width:45px;
+    height:45px;
+    transition: transform 0.2s;
+    border-color: green;
+}
+.box:hover{
+    transform: scale(1.2);
+}
+.box-x{
+    color: red;
+    font-weight:bold;
+}
+.box-o {
+    color: blue;
+    font-weight: bold;
+}

@@ -1,0 +1,52 @@
+﻿@model T3H_K34DL1_WebMVC5.Models.EF.HoaDonNhap
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2>Bạn có thực sự muốn xóa không?</h2>
+            <hr />
+            @Html.HiddenFor(model => model.MaHDNhap)
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Thời Gian Nhập</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="NgayNhap" name="NgayNhap" readonly value="@Model.NgayNhap.Value.ToString("MM/dd/yyyy")" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Tổng Tiền (VNĐ)</label>
+                <div class="col-md-12">
+                    <div class="checkbox">
+                        <input type="text" class="form-control" id="TongTien" name="TongTien" readonly value="@Model.TongTien" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Nhà Cung Cấp</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="TenNCC" name="TenNCC" readonly value="@Model.NhaCC.TenNCC" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Nhân Viên Nhập Hàng</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="TenNV" name="TenNV" readonly value="@Model.NhanVien.TenNV" />
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="submit" value="Xóa" class="btn btn-sm btn-danger" /> |
+                @Html.ActionLink("Quay Lại", "Index", null, htmlAttributes: new { @class = "btn btn-sm btn-secondary" })
+            </div>
+        </div>
+    </div>
+}

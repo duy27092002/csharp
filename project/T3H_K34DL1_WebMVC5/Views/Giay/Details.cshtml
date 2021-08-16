@@ -1,0 +1,80 @@
+﻿@model T3H_K34DL1_WebMVC5.Models.EF.Giay
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2>Chi Tiết Thông Tin Giày</h2>
+            <hr />
+            @Html.HiddenFor(model => model.MaGiay)
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Tên Giày</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="TenGiay" name="TenGiay" readonly value="@Model.TenGiay" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Số Lượng (đôi)</label>
+                <div class="col-md-12">
+                    <div class="checkbox">
+                        <input type="text" class="form-control" id="SoLuong" name="SoLuong" readonly value="@String.Format("{0:0,0}", Model.SoLuong)" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Kích Cỡ Giày</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="NgaySinh" name="NgaySinh" readonly value="@Model.KichCo" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Màu Sắc</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="MauSac" name="MauSac" readonly value="@Model.MauSac" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Giá (VNĐ)</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="Gia" name="Gia" readonly value="@String.Format("{0:0,0}", Model.Gia)" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Loại Giày</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="TenLG" name="TenLG" readonly value="@Model.LoaiGiay.TenLG" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Nhà Sản Xuất</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="TenNSX" name="TenNSX" readonly value="@Model.NhaSX.TenNSX" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Hình Ảnh</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="HinhAnh" name="HinhAnh" readonly value="@Model.HinhAnh" />
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.MaGiay }, new { @class = "btn btn-sm btn-warning" }) |
+                @Html.ActionLink("Quay Lại", "Index", null, htmlAttributes: new { @class = "btn btn-sm btn-secondary" })
+            </div>
+        </div>
+    </div>
+}

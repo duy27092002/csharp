@@ -1,0 +1,46 @@
+﻿@model IEnumerable<T3H_K34DL1_WebMVC5.Models.EF.LoaiGiay>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh Sách Loại Giày</h2>
+
+<p>
+    <a class="btn btn-sm btn-success" href="/LoaiGiay/Create"><i class="fas fa-plus"></i>&nbsp;Thêm Loại Giày Mới</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-sm table-hover table-striped table-bordered text-center">
+        <tr>
+            <th>STT</th>
+            <th>Tên Loại Giày</th>
+            <th>Thao Tác</th>
+        </tr>
+        @{ int i = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ 
+                        if(item != null) { i++; }
+                    }
+                    @i
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenLG)
+                </td>
+                @*<td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaLG }, new { @class = "btn btn-sm btn-warning" })
+                        @Html.ActionLink("Chi Tiết", "Details", new { id = item.MaLG }, new { @class = "btn btn-sm btn-primary" })
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaLG }, new { @class = "btn btn-sm btn-danger" })
+                    </td>*@
+                <td class="text-nowrap" style="width:1px">
+                    <a class="btn btn-sm btn-warning" href="/LoaiGiay/Edit/@item.MaLG"><i class="fas fa-pencil-alt"></i>&nbsp;Sửa</a>
+                    <a class="btn btn-sm btn-primary" href="/LoaiGiay/Details/@item.MaLG"><i class="fas fa-eye"></i>&nbsp;Chi Tiết</a>
+                    <a class="btn btn-sm btn-danger" href="/LoaiGiay/Delete/@item.MaLG"><i class="fas fa-trash-alt"></i>&nbsp;Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -75,7 +75,17 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
             }
         }
 
-        // Hàm này lấy dữ liệu đầu vào của người nhập và trả lại những thông tin nhập vào đó
+        // Hàm này cho phép người dùng khi click vào textBox mã bộ môn thì sẽ hiện form lựa chọn bộ môn
+        private void txtMaBM_Click(object sender, EventArgs e)
+        {
+            frmSelectBoMon frm = new frmSelectBoMon();
+            // hiển thị form lựa chọn bộ môn
+            frm.ShowDialog();
+
+            if (frm.Result_) txtMaBM.Text = frm.MaBM_;
+        }
+
+        // Hàm này lấy dữ liệu đầu vào (add + edit) của người nhập và trả lại những thông tin nhập vào đó
         private GiangVien InitGiangVien()
         {
             GiangVien giangVien = new GiangVien();
@@ -131,19 +141,6 @@ namespace T3H_K35DL1_Winforms.Presenstation.UIGiangVien
         private void btnCancle_Click(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        // Hàm này cho phép người dùng khi click vào textBox mã bộ môn thì sẽ hiện form lựa chọn bộ môn
-        private void txtMaBM_Click(object sender, EventArgs e)
-        {
-            frmSelectBoMon frm = new frmSelectBoMon();
-            // hiển thị form lựa chọn bộ môn
-            frm.ShowDialog();
-
-            if (frm.Result_)
-            {
-                txtMaBM.Text = frm.MaBM_;
-            }
         }
     }
 }

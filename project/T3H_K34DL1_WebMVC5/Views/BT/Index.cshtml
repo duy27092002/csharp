@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div class="card">
+    <div class="card-body">
+        <div class="form-inline">
+            <label>Nhập kích thước bàn:</label>
+            <input type="number" class="form-control" value="5" min="5" max="20" id="size-board" />
+            <button id="btn-accept" class="btn btn-success">Tạo bàn</button>
+        </div>
+    </div>
+    <table id="board-game">
+        <thead></thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+@section scripts{
+    <script src="~/Scripts/xo.js"></script>
+}
+
+@section css{
+    <link href="~/Content/xo.css" rel="stylesheet" />
+}

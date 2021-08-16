@@ -1,0 +1,65 @@
+﻿@model T3H_K34DL1_WebMVC5.Models.EF.KhachHang
+
+@{
+    ViewBag.Title = "Details";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2>Chi Tiết Thông Tin Khách Hàng</h2>
+            <hr />
+            @Html.HiddenFor(model => model.MaKH)
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Tên</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="TenKH" name="TenKH" readonly value="@Model.TenKH" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Giới Tính</label>
+                <div class="col-md-12">
+                    <div class="checkbox">
+                        @{
+                            var gender1 = Model.GioiTinh == true ? "Nam" : "Nữ";
+                        }
+                        <input type="text" class="form-control" id="GioiTinh" name="GioiTinh" readonly value="@gender1" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Ngày Sinh</label>
+                <div class="col-md-12">
+                    @{
+                        var birthday = Model.NgaySinh.Value.ToString("MM/dd/yyyy");
+                    }
+                    <input type="text" class="form-control" id="NgaySinh" name="NgaySinh" readonly value="@birthday" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Địa Chỉ</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="DiaChi" name="DiaChi" readonly value="@Model.DiaChi" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">SĐT</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="SDT" name="SDT" readonly value="@Model.SDT" />
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.MaKH }, new { @class = "btn btn-sm btn-warning" }) |
+                @Html.ActionLink("Quay Lại", "Index", null, htmlAttributes: new { @class = "btn btn-sm btn-secondary" })
+            </div>
+        </div>
+    </div>
+}

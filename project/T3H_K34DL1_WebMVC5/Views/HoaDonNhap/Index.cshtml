@@ -1,0 +1,64 @@
+﻿@model IEnumerable<T3H_K34DL1_WebMVC5.Models.EF.HoaDonNhap>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh Sách Hóa Đơn Nhập</h2>
+
+<p>
+    <a class="btn btn-sm btn-success" href="/HoaDonNhap/Create"><i class="fas fa-plus"></i>&nbsp;Thêm Mới</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-sm table-hover table-striped table-bordered text-center">
+        <tr>
+            <th>STT</th>
+            <th>Thời Gian Nhập</th>
+            <th>Tổng Tiền (VNĐ)</th>
+            <th>Nhà Cung Cấp</th>
+            <th>Tên Nhân Viên Nhập Hàng</th>
+            <th>Thao Tác</th>
+        </tr>
+        @{ int i = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ 
+                        if (item != null) { i++; }
+                    }
+                    @i
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.NgayNhap)*@
+                    @{
+                        var getTime = item.NgayNhap.Value.ToString("MM/dd/yyyy");
+                    }
+                    @getTime
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.TongTien)*@
+                    @{ 
+                        var custom = String.Format("{0:0,0}", item.TongTien);
+                    }
+                    @custom
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NhaCC.TenNCC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NhanVien.TenNV)
+                </td>
+                <td class="text-nowrap" style="width:1px">
+                    @*@Html.ActionLink("Sửa", "Edit", new { id=item.MaHDNhap }, new { @class = "btn btn-sm btn-warning"})*@
+                    <a class="btn btn-sm btn-warning" href="/HoaDonNhap/Edit/@item.MaHDNhap"><i class="fas fa-pencil-alt"></i>&nbsp;Sửa</a>
+                    @*@Html.ActionLink("Chi Tiết", "Details", new { id=item.MaHDNhap }, new { @class = "btn btn-sm btn-primary" })*@
+                    <a class="btn btn-sm btn-primary" href="/HoaDonNhap/Details/@item.MaHDNhap"><i class="fas fa-eye"></i>&nbsp;Chi Tiết</a>
+                    @*@Html.ActionLink("Xóa", "Delete", new { id=item.MaHDNhap }, new { @class = "btn btn-sm btn-danger" })*@
+                    <a class="btn btn-sm btn-danger" href="/HoaDonNhap/Delete/@item.MaHDNhap"><i class="fas fa-trash-alt"></i>&nbsp;Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@{ 
+    var nums = ViewData["Nums"] as int[];
+    foreach(var num in nums)
+    {
+        <h1>@num</h1>
+    }
+}

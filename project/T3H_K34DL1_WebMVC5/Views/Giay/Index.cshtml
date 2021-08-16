@@ -1,0 +1,103 @@
+﻿@model IEnumerable<T3H_K34DL1_WebMVC5.Models.EF.Giay>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh Sách Giày</h2>
+
+<p>
+    <a class="btn btn-sm btn-success" href="/Giay/Create"><i class="fas fa-plus"></i>&nbsp;Thêm Giày Mới</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-sm table-hover table-striped table-bordered">
+        <tr class="text-center">
+            <th>STT</th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.TenGiay)*@
+                Tên Giày
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.LoaiGiay.TenLG)*@
+                Loại Giày
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.SoLuong)*@
+                Số Lượng (đôi)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.KichCo)*@
+                Kích Cỡ
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.MauSac)*@
+                Màu Sắc
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.Gia)*@
+                Giá (VNĐ)
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.HinhAnh)*@
+                Hình Ảnh
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.NhaSX.TenNSX)*@
+                Nhà Sản Xuất
+            </th>
+            <th>Thao Tác</th>
+        </tr>
+        @{ int i = 0;}
+        @foreach (var item in Model)
+        {
+        <tr class="text-center">
+            <td>
+                @{
+                    if (item != null) { i++; }
+                }
+                @i
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenGiay)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LoaiGiay.TenLG)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.SoLuong)*@
+                @{
+                    var customAmount = String.Format("{0:0,0}", item.SoLuong);
+                }
+                @customAmount
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.KichCo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MauSac)
+            </td>
+            <td>
+                @*@Html.DisplayFor(modelItem => item.Gia)*@
+                @{
+                    var customMoney = String.Format("{0:0,0}", item.Gia);
+                }
+                @customMoney
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HinhAnh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NhaSX.TenNSX)
+            </td>
+            <td class="text-nowrap" style="width:1px">
+                @*@Html.ActionLink("Sửa", "Edit", new { id = item.MaGiay }, new { @class = "btn btn-sm btn-warning" })*@
+                <a class="btn btn-sm btn-warning" href="/Giay/Edit/@item.MaGiay"><i class="fas fa-pencil-alt"></i>&nbsp;Sửa</a>
+                @*@Html.ActionLink("Chi Tiết", "Details", new { id = item.MaGiay }, new { @class = "btn btn-sm btn-primary" })*@
+                <a class="btn btn-sm btn-primary" href="/Giay/Details/@item.MaGiay"><i class="fas fa-eye"></i>&nbsp;Chi Tiết</a>
+                @*@Html.ActionLink("Xóa", "Delete", new { id = item.MaGiay }, new { @class = "btn btn-sm btn-danger" })*@
+                <a class="btn btn-sm btn-danger" href="/Giay/Delete/@item.MaGiay"><i class="fas fa-trash-alt"></i>&nbsp;Xóa</a>
+            </td>
+        </tr>
+        }
+    </table>
+</div>

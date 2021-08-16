@@ -1,0 +1,59 @@
+﻿@model T3H_K34DL1_WebMVC5.Models.EF.NhaCC
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2>Bạn có thực sự muốn xóa không?</h2>
+            <hr />
+            @Html.HiddenFor(model => model.MaNCC)
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Tên Nhà Cung Cấp</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="TenNCC" name="TenNCC" readonly value="@Model.TenNCC" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Địa Chỉ</label>
+                <div class="col-md-12">
+                    <div class="checkbox">
+                        <input type="text" class="form-control" id="DiaChi" name="DiaChi" readonly value="@Model.DiaChi" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">EMail</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="EMail" name="EMail" readonly value="@Model.EMail" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">SĐT</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="SDT" name="SDT" readonly value="@Model.SDT" />
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="form-label fw-bold">Số Fax</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control" id="Fax" name="Fax" readonly value="@Model.Fax" />
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <input type="submit" value="Xóa" class="btn btn-sm btn-danger" /> |
+                @Html.ActionLink("Quay Lại", "Index", null, htmlAttributes: new { @class = "btn btn-sm btn-secondary" })
+            </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,77 @@
+﻿@model IEnumerable<T3H_K34DL1_WebMVC5.Models.EF.NhanVien>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh Sách Nhân Viên</h2>
+
+<p>
+    @*@Html.ActionLink("Tạo Mới", "Create", new { @class = ""})*@
+    <a href="/NhanVien/Create" class="btn btn-sm btn-success"><i class="fas fa-plus"></i>&nbsp;Thêm Nhân Viên</a>
+</p>
+<div class="table-responsive">
+    <table class="table table-sm table-hover table-striped table-bordered text-center">
+        <tr>
+            <th>STT</th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.TenNV)*@
+                Tên
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.GioiTinh)*@
+                Giới Tính
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.NgaySinh)*@
+                Ngày Sinh
+            </th>
+            <th>
+                @*@Html.DisplayNameFor(model => model.SDT)*@
+                SĐT
+            </th>
+            <th>Thao Tác</th>
+        </tr>
+        @{ int i = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{ 
+                        if(item != null) { i++; }
+                    }
+                    @i
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenNV)
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.GioiTinh)*@
+                    @{
+                        var gender = item.GioiTinh == true ? "Nam" : "Nữ";
+                    }
+                    @gender
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.NgaySinh)*@
+                    @item.NgaySinh.Value.ToString("MM/dd/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                @*<td>
+                        @Html.ActionLink("Sửa", "Edit", new { id = item.MaNV }, new { @class = "btn btn-sm btn-warning" })
+                        @Html.ActionLink("Chi Tiết", "Details", new { id = item.MaNV }, new { @class = "btn btn-sm btn-primary" })
+                        @Html.ActionLink("Xóa", "Delete", new { id = item.MaNV }, new { @class = "btn btn-sm btn-danger" })
+                    </td>*@
+                <td class="text-nowrap" style="width:1px">
+                    <a class="btn btn-sm btn-warning" href="/NhanVien/Edit/@item.MaNV"><i class="fas fa-pencil-alt"></i>&nbsp;Sửa</a>
+                    <a class="btn btn-sm btn-primary" href="/NhanVien/Details/@item.MaNV"><i class="fas fa-eye"></i>&nbsp;Chi Tiết</a>
+                    <a class="btn btn-sm btn-danger" href="/NhanVien/Delete/@item.MaNV"><i class="fas fa-trash-alt"></i>&nbsp;Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+

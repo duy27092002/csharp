@@ -1,0 +1,96 @@
+﻿@*@model IEnumerable<T3H_K34DL1_WebMVC5.Models.EF.KhachHang>*@
+@model PagedList.IPagedList<T3H_K34DL1_WebMVC5.Models.EF.KhachHang>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Danh Sách Thông Tin Khách Hàng</h2>
+
+<div class="row">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+        <p><a class="btn btn-sm btn-success" href="/KhachHang/Create"><i class="fas fa-plus"></i>&nbsp;Thêm Khách Hàng</a></p>
+    </div>
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4"></div>
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+        @using (Html.BeginForm("Index", "KhachHang", FormMethod.Get))
+        {
+            <p class="fw-bold">
+                Tìm Kiếm Theo Tên: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                <button type="submit" class="bg-success border-0 py-1 text-white rounded">Tìm</button>
+            </p>
+        }
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-sm table-hover table-striped table-bordered text-center">
+        <tr>
+            <th>STT</th>
+            @*<th>Tên</th>*@
+            <th>
+                @*@Html.ActionLink("Tên", "Index", new { sortOrder = ViewBag.NameSortParm })*@
+                @Html.ActionLink("Tên", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>Giới Tính</th>
+            @*<th>Ngày Sinh</th>*@
+            <th>
+                @*@Html.ActionLink("Ngày Sinh", "Index", new { sortOrder = ViewBag.BirthdaySortParm })*@
+                @Html.ActionLink("Ngày Sinh", "Index", new { sortOrder = ViewBag.BirthdaySortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>Địa Chỉ</th>
+            <th>SĐT</th>
+            <th>Thao Tác</th>
+        </tr>
+        @{ int i = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @{
+                        if (item != null) { i++; }
+                    }
+                    @i
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenKH)
+                </td>
+                <td>
+                    @{
+                        var gender = item.GioiTinh == true ? "Nam" : "Nữ";
+                    }
+                    @gender
+                </td>
+                <td>
+                    @*@Html.DisplayFor(modelItem => item.NgaySinh)*@
+                    @item.NgaySinh.Value.ToString("MM/dd/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDT)
+                </td>
+                <td class="text-nowrap" style="width:1px">
+                    @*@Html.ActionLink("Sửa", "Edit", new { id=item.MaKH }, new { @class = "btn btn-sm btn-warning"}) *@
+                    <a class="btn btn-sm btn-warning" href="/KhachHang/Edit/@item.MaKH"><i class="fas fa-pencil-alt"></i>&nbsp;Sửa</a>
+                    @*@Html.ActionLink("Chi Tiết", "Details", new { id = item.MaKH }, new { @class = "btn btn-sm btn-primary" })*@
+                    <a class="btn btn-sm btn-primary" href="/KhachHang/Details/@item.MaKH"><i class="fas fa-eye"></i>&nbsp;Chi Tiết</a>
+                    @*@Html.ActionLink("Xóa", "Delete", new { id = item.MaKH }, new { @class = "btn btn-sm btn-danger" })*@
+                    <a class="btn btn-sm btn-danger" href="/KhachHang/Delete/@item.MaKH"><i class="fas fa-trash-alt"></i>&nbsp;Xóa</a>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+<br />
+@*<b>Trang</b> @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) / @Model.PageCount*@
+<div class="text-center">
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
+
+@*<p class="text-danger">Tổng số khách hàng hiện có là @ViewBag.Count</p>*@

@@ -1,0 +1,759 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DB_QLBanGiayModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CT_HDNhap">
+          <Key>
+            <PropertyRef Name="MaHDNhap" />
+            <PropertyRef Name="MaGiay" />
+          </Key>
+          <Property Name="MaHDNhap" Type="int" Nullable="false" />
+          <Property Name="MaGiay" Type="int" Nullable="false" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="Gia" Type="int" />
+        </EntityType>
+        <EntityType Name="CT_HDXuat">
+          <Key>
+            <PropertyRef Name="MaHDXuat" />
+            <PropertyRef Name="MaGiay" />
+          </Key>
+          <Property Name="MaHDXuat" Type="int" Nullable="false" />
+          <Property Name="MaGiay" Type="int" Nullable="false" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="Gia" Type="int" />
+        </EntityType>
+        <EntityType Name="Giay">
+          <Key>
+            <PropertyRef Name="MaGiay" />
+          </Key>
+          <Property Name="MaGiay" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenGiay" Type="nvarchar" MaxLength="50" />
+          <Property Name="MaNSX" Type="int" />
+          <Property Name="MaLG" Type="int" />
+          <Property Name="SoLuong" Type="int" />
+          <Property Name="KichCo" Type="int" />
+          <Property Name="MauSac" Type="nvarchar" MaxLength="50" />
+          <Property Name="Gia" Type="int" />
+          <Property Name="HinhAnh" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="HoaDonNhap">
+          <Key>
+            <PropertyRef Name="MaHDNhap" />
+          </Key>
+          <Property Name="MaHDNhap" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NgayNhap" Type="date" />
+          <Property Name="MaNV" Type="int" />
+          <Property Name="TongTien" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MaNCC" Type="int" />
+        </EntityType>
+        <EntityType Name="HoaDonXuat">
+          <Key>
+            <PropertyRef Name="MaHDXuat" />
+          </Key>
+          <Property Name="MaHDXuat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NgayXuat" Type="date" />
+          <Property Name="MaKH" Type="int" />
+          <Property Name="TongTien" Type="decimal" Precision="18" Scale="0" />
+          <Property Name="MaNV" Type="int" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenKH" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioiTinh" Type="bit" />
+          <Property Name="NgaySinh" Type="date" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="SDT" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="LoaiGiay">
+          <Key>
+            <PropertyRef Name="MaLG" />
+          </Key>
+          <Property Name="MaLG" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenLG" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="NhaCC">
+          <Key>
+            <PropertyRef Name="MaNCC" />
+          </Key>
+          <Property Name="MaNCC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenNCC" Type="nvarchar" MaxLength="255" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="EMail" Type="char" MaxLength="255" />
+          <Property Name="SDT" Type="char" MaxLength="15" />
+          <Property Name="Fax" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenNV" Type="nvarchar" MaxLength="50" />
+          <Property Name="GioiTinh" Type="bit" />
+          <Property Name="NgaySinh" Type="date" />
+          <Property Name="SDT" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="NhaSX">
+          <Key>
+            <PropertyRef Name="MaNSX" />
+          </Key>
+          <Property Name="MaNSX" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TenNSX" Type="nvarchar" MaxLength="255" />
+          <Property Name="DiaChi" Type="nvarchar" MaxLength="255" />
+          <Property Name="EMail" Type="char" MaxLength="255" />
+          <Property Name="SDT" Type="char" MaxLength="15" />
+          <Property Name="Fax" Type="char" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_CT_HDNhap_Giay">
+          <End Role="Giay" Type="Self.Giay" Multiplicity="1" />
+          <End Role="CT_HDNhap" Type="Self.CT_HDNhap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giay">
+              <PropertyRef Name="MaGiay" />
+            </Principal>
+            <Dependent Role="CT_HDNhap">
+              <PropertyRef Name="MaGiay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CT_HDNhap_HoaDonNhap">
+          <End Role="HoaDonNhap" Type="Self.HoaDonNhap" Multiplicity="1" />
+          <End Role="CT_HDNhap" Type="Self.CT_HDNhap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDonNhap">
+              <PropertyRef Name="MaHDNhap" />
+            </Principal>
+            <Dependent Role="CT_HDNhap">
+              <PropertyRef Name="MaHDNhap" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CT_HDXuat_Giay">
+          <End Role="Giay" Type="Self.Giay" Multiplicity="1" />
+          <End Role="CT_HDXuat" Type="Self.CT_HDXuat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giay">
+              <PropertyRef Name="MaGiay" />
+            </Principal>
+            <Dependent Role="CT_HDXuat">
+              <PropertyRef Name="MaGiay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CT_HDXuat_HoaDonXuat">
+          <End Role="HoaDonXuat" Type="Self.HoaDonXuat" Multiplicity="1" />
+          <End Role="CT_HDXuat" Type="Self.CT_HDXuat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDonXuat">
+              <PropertyRef Name="MaHDXuat" />
+            </Principal>
+            <Dependent Role="CT_HDXuat">
+              <PropertyRef Name="MaHDXuat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Giay_LoaiGiay">
+          <End Role="LoaiGiay" Type="Self.LoaiGiay" Multiplicity="0..1" />
+          <End Role="Giay" Type="Self.Giay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiGiay">
+              <PropertyRef Name="MaLG" />
+            </Principal>
+            <Dependent Role="Giay">
+              <PropertyRef Name="MaLG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Giay_NhaSX">
+          <End Role="NhaSX" Type="Self.NhaSX" Multiplicity="0..1" />
+          <End Role="Giay" Type="Self.Giay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhaSX">
+              <PropertyRef Name="MaNSX" />
+            </Principal>
+            <Dependent Role="Giay">
+              <PropertyRef Name="MaNSX" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDonNhap_NhaCC">
+          <End Role="NhaCC" Type="Self.NhaCC" Multiplicity="0..1" />
+          <End Role="HoaDonNhap" Type="Self.HoaDonNhap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhaCC">
+              <PropertyRef Name="MaNCC" />
+            </Principal>
+            <Dependent Role="HoaDonNhap">
+              <PropertyRef Name="MaNCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDonNhap_NhanVien1">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="HoaDonNhap" Type="Self.HoaDonNhap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="HoaDonNhap">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDonXuat_KhachHang1">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="HoaDonXuat" Type="Self.HoaDonXuat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="HoaDonXuat">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDonXuat_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="HoaDonXuat" Type="Self.HoaDonXuat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="HoaDonXuat">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_QLBanGiayModelStoreContainer">
+          <EntitySet Name="CT_HDNhap" EntityType="Self.CT_HDNhap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CT_HDXuat" EntityType="Self.CT_HDXuat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Giay" EntityType="Self.Giay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDonNhap" EntityType="Self.HoaDonNhap" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HoaDonXuat" EntityType="Self.HoaDonXuat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KhachHang" EntityType="Self.KhachHang" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoaiGiay" EntityType="Self.LoaiGiay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhaCC" EntityType="Self.NhaCC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhanVien" EntityType="Self.NhanVien" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NhaSX" EntityType="Self.NhaSX" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_CT_HDNhap_Giay" Association="Self.FK_CT_HDNhap_Giay">
+            <End Role="Giay" EntitySet="Giay" />
+            <End Role="CT_HDNhap" EntitySet="CT_HDNhap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CT_HDNhap_HoaDonNhap" Association="Self.FK_CT_HDNhap_HoaDonNhap">
+            <End Role="HoaDonNhap" EntitySet="HoaDonNhap" />
+            <End Role="CT_HDNhap" EntitySet="CT_HDNhap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CT_HDXuat_Giay" Association="Self.FK_CT_HDXuat_Giay">
+            <End Role="Giay" EntitySet="Giay" />
+            <End Role="CT_HDXuat" EntitySet="CT_HDXuat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CT_HDXuat_HoaDonXuat" Association="Self.FK_CT_HDXuat_HoaDonXuat">
+            <End Role="HoaDonXuat" EntitySet="HoaDonXuat" />
+            <End Role="CT_HDXuat" EntitySet="CT_HDXuat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Giay_LoaiGiay" Association="Self.FK_Giay_LoaiGiay">
+            <End Role="LoaiGiay" EntitySet="LoaiGiay" />
+            <End Role="Giay" EntitySet="Giay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Giay_NhaSX" Association="Self.FK_Giay_NhaSX">
+            <End Role="NhaSX" EntitySet="NhaSX" />
+            <End Role="Giay" EntitySet="Giay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDonNhap_NhaCC" Association="Self.FK_HoaDonNhap_NhaCC">
+            <End Role="NhaCC" EntitySet="NhaCC" />
+            <End Role="HoaDonNhap" EntitySet="HoaDonNhap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDonNhap_NhanVien1" Association="Self.FK_HoaDonNhap_NhanVien1">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="HoaDonNhap" EntitySet="HoaDonNhap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDonXuat_KhachHang1" Association="Self.FK_HoaDonXuat_KhachHang1">
+            <End Role="KhachHang" EntitySet="KhachHang" />
+            <End Role="HoaDonXuat" EntitySet="HoaDonXuat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDonXuat_NhanVien" Association="Self.FK_HoaDonXuat_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanVien" />
+            <End Role="HoaDonXuat" EntitySet="HoaDonXuat" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_QLBanGiayModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CT_HDNhap">
+          <Key>
+            <PropertyRef Name="MaHDNhap" />
+            <PropertyRef Name="MaGiay" />
+          </Key>
+          <Property Name="MaHDNhap" Type="Int32" Nullable="false" />
+          <Property Name="MaGiay" Type="Int32" Nullable="false" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="Gia" Type="Int32" />
+          <NavigationProperty Name="Giay" Relationship="Self.FK_CT_HDNhap_Giay" FromRole="CT_HDNhap" ToRole="Giay" />
+          <NavigationProperty Name="HoaDonNhap" Relationship="Self.FK_CT_HDNhap_HoaDonNhap" FromRole="CT_HDNhap" ToRole="HoaDonNhap" />
+        </EntityType>
+        <EntityType Name="CT_HDXuat">
+          <Key>
+            <PropertyRef Name="MaHDXuat" />
+            <PropertyRef Name="MaGiay" />
+          </Key>
+          <Property Name="MaHDXuat" Type="Int32" Nullable="false" />
+          <Property Name="MaGiay" Type="Int32" Nullable="false" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="Gia" Type="Int32" />
+          <NavigationProperty Name="Giay" Relationship="Self.FK_CT_HDXuat_Giay" FromRole="CT_HDXuat" ToRole="Giay" />
+          <NavigationProperty Name="HoaDonXuat" Relationship="Self.FK_CT_HDXuat_HoaDonXuat" FromRole="CT_HDXuat" ToRole="HoaDonXuat" />
+        </EntityType>
+        <EntityType Name="Giay">
+          <Key>
+            <PropertyRef Name="MaGiay" />
+          </Key>
+          <Property Name="MaGiay" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenGiay" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MaNSX" Type="Int32" />
+          <Property Name="MaLG" Type="Int32" />
+          <Property Name="SoLuong" Type="Int32" />
+          <Property Name="KichCo" Type="Int32" />
+          <Property Name="MauSac" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Gia" Type="Int32" />
+          <Property Name="HinhAnh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="CT_HDNhap" Relationship="Self.FK_CT_HDNhap_Giay" FromRole="Giay" ToRole="CT_HDNhap" />
+          <NavigationProperty Name="CT_HDXuat" Relationship="Self.FK_CT_HDXuat_Giay" FromRole="Giay" ToRole="CT_HDXuat" />
+          <NavigationProperty Name="LoaiGiay" Relationship="Self.FK_Giay_LoaiGiay" FromRole="Giay" ToRole="LoaiGiay" />
+          <NavigationProperty Name="NhaSX" Relationship="Self.FK_Giay_NhaSX" FromRole="Giay" ToRole="NhaSX" />
+        </EntityType>
+        <EntityType Name="HoaDonNhap">
+          <Key>
+            <PropertyRef Name="MaHDNhap" />
+          </Key>
+          <Property Name="MaHDNhap" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NgayNhap" Type="DateTime" Precision="0" />
+          <Property Name="MaNV" Type="Int32" />
+          <Property Name="TongTien" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MaNCC" Type="Int32" />
+          <NavigationProperty Name="CT_HDNhap" Relationship="Self.FK_CT_HDNhap_HoaDonNhap" FromRole="HoaDonNhap" ToRole="CT_HDNhap" />
+          <NavigationProperty Name="NhaCC" Relationship="Self.FK_HoaDonNhap_NhaCC" FromRole="HoaDonNhap" ToRole="NhaCC" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK_HoaDonNhap_NhanVien1" FromRole="HoaDonNhap" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="HoaDonXuat">
+          <Key>
+            <PropertyRef Name="MaHDXuat" />
+          </Key>
+          <Property Name="MaHDXuat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NgayXuat" Type="DateTime" Precision="0" />
+          <Property Name="MaKH" Type="Int32" />
+          <Property Name="TongTien" Type="Decimal" Precision="18" Scale="0" />
+          <Property Name="MaNV" Type="Int32" />
+          <NavigationProperty Name="CT_HDXuat" Relationship="Self.FK_CT_HDXuat_HoaDonXuat" FromRole="HoaDonXuat" ToRole="CT_HDXuat" />
+          <NavigationProperty Name="KhachHang" Relationship="Self.FK_HoaDonXuat_KhachHang1" FromRole="HoaDonXuat" ToRole="KhachHang" />
+          <NavigationProperty Name="NhanVien" Relationship="Self.FK_HoaDonXuat_NhanVien" FromRole="HoaDonXuat" ToRole="NhanVien" />
+        </EntityType>
+        <EntityType Name="KhachHang">
+          <Key>
+            <PropertyRef Name="MaKH" />
+          </Key>
+          <Property Name="MaKH" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenKH" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="Boolean" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="HoaDonXuats" Relationship="Self.FK_HoaDonXuat_KhachHang1" FromRole="KhachHang" ToRole="HoaDonXuat" />
+        </EntityType>
+        <EntityType Name="LoaiGiay">
+          <Key>
+            <PropertyRef Name="MaLG" />
+          </Key>
+          <Property Name="MaLG" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenLG" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Giays" Relationship="Self.FK_Giay_LoaiGiay" FromRole="LoaiGiay" ToRole="Giay" />
+        </EntityType>
+        <EntityType Name="NhaCC">
+          <Key>
+            <PropertyRef Name="MaNCC" />
+          </Key>
+          <Property Name="MaNCC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNCC" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EMail" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="HoaDonNhaps" Relationship="Self.FK_HoaDonNhap_NhaCC" FromRole="NhaCC" ToRole="HoaDonNhap" />
+        </EntityType>
+        <EntityType Name="NhanVien">
+          <Key>
+            <PropertyRef Name="MaNV" />
+          </Key>
+          <Property Name="MaNV" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNV" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GioiTinh" Type="Boolean" />
+          <Property Name="NgaySinh" Type="DateTime" Precision="0" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="HoaDonNhaps" Relationship="Self.FK_HoaDonNhap_NhanVien1" FromRole="NhanVien" ToRole="HoaDonNhap" />
+          <NavigationProperty Name="HoaDonXuats" Relationship="Self.FK_HoaDonXuat_NhanVien" FromRole="NhanVien" ToRole="HoaDonXuat" />
+        </EntityType>
+        <EntityType Name="NhaSX">
+          <Key>
+            <PropertyRef Name="MaNSX" />
+          </Key>
+          <Property Name="MaNSX" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TenNSX" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DiaChi" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EMail" Type="String" MaxLength="255" FixedLength="true" Unicode="false" />
+          <Property Name="SDT" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <Property Name="Fax" Type="String" MaxLength="15" FixedLength="true" Unicode="false" />
+          <NavigationProperty Name="Giays" Relationship="Self.FK_Giay_NhaSX" FromRole="NhaSX" ToRole="Giay" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_CT_HDNhap_Giay">
+          <End Role="Giay" Type="Self.Giay" Multiplicity="1" />
+          <End Role="CT_HDNhap" Type="Self.CT_HDNhap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giay">
+              <PropertyRef Name="MaGiay" />
+            </Principal>
+            <Dependent Role="CT_HDNhap">
+              <PropertyRef Name="MaGiay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CT_HDNhap_HoaDonNhap">
+          <End Role="HoaDonNhap" Type="Self.HoaDonNhap" Multiplicity="1" />
+          <End Role="CT_HDNhap" Type="Self.CT_HDNhap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDonNhap">
+              <PropertyRef Name="MaHDNhap" />
+            </Principal>
+            <Dependent Role="CT_HDNhap">
+              <PropertyRef Name="MaHDNhap" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CT_HDXuat_Giay">
+          <End Role="Giay" Type="Self.Giay" Multiplicity="1" />
+          <End Role="CT_HDXuat" Type="Self.CT_HDXuat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Giay">
+              <PropertyRef Name="MaGiay" />
+            </Principal>
+            <Dependent Role="CT_HDXuat">
+              <PropertyRef Name="MaGiay" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_CT_HDXuat_HoaDonXuat">
+          <End Role="HoaDonXuat" Type="Self.HoaDonXuat" Multiplicity="1" />
+          <End Role="CT_HDXuat" Type="Self.CT_HDXuat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HoaDonXuat">
+              <PropertyRef Name="MaHDXuat" />
+            </Principal>
+            <Dependent Role="CT_HDXuat">
+              <PropertyRef Name="MaHDXuat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Giay_LoaiGiay">
+          <End Role="LoaiGiay" Type="Self.LoaiGiay" Multiplicity="0..1" />
+          <End Role="Giay" Type="Self.Giay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoaiGiay">
+              <PropertyRef Name="MaLG" />
+            </Principal>
+            <Dependent Role="Giay">
+              <PropertyRef Name="MaLG" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Giay_NhaSX">
+          <End Role="NhaSX" Type="Self.NhaSX" Multiplicity="0..1" />
+          <End Role="Giay" Type="Self.Giay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhaSX">
+              <PropertyRef Name="MaNSX" />
+            </Principal>
+            <Dependent Role="Giay">
+              <PropertyRef Name="MaNSX" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDonNhap_NhaCC">
+          <End Role="NhaCC" Type="Self.NhaCC" Multiplicity="0..1" />
+          <End Role="HoaDonNhap" Type="Self.HoaDonNhap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhaCC">
+              <PropertyRef Name="MaNCC" />
+            </Principal>
+            <Dependent Role="HoaDonNhap">
+              <PropertyRef Name="MaNCC" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDonNhap_NhanVien1">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="HoaDonNhap" Type="Self.HoaDonNhap" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="HoaDonNhap">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDonXuat_KhachHang1">
+          <End Role="KhachHang" Type="Self.KhachHang" Multiplicity="0..1" />
+          <End Role="HoaDonXuat" Type="Self.HoaDonXuat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KhachHang">
+              <PropertyRef Name="MaKH" />
+            </Principal>
+            <Dependent Role="HoaDonXuat">
+              <PropertyRef Name="MaKH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HoaDonXuat_NhanVien">
+          <End Role="NhanVien" Type="Self.NhanVien" Multiplicity="0..1" />
+          <End Role="HoaDonXuat" Type="Self.HoaDonXuat" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NhanVien">
+              <PropertyRef Name="MaNV" />
+            </Principal>
+            <Dependent Role="HoaDonXuat">
+              <PropertyRef Name="MaNV" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CT_HDNhap" EntityType="Self.CT_HDNhap" />
+          <EntitySet Name="CT_HDXuat" EntityType="Self.CT_HDXuat" />
+          <EntitySet Name="Giays" EntityType="Self.Giay" />
+          <EntitySet Name="HoaDonNhaps" EntityType="Self.HoaDonNhap" />
+          <EntitySet Name="HoaDonXuats" EntityType="Self.HoaDonXuat" />
+          <EntitySet Name="KhachHangs" EntityType="Self.KhachHang" />
+          <EntitySet Name="LoaiGiays" EntityType="Self.LoaiGiay" />
+          <EntitySet Name="NhaCCs" EntityType="Self.NhaCC" />
+          <EntitySet Name="NhanViens" EntityType="Self.NhanVien" />
+          <EntitySet Name="NhaSXes" EntityType="Self.NhaSX" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_CT_HDNhap_Giay" Association="Self.FK_CT_HDNhap_Giay">
+            <End Role="Giay" EntitySet="Giays" />
+            <End Role="CT_HDNhap" EntitySet="CT_HDNhap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CT_HDNhap_HoaDonNhap" Association="Self.FK_CT_HDNhap_HoaDonNhap">
+            <End Role="HoaDonNhap" EntitySet="HoaDonNhaps" />
+            <End Role="CT_HDNhap" EntitySet="CT_HDNhap" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CT_HDXuat_Giay" Association="Self.FK_CT_HDXuat_Giay">
+            <End Role="Giay" EntitySet="Giays" />
+            <End Role="CT_HDXuat" EntitySet="CT_HDXuat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_CT_HDXuat_HoaDonXuat" Association="Self.FK_CT_HDXuat_HoaDonXuat">
+            <End Role="HoaDonXuat" EntitySet="HoaDonXuats" />
+            <End Role="CT_HDXuat" EntitySet="CT_HDXuat" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Giay_LoaiGiay" Association="Self.FK_Giay_LoaiGiay">
+            <End Role="LoaiGiay" EntitySet="LoaiGiays" />
+            <End Role="Giay" EntitySet="Giays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Giay_NhaSX" Association="Self.FK_Giay_NhaSX">
+            <End Role="NhaSX" EntitySet="NhaSXes" />
+            <End Role="Giay" EntitySet="Giays" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDonNhap_NhaCC" Association="Self.FK_HoaDonNhap_NhaCC">
+            <End Role="NhaCC" EntitySet="NhaCCs" />
+            <End Role="HoaDonNhap" EntitySet="HoaDonNhaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDonNhap_NhanVien1" Association="Self.FK_HoaDonNhap_NhanVien1">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="HoaDonNhap" EntitySet="HoaDonNhaps" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDonXuat_KhachHang1" Association="Self.FK_HoaDonXuat_KhachHang1">
+            <End Role="KhachHang" EntitySet="KhachHangs" />
+            <End Role="HoaDonXuat" EntitySet="HoaDonXuats" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HoaDonXuat_NhanVien" Association="Self.FK_HoaDonXuat_NhanVien">
+            <End Role="NhanVien" EntitySet="NhanViens" />
+            <End Role="HoaDonXuat" EntitySet="HoaDonXuats" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_QLBanGiayModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="CT_HDNhap">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.CT_HDNhap">
+              <MappingFragment StoreEntitySet="CT_HDNhap">
+                <ScalarProperty Name="MaHDNhap" ColumnName="MaHDNhap" />
+                <ScalarProperty Name="MaGiay" ColumnName="MaGiay" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="Gia" ColumnName="Gia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CT_HDXuat">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.CT_HDXuat">
+              <MappingFragment StoreEntitySet="CT_HDXuat">
+                <ScalarProperty Name="MaHDXuat" ColumnName="MaHDXuat" />
+                <ScalarProperty Name="MaGiay" ColumnName="MaGiay" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="Gia" ColumnName="Gia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Giays">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.Giay">
+              <MappingFragment StoreEntitySet="Giay">
+                <ScalarProperty Name="MaGiay" ColumnName="MaGiay" />
+                <ScalarProperty Name="TenGiay" ColumnName="TenGiay" />
+                <ScalarProperty Name="MaNSX" ColumnName="MaNSX" />
+                <ScalarProperty Name="MaLG" ColumnName="MaLG" />
+                <ScalarProperty Name="SoLuong" ColumnName="SoLuong" />
+                <ScalarProperty Name="KichCo" ColumnName="KichCo" />
+                <ScalarProperty Name="MauSac" ColumnName="MauSac" />
+                <ScalarProperty Name="Gia" ColumnName="Gia" />
+                <ScalarProperty Name="HinhAnh" ColumnName="HinhAnh" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDonNhaps">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.HoaDonNhap">
+              <MappingFragment StoreEntitySet="HoaDonNhap">
+                <ScalarProperty Name="MaHDNhap" ColumnName="MaHDNhap" />
+                <ScalarProperty Name="NgayNhap" ColumnName="NgayNhap" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HoaDonXuats">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.HoaDonXuat">
+              <MappingFragment StoreEntitySet="HoaDonXuat">
+                <ScalarProperty Name="MaHDXuat" ColumnName="MaHDXuat" />
+                <ScalarProperty Name="NgayXuat" ColumnName="NgayXuat" />
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="TongTien" ColumnName="TongTien" />
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KhachHangs">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.KhachHang">
+              <MappingFragment StoreEntitySet="KhachHang">
+                <ScalarProperty Name="MaKH" ColumnName="MaKH" />
+                <ScalarProperty Name="TenKH" ColumnName="TenKH" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoaiGiays">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.LoaiGiay">
+              <MappingFragment StoreEntitySet="LoaiGiay">
+                <ScalarProperty Name="MaLG" ColumnName="MaLG" />
+                <ScalarProperty Name="TenLG" ColumnName="TenLG" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhaCCs">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.NhaCC">
+              <MappingFragment StoreEntitySet="NhaCC">
+                <ScalarProperty Name="MaNCC" ColumnName="MaNCC" />
+                <ScalarProperty Name="TenNCC" ColumnName="TenNCC" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhanViens">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.NhanVien">
+              <MappingFragment StoreEntitySet="NhanVien">
+                <ScalarProperty Name="MaNV" ColumnName="MaNV" />
+                <ScalarProperty Name="TenNV" ColumnName="TenNV" />
+                <ScalarProperty Name="GioiTinh" ColumnName="GioiTinh" />
+                <ScalarProperty Name="NgaySinh" ColumnName="NgaySinh" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NhaSXes">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.NhaSX">
+              <MappingFragment StoreEntitySet="NhaSX">
+                <ScalarProperty Name="MaNSX" ColumnName="MaNSX" />
+                <ScalarProperty Name="TenNSX" ColumnName="TenNSX" />
+                <ScalarProperty Name="DiaChi" ColumnName="DiaChi" />
+                <ScalarProperty Name="EMail" ColumnName="EMail" />
+                <ScalarProperty Name="SDT" ColumnName="SDT" />
+                <ScalarProperty Name="Fax" ColumnName="Fax" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DB_QLBanGiayModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
