@@ -1,0 +1,27 @@
+﻿@using WebAppMVC5.Models.EF
+@model List<MailInfo>
+@{
+    ViewBag.Title = "Mail";
+}
+
+<h2>Mail</h2>
+
+<table class="table table-hover table-bordered table-sm">
+    <thead>
+        <tr>
+            <th>To</th>
+            <th>Subject</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var mail in Model)
+        {
+            <tr>
+                <td>@mail.To</td>
+                <td>@mail.Subject</td>
+                <td>@mail.Note</td>
+            </tr>
+        }
+    </tbody>
+</table>

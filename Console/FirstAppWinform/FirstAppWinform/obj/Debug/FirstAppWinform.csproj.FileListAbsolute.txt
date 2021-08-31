@@ -1,0 +1,7 @@
+D:\csharp\Console\FirstAppWinform\FirstAppWinform\bin\Debug\FirstAppWinform.exe.config
+D:\csharp\Console\FirstAppWinform\FirstAppWinform\bin\Debug\FirstAppWinform.exe
+D:\csharp\Console\FirstAppWinform\FirstAppWinform\bin\Debug\FirstAppWinform.pdb
+D:\csharp\Console\FirstAppWinform\FirstAppWinform\obj\Debug\FirstAppWinform.csprojAssemblyReference.cache
+D:\csharp\Console\FirstAppWinform\FirstAppWinform\obj\Debug\FirstAppWinform.csproj.CoreCompileInputs.cache
+D:\csharp\Console\FirstAppWinform\FirstAppWinform\obj\Debug\FirstAppWinform.exe
+D:\csharp\Console\FirstAppWinform\FirstAppWinform\obj\Debug\FirstAppWinform.pdb

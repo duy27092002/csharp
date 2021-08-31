@@ -1,0 +1,38 @@
+﻿@model WebAppMVC5.Models.EF.MailInfo
+@{
+    ViewBag.Title = "Helper";
+}
+
+<h2>Helper</h2>
+
+@Html.ActionLink("Giới thiệu", "About")
+@Html.ActionLink("Giới thiệu", "About", "Home")
+@Html.ActionLink("Giới thiệu", "About", "Home", new { id = 10 }, htmlAttributes: new { @class = "btn btn-sm btn-success" })
+
+@using (Html.BeginForm("Index", "SendMail", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h3>Gửi mail</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label class="fw-bold">Email người nhận:</label>
+                @*@Html.TextBoxFor(model => model.To, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownListFor(model => model.To, ViewBag.MailInfos as SelectList, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="fw-bold">Chủ đề:</label>
+                @Html.TextBoxFor(model => model.Subject, htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label class="fw-bold">Nội dung:</label>
+                @Html.TextAreaFor(model => model.Note, htmlAttributes: new { @class = "form-control", @rows = "15" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Gửi" />
+            </div>
+        </div>
+    </div>
+}

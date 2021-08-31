@@ -1,0 +1,51 @@
+﻿@model WebAppMVC5.Models.EF.Homework1
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Chương trình tính phương trình bậc 2 có dạng: <span class="text-danger">ax^2 + bx + c = 0</span></h2>
+
+@using (Html.BeginForm("Index", "Homework1", FormMethod.Post)) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Hãy nhập các hệ số</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            <label class="control-label col-md-2">Hệ số bậc hai a: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstOrderCoefficient, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstOrderCoefficient, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Hệ số bậc nhất b: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.SecondOrderCoefficient, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SecondOrderCoefficient, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label col-md-2">Hệ số tự do c: </label>
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CoefficientOfFreedom, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CoefficientOfFreedom, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Tính" class="btn btn-sm btn-success" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <p><span class="fw-bold">Kết quả</span>: @ViewBag.Result</p>
+        </div>
+    </div>
+}
