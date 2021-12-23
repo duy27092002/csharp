@@ -106,3 +106,7 @@ D:\csharp\Console\FirstAppWinform\WebAppMVC5\obj\Debug\WebAppMVC5.csproj.CoreCom
 D:\csharp\Console\FirstAppWinform\WebAppMVC5\obj\Debug\WebAppMVC5.csproj.CopyComplete
 D:\csharp\Console\FirstAppWinform\WebAppMVC5\obj\Debug\WebAppMVC5.dll
 D:\csharp\Console\FirstAppWinform\WebAppMVC5\obj\Debug\WebAppMVC5.pdb
+D:\csharp\Console\FirstAppWinform\WebAppMVC5\bin\PagedList.dll
+D:\csharp\Console\FirstAppWinform\WebAppMVC5\bin\PagedList.Mvc.dll
+D:\csharp\Console\FirstAppWinform\WebAppMVC5\bin\PagedList.xml
+D:\csharp\Console\FirstAppWinform\WebAppMVC5\bin\PagedList.Mvc.xml

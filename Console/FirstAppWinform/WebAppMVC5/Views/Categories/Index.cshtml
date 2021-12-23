@@ -1,0 +1,83 @@
+﻿@*@model IEnumerable<WebAppMVC5.Models.EF.Category>*@
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Trang chủ</h2>
+
+<p>
+    @Html.ActionLink("Tạo mới", "Create")
+</p>
+
+@*@using (Html.BeginForm())
+{*@
+<div class="d-flex flex-row-reverse">
+    <input name="keyword" id="keyword" class="form-control" style="float:left"
+           placeholder="Nhập từ khóa" value="@ViewBag.Keyword" autofocus />
+    @*<input name="pageCount" id="pageCount" class="form-control" style="float:left" value="@ViewBag.PageCount" />
+    <input name="pageSize" id="pageSize" class="form-control" style="float:left" value="@ViewBag.PageSize" />
+    <input name="pageNumber" id="pageNumber" class="form-control" style="float:left" value="@ViewBag.PageNumber" />*@
+    <button id="btn-search" type="button" class="btn btn-primary">Tìm kiếm</button>
+</div>
+@*}*@
+
+@*<table class="table">
+    <tr>
+        <th>Tên loại</th>
+        <th>Tên tiếng Việt</th>
+        <th>Thao tác</th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NameVN)
+        </td>
+        <td>
+            @Html.ActionLink("Sửa", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Chi tiết", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Xóa", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>*@
+
+<div id="data">
+
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            loadData();
+            $('#btn-search').click(function () {
+                loadData();
+            });
+            $('body').on('click', '.pagination li a', function () {
+                console.log($(this).text());
+                loadData($(this).text());
+            });
+        })
+
+        function loadData(pageNumber) {
+            $.ajax({
+                type: "get",
+                url: "/Categories/GetViewTableInfo",
+                data: {
+                    keyword: $('#keyword').val(),
+                    pageNumber: pageNumber,
+                    pageSize: 10
+                },
+                success: function (response) {
+                    $('#data').html(response);
+                    $('.pagination li a').attr('href', '#');
+                }
+            })
+        }
+    </script>    
+}

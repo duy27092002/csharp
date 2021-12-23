@@ -1,0 +1,30 @@
+﻿@model WebAppMVC5.Models.EF.Category
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Chi tiết</h2>
+
+<div>
+    <h4>Danh mục</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>Tên loại</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>Tên tiếng Việt</dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NameVN)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Sửa", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Quay lại", "Index")
+</p>

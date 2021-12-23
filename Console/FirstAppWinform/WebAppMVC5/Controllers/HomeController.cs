@@ -93,5 +93,10 @@ namespace WebAppMVC5.Controllers
             }, "Value", "Name", student.Gender);
             return View (student);
         }
+
+        public ActionResult TestJQuery()
+        {
+            return View();
+        }
     }
 }

@@ -1,0 +1,89 @@
+﻿@model WebSales.Models.EF.Product
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center">Bạn có thực sự muốn xóa không?</h2>
+            <hr />
+            @Html.HiddenFor(model => model.ID)
+
+            <div class="form-group">
+                <label class="font-weight-bold pl-2">Hình ảnh</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control bg-white" readonly value="@Model.Image" />
+                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold pl-2">Tên sản phẩm</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control bg-white" readonly value="@Model.Name" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold pl-2">Danh mục</label>
+                <div class="col-md-12">
+                    <input type="text" class="form-control bg-white" readonly value="@Model.Category.Name" />
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
+                    <label class="font-weight-bold pl-2">Đơn giá</label>
+                    <div class="col-md-12">
+                        <input type="text" class="form-control bg-white" readonly value="@String.Format("{0:0,0}", Model.UnitPrice)" />
+                    </div>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
+                    <label class="font-weight-bold pl-2">Ngày sản xuất</label>
+                    <div class="col-md-12">
+                        @{
+                            var getProductDate = Model.ProductDate.ToString("dd/MM/yyyy");
+                        }
+                        <input type="text" class="form-control bg-white" readonly value="@getProductDate" />
+                        @Html.ValidationMessageFor(model => model.ProductDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
+                    <label class="font-weight-bold pl-2">Tình trạng kinh doanh</label>
+                    <div class="col-md-12">
+                        @if (Model.Available == true)
+                        {
+                            <input class="form-control bg-white" id="Available" name="Available" value="Còn bán" readonly />
+                        }
+                        else
+                        {
+                            <input class="form-control bg-white" id="Available" name="Available" value="Ngừng bán" readonly />
+                        }
+                        @Html.ValidationMessageFor(model => model.Available, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold pl-2">Mô tả</label>
+                <div class="col-md-12">
+                    <textarea class="form-control bg-white" id="Description" name="Description" readonly>@Model.Description</textarea>
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-3">
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                @Html.ActionLink("Quay Lại", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+            </div>
+        </div>
+    </div>
+}

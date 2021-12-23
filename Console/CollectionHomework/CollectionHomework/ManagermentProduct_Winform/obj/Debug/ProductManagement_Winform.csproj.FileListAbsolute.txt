@@ -1,0 +1,10 @@
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\obj\Debug\ProductManagement_Winform.csprojAssemblyReference.cache
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\obj\Debug\ManagermentProduct_Winform.Properties.Resources.resources
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\obj\Debug\ProductManagement_Winform.csproj.GenerateResource.cache
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\obj\Debug\ProductManagement_Winform.csproj.CoreCompileInputs.cache
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\obj\Debug\ManagermentProduct_Winform.frmProd.resources
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\bin\Debug\ManagermentProduct_Winform.exe.config
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\bin\Debug\ManagermentProduct_Winform.exe
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\bin\Debug\ManagermentProduct_Winform.pdb
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\obj\Debug\ManagermentProduct_Winform.exe
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_Winform\obj\Debug\ManagermentProduct_Winform.pdb

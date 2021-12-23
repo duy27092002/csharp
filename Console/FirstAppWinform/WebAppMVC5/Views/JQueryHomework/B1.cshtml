@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "B1";
+}
+
+<h2 class="text-center">Kiểm tra tam giác</h2>
+
+<div class="container">
+    <div class="form-group">
+        <label>Nhập độ dài cạnh thứ nhất:</label>
+        <input type="number" id="firstEdge" name="firstEdge" class="form-control" min="0" />
+    </div>
+    <div class="form-group">
+        <label>Nhập độ dài cạnh thứ hai:</label>
+        <input type="number" id="secondEdge" name="secondEdge" class="form-control" min="0" />
+    </div>
+    <div class="form-group">
+        <label>Nhập độ dài cạnh thứ ba:</label>
+        <input type="number" id="thirdEdge" name="thirdEdge" class="form-control" min="0" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-sm btn-success" id="btnCheck">Kiểm tra</button>
+    </div>
+    <p id="result"></p>
+</div>
+
+@section scripts{
+    <script>
+        $(function () {
+            $('#btnCheck').click(function () {
+                var a = Number($('#firstEdge').val());
+                var b = Number($('#secondEdge').val());
+                var c = Number($('#thirdEdge').val());
+
+                if ((a + b) > c && (a + c) > b && (b + c) > a) {
+                    if (a * a == b * b + c * c || b * b == a * a + c * c || c * c == b * b + a * a) {
+                        $('#result').html('<span class="text-success">Ba cạnh trên tạo thành tam giác vuông</span>');
+                    } else if (a == b && b == c) {
+                        $('#result').html('<span class="text-success">Ba cạnh trên tạo thành tam giác đều</span>');
+                    } else if (a == b && a != c || a == c && b != c || b == c && b != a) {
+                        $('#result').html('<span class="text-success">Ba cạnh trên tạo thành tam giác cân</span>');
+                    } else if (a * a > b * b + c * c || b * b > a * a + c * c || c * c > a * a + b * b) {
+                        $('#result').html('<span class="text-success">Ba cạnh trên tạo thành tam giác tù</span>');
+                    } else {
+                        $('#result').html('<span class="text-success">Ba cạnh trên tạo thành tam giác nhọn</span>');
+                    }
+                } else {
+                    $('#result').html('<span class="text-danger">Không thể tạo thành tam giác</span>');
+                }
+            });
+        });
+    </script>    
+}

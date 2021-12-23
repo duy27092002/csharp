@@ -1,0 +1,7 @@
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_ConsoleApp\bin\Debug\ManagermentProduct_ConsoleApp.exe.config
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_ConsoleApp\bin\Debug\ManagermentProduct_ConsoleApp.exe
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_ConsoleApp\bin\Debug\ManagermentProduct_ConsoleApp.pdb
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_ConsoleApp\obj\Debug\ProductManagement_ConsoleApp.csproj.CoreCompileInputs.cache
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_ConsoleApp\obj\Debug\ManagermentProduct_ConsoleApp.exe
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_ConsoleApp\obj\Debug\ManagermentProduct_ConsoleApp.pdb
+D:\csharp\Console\CollectionHomework\CollectionHomework\ManagermentProduct_ConsoleApp\obj\Debug\ProductManagement_ConsoleApp.csprojAssemblyReference.cache

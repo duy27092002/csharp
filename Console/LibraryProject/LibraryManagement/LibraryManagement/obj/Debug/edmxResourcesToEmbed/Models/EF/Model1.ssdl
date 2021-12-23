@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_LibraryManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="BId" />
+    </Key>
+    <Property Name="BId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="BAuthor" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="BPublisher" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="BPrice" Type="float" Nullable="false" />
+    <Property Name="BQuantity" Type="int" Nullable="false" />
+    <Property Name="BInportTime" Type="date" Nullable="false" />
+    <Property Name="BYear" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PromissoryNote">
+    <Key>
+      <PropertyRef Name="PNId" />
+    </Key>
+    <Property Name="PNId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UId" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PromissoryNoteDetails">
+    <Key>
+      <PropertyRef Name="PNId" />
+      <PropertyRef Name="BId" />
+    </Key>
+    <Property Name="PNId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="BorrowedDate" Type="date" Nullable="false" />
+    <Property Name="PayDate" Type="date" Nullable="false" />
+    <Property Name="Cost" Type="float" Nullable="false" />
+    <Property Name="Status" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reader">
+    <Key>
+      <PropertyRef Name="RId" />
+    </Key>
+    <Property Name="RId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="RPhone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="RAddress" Type="nvarchar" MaxLength="255" />
+    <Property Name="RIdCardNumber" Type="varchar" MaxLength="100" />
+    <Property Name="RStatus" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UId" />
+    </Key>
+    <Property Name="UId" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="UName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UPhone" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="UAddress" Type="nvarchar" MaxLength="255" />
+    <Property Name="UUsername" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UPassword" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="UType" Type="tinyint" Nullable="false" />
+    <Property Name="UStatus" Type="tinyint" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_PromissoryNote_Reader">
+    <End Role="Reader" Type="Self.Reader" Multiplicity="1" />
+    <End Role="PromissoryNote" Type="Self.PromissoryNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Reader">
+        <PropertyRef Name="RId" />
+      </Principal>
+      <Dependent Role="PromissoryNote">
+        <PropertyRef Name="RId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PromissoryNote_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="PromissoryNote" Type="Self.PromissoryNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="UId" />
+      </Principal>
+      <Dependent Role="PromissoryNote">
+        <PropertyRef Name="UId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PromissoryNoteDetails_Book">
+    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="PromissoryNoteDetails" Type="Self.PromissoryNoteDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="BId" />
+      </Principal>
+      <Dependent Role="PromissoryNoteDetails">
+        <PropertyRef Name="BId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PromissoryNoteDetails_PromissoryNote">
+    <End Role="PromissoryNote" Type="Self.PromissoryNote" Multiplicity="1" />
+    <End Role="PromissoryNoteDetails" Type="Self.PromissoryNoteDetails" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PromissoryNote">
+        <PropertyRef Name="PNId" />
+      </Principal>
+      <Dependent Role="PromissoryNoteDetails">
+        <PropertyRef Name="PNId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_LibraryManagementModelStoreContainer">
+    <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PromissoryNote" EntityType="Self.PromissoryNote" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PromissoryNoteDetails" EntityType="Self.PromissoryNoteDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reader" EntityType="Self.Reader" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_PromissoryNote_Reader" Association="Self.FK_PromissoryNote_Reader">
+      <End Role="Reader" EntitySet="Reader" />
+      <End Role="PromissoryNote" EntitySet="PromissoryNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PromissoryNote_User" Association="Self.FK_PromissoryNote_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="PromissoryNote" EntitySet="PromissoryNote" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PromissoryNoteDetails_Book" Association="Self.FK_PromissoryNoteDetails_Book">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="PromissoryNoteDetails" EntitySet="PromissoryNoteDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PromissoryNoteDetails_PromissoryNote" Association="Self.FK_PromissoryNoteDetails_PromissoryNote">
+      <End Role="PromissoryNote" EntitySet="PromissoryNote" />
+      <End Role="PromissoryNoteDetails" EntitySet="PromissoryNoteDetails" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

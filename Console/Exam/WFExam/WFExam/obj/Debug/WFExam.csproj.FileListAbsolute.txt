@@ -1,0 +1,10 @@
+D:\csharp\Console\Exam\WFExam\WFExam\bin\Debug\WFExam.exe.config
+D:\csharp\Console\Exam\WFExam\WFExam\bin\Debug\WFExam.exe
+D:\csharp\Console\Exam\WFExam\WFExam\bin\Debug\WFExam.pdb
+D:\csharp\Console\Exam\WFExam\WFExam\obj\Debug\WFExam.csprojAssemblyReference.cache
+D:\csharp\Console\Exam\WFExam\WFExam\obj\Debug\WFExam.frmBookManagerment.resources
+D:\csharp\Console\Exam\WFExam\WFExam\obj\Debug\WFExam.Properties.Resources.resources
+D:\csharp\Console\Exam\WFExam\WFExam\obj\Debug\WFExam.csproj.GenerateResource.cache
+D:\csharp\Console\Exam\WFExam\WFExam\obj\Debug\WFExam.csproj.CoreCompileInputs.cache
+D:\csharp\Console\Exam\WFExam\WFExam\obj\Debug\WFExam.exe
+D:\csharp\Console\Exam\WFExam\WFExam\obj\Debug\WFExam.pdb

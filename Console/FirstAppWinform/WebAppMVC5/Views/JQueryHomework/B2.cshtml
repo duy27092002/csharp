@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewBag.Title = "B2";
+}
+
+<h2>Giải phương trình bậc hai có dạng ax^2 + bx + c = 0</h2>
+
+<div class="container">
+    <div class="form-group">
+        <label>Nhập hệ số bậc hai a:</label>
+        <input type="number" id="quadraticCoefficient" name="quadraticCoefficient" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label>Nhập hệ số bậc nhất b:</label>
+        <input type="number" id="firstOrderCoefficient" name="firstOrderCoefficient" class="form-control"" />
+    </div>
+    <div class="form-group">
+        <label>Nhập hệ số tự do c:</label>
+        <input type="number" id="coefficientOfFreedom" name="coefficientOfFreedom" class="form-control" />
+    </div>
+    <div class="form-group">
+        <button class="btn btn-sm btn-success" id="btnCheck">Kiểm tra</button>
+    </div>
+    <p id="result"></p>
+</div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $('#btnCheck').click(function () {
+                var a = Number($('#quadraticCoefficient').val());
+                var b = Number($('#firstOrderCoefficient').val());
+                var c = Number($('#coefficientOfFreedom').val());
+                var delta = (b * b) - (4 * a * c);
+
+                if (delta > 0) {
+                    if (a != 0) {
+                        var x1 = (-b + Math.sqrt(delta)) / (2 * a);
+                        var x2 = (-b - Math.sqrt(delta)) / (2 * a);
+                        $('#result').html('<span class="text-success">Phương trình có 2 nghiệm phân biệt là x1 = ' + x1 + ' và x2 = ' + x2 + '</span>');
+                    }
+                    else {
+                        $('#result').html('<span class="text-warning">Phương trình có nghiệm kép x = ' + (-c / b) + '</span>');
+                    }
+                }
+                else if (delta < 0) {
+                    $('#result').html('<span class="text-danger">Phương trình vô nghiệm</span>');
+                }
+                else {
+                    if (a != 0)
+                        $('#result').html('<span class="text-warning">Phương trình có nghiệm kép x = ' + (-b / (2 * a)) + '</span>');
+                    else {
+                        if (c == 0)
+                            $('#result').html('<span class="text-primary">Phương trình có vô số nghiệm</span>');
+                        else
+                            $('#result').html('<span class="text-danger">Phương trình vô nghiệm</span>');
+                    }
+                }
+            });
+        });
+    </script>    
+}

@@ -1,0 +1,77 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DB_LibraryManagementModelStoreContainer" CdmEntityContainer="DB_LibraryManagementEntities1">
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="DB_LibraryManagementModel.Book">
+        <MappingFragment StoreEntitySet="Book">
+          <ScalarProperty Name="BId" ColumnName="BId" />
+          <ScalarProperty Name="BName" ColumnName="BName" />
+          <ScalarProperty Name="BAuthor" ColumnName="BAuthor" />
+          <ScalarProperty Name="BPublisher" ColumnName="BPublisher" />
+          <ScalarProperty Name="BPrice" ColumnName="BPrice" />
+          <ScalarProperty Name="BQuantity" ColumnName="BQuantity" />
+          <ScalarProperty Name="BInportTime" ColumnName="BInportTime" />
+          <ScalarProperty Name="BYear" ColumnName="BYear" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PromissoryNotes">
+      <EntityTypeMapping TypeName="DB_LibraryManagementModel.PromissoryNote">
+        <MappingFragment StoreEntitySet="PromissoryNote">
+          <ScalarProperty Name="PNId" ColumnName="PNId" />
+          <ScalarProperty Name="RId" ColumnName="RId" />
+          <ScalarProperty Name="UId" ColumnName="UId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PromissoryNoteDetails">
+      <EntityTypeMapping TypeName="DB_LibraryManagementModel.PromissoryNoteDetail">
+        <MappingFragment StoreEntitySet="PromissoryNoteDetails">
+          <ScalarProperty Name="PNId" ColumnName="PNId" />
+          <ScalarProperty Name="BId" ColumnName="BId" />
+          <ScalarProperty Name="BorrowedDate" ColumnName="BorrowedDate" />
+          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+          <ScalarProperty Name="Cost" ColumnName="Cost" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Readers">
+      <EntityTypeMapping TypeName="DB_LibraryManagementModel.Reader">
+        <MappingFragment StoreEntitySet="Reader">
+          <ScalarProperty Name="RId" ColumnName="RId" />
+          <ScalarProperty Name="RName" ColumnName="RName" />
+          <ScalarProperty Name="RPhone" ColumnName="RPhone" />
+          <ScalarProperty Name="RAddress" ColumnName="RAddress" />
+          <ScalarProperty Name="RIdCardNumber" ColumnName="RIdCardNumber" />
+          <ScalarProperty Name="RStatus" ColumnName="RStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="DB_LibraryManagementModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="DB_LibraryManagementModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="UId" ColumnName="UId" />
+          <ScalarProperty Name="UName" ColumnName="UName" />
+          <ScalarProperty Name="UPhone" ColumnName="UPhone" />
+          <ScalarProperty Name="UAddress" ColumnName="UAddress" />
+          <ScalarProperty Name="UUsername" ColumnName="UUsername" />
+          <ScalarProperty Name="UPassword" ColumnName="UPassword" />
+          <ScalarProperty Name="UType" ColumnName="UType" />
+          <ScalarProperty Name="UStatus" ColumnName="UStatus" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

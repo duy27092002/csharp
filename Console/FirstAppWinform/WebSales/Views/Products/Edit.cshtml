@@ -1,0 +1,100 @@
+﻿@model WebSales.Models.EF.Product
+
+@{
+    ViewBag.Title = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container p-3 my-3">
+        <div class="form-horizontal">
+            <h2 class="text-center">Chỉnh sửa</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.ID)
+
+            <div class="form-group">
+                <label class="font-weight-bold pl-2">Tên sản phẩm</label>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold pl-2">Danh mục</label>
+                <div class="col-md-12">
+                    @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold pl-2">Đơn giá</label>
+                    <div class="col-md-12">
+                        @Html.EditorFor(model => model.UnitPrice, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UnitPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold pl-2">Ngày sản xuất</label>
+                    <div class="col-md-12">
+                        <input type="date" class="form-control" id="ProductDate" name="ProductDate" value="@Model.ProductDate.ToString("yyyy-MM-dd")" />
+                        @Html.ValidationMessageFor(model => model.ProductDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold pl-2">Tình trạng kinh doanh</label>
+                    <div class="col-md-12">
+                        <div class="checkbox">
+                            <select class="form-control" id="Available" name="Available">
+                                @if (Model.Available)
+                                {
+                                    <option value="True" selected>Còn bán</option>
+                                    <option value="False">Ngừng bán</option>
+                                }
+                                else
+                                {
+                                    <option value="True">Còn bán</option>
+                                    <option value="False" selected>Ngừng bán</option>
+                                }
+                            </select>
+                            @Html.ValidationMessageFor(model => model.Available, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold pl-2">Hình ảnh</label>
+                <div class="col-md-12">
+                    @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold pl-2">Mô tả</label>
+                <div class="col-md-12">
+                    <textarea id="Description" name="Description" class="form-control">@Model.Description</textarea>
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="text-center">
+                    <input type="submit" value="Lưu" class="btn btn-warning" />
+                    @Html.ActionLink("Quay lại", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

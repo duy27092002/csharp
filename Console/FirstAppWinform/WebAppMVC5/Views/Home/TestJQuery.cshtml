@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "TestJQuery";
+}
+
+<h2>TestJQuery</h2>
+
+<button id="btn">Say Hello</button>
+<div id="main"></div>
+<img id="img" src="http://thaunguyen.com/blog/wp-content/uploads/2018/07/spring.jpg" width="300" height="300"/>
+
+@section scripts{
+    <script>
+        let flag = true;
+        $(function () {
+            $('#btn').click(function () {
+                //alert("Hello");
+                $('#main').html("Hello :D");
+
+                // thay đổi attr
+                $('#img').attr('src', 'https://lh3.googleusercontent.com/proxy/-trwtKk_Ux87J6BACwiC8P7pgAYGIa91QpU-TWY-lhC153NzVD7sMOC_7GvRge5fMZicULMFg7AGuJNw2KknlQnMM3_MHORW76oEqes6lNQIcs1CwA');
+
+                // ẩn hiện img bằng fadeIn, fadeOut
+                flag = !flag;
+                flag == true ? $('#img').fadeOut() : $('#img').fadeIn();
+            });
+        });
+    </script>    
+}

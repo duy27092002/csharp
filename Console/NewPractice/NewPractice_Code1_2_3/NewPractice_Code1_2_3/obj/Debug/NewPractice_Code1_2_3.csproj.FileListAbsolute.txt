@@ -1,0 +1,7 @@
+D:\csharp\Console\NewPractice\NewPractice_Code1_2_3\NewPractice_Code1_2_3\bin\Debug\NewPractice_Code1_2_3.exe.config
+D:\csharp\Console\NewPractice\NewPractice_Code1_2_3\NewPractice_Code1_2_3\bin\Debug\NewPractice_Code1_2_3.exe
+D:\csharp\Console\NewPractice\NewPractice_Code1_2_3\NewPractice_Code1_2_3\bin\Debug\NewPractice_Code1_2_3.pdb
+D:\csharp\Console\NewPractice\NewPractice_Code1_2_3\NewPractice_Code1_2_3\obj\Debug\NewPractice_Code1_2_3.csprojAssemblyReference.cache
+D:\csharp\Console\NewPractice\NewPractice_Code1_2_3\NewPractice_Code1_2_3\obj\Debug\NewPractice_Code1_2_3.csproj.CoreCompileInputs.cache
+D:\csharp\Console\NewPractice\NewPractice_Code1_2_3\NewPractice_Code1_2_3\obj\Debug\NewPractice_Code1_2_3.exe
+D:\csharp\Console\NewPractice\NewPractice_Code1_2_3\NewPractice_Code1_2_3\obj\Debug\NewPractice_Code1_2_3.pdb

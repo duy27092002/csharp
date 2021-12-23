@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WFExam", "WFExam\WFExam.csproj", "{4A4C8A61-DA09-4A09-90EC-CA53BC39019E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4A4C8A61-DA09-4A09-90EC-CA53BC39019E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A4C8A61-DA09-4A09-90EC-CA53BC39019E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A4C8A61-DA09-4A09-90EC-CA53BC39019E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A4C8A61-DA09-4A09-90EC-CA53BC39019E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D2E69316-B473-4BC0-A9F4-ABA0FE6B0813}
+	EndGlobalSection
+EndGlobal

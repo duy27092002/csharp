@@ -1,0 +1,37 @@
+﻿@model PagedList.IPagedList<WebAppMVC5.Models.EF.Category>
+
+@using PagedList.Mvc
+
+@{
+    ViewBag.Title = "GetViewTableInfo";
+}
+
+<table class="table">
+    <tr>
+        <th>Tên loại</th>
+        <th>Tên tiếng Việt</th>
+        <th>Thao tác</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NameVN)
+            </td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new {page}))
+</div>

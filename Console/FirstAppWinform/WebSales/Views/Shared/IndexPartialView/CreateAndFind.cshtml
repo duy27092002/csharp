@@ -1,0 +1,15 @@
+﻿<div class="d-flex">
+    <p>
+        @Html.ActionLink("+ Thêm mới", "Create", null, htmlAttributes: new { @class = "btn btn-success" })
+    </p>
+    <div class="ml-auto">
+        @using (Html.BeginForm())
+        {
+            <div class="form-inline">
+                <input id="keyword" name="keyword" class="form-control" placeholder="Nhập từ khóa" value="@ViewBag.Keyword" />
+                <input type="hidden" id="page" name="page" value="1" />
+                <button type="submit" class="btn btn-primary ml-3">Tìm kiếm</button>
+            </div>
+        }
+    </div>
+</div>

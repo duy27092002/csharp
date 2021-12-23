@@ -1,0 +1,43 @@
+﻿@model PagedList.PagedList<WebSales.Models.EF.Category>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 class="text-center">Loại mặt hàng</h2>
+
+@Html.Partial("IndexPartialView\\CreateAndFind")
+
+<div class="card shadow p-3">
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-borderless text-center">
+            <thead>
+                <tr>
+                    <th>Tên loại</th>
+                    <th>Tên tiếng Việt</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NameVN)
+                        </td>
+                        <td class="text-nowrap" width="1px">
+                            @Html.Partial("IndexPartialView\\TableFeature", item.ID)
+                        </td>
+                    </tr>
+                </tbody>
+            }
+
+        </table>
+    </div>
+</div>
+@Html.Partial("IndexPartialView\\PagedList")

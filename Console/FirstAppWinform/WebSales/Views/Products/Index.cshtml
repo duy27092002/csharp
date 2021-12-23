@@ -1,0 +1,64 @@
+﻿@model PagedList.PagedList<WebSales.Models.EF.Product>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Sản phẩm</h2>
+
+@Html.Partial("IndexPartialView\\CreateAndFind")
+
+<div class="card shadow p-3">
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-borderless text-center">
+            <thead>
+                <tr>
+                    <th>Hình ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Danh mục</th>
+                    <th>Đơn giá</th>
+                    <th>Ngày sản xuất</th>
+                    <th>Tình trạng kinh doanh</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Image)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Category.Name)
+                        </td>
+                        <td>
+                            @String.Format("{0:0,0}", item.UnitPrice)
+                        </td>
+                        <td>
+                            @item.ProductDate.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @{ 
+                                string classCss = (bool)item.Available ? "btn-success" : "btn-danger";
+                                string content = (bool)item.Available ? "Còn bán" : "Ngừng bán";
+                            }
+                            <button class="btn btn-sm btn-block @classCss">@content</button>
+                        </td>
+                        <td class="text-nowrap" width="1px">
+                            @Html.Partial("IndexPartialView\\TableFeature", item.ID)
+                        </td>
+                    </tr>
+                </tbody>
+            }
+
+        </table>
+    </div>
+</div>
+@Html.Partial("IndexPartialView\\PagedList")

@@ -1,0 +1,7 @@
+D:\csharp\Console\CollectionHomework\CollectionHomework\CollectionHomework\bin\Debug\CollectionHomework.exe.config
+D:\csharp\Console\CollectionHomework\CollectionHomework\CollectionHomework\bin\Debug\CollectionHomework.exe
+D:\csharp\Console\CollectionHomework\CollectionHomework\CollectionHomework\bin\Debug\CollectionHomework.pdb
+D:\csharp\Console\CollectionHomework\CollectionHomework\CollectionHomework\obj\Debug\CollectionHomework.csprojAssemblyReference.cache
+D:\csharp\Console\CollectionHomework\CollectionHomework\CollectionHomework\obj\Debug\CollectionHomework.csproj.CoreCompileInputs.cache
+D:\csharp\Console\CollectionHomework\CollectionHomework\CollectionHomework\obj\Debug\CollectionHomework.exe
+D:\csharp\Console\CollectionHomework\CollectionHomework\CollectionHomework\obj\Debug\CollectionHomework.pdb

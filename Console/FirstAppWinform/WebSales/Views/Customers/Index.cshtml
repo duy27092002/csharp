@@ -1,0 +1,56 @@
+﻿@model PagedList.PagedList<WebSales.Models.EF.Customer>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Khách hàng</h2>
+
+@Html.Partial("IndexPartialView\\CreateAndFind")
+
+<div class="card shadow p-3">
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-borderless text-center">
+            <thead>
+                <tr>
+                    <th>Avatar</th>
+                    <th>Họ tên</th>
+                    <th>Email</th>
+                    <th>Trạng thái hoạt động</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Photo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Fullname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @{
+                                string classCss = !(bool)item.Activated ? "btn-success" : "btn-danger";
+                                string content = !(bool)item.Activated ? "Còn hoạt động" : "Ngừng hoạt động";
+                            }
+                            <button class="btn btn-sm btn-block @classCss">@content</button>
+                        </td>
+                        <td class="text-nowrap" width="1px">
+                            @Html.Partial("IndexPartialView\\TableFeature", item.ID)
+                        </td>
+                    </tr>
+                </tbody>
+            }
+
+        </table>
+    </div>
+</div>
+@Html.Partial("IndexPartialView\\PagedList")

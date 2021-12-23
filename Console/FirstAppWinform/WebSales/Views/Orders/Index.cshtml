@@ -1,0 +1,55 @@
+﻿@model IEnumerable<WebSales.Models.EF.Order>
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center">Xuất hàng</h2>
+
+@Html.Partial("IndexPartialView\\CreateAndFind")
+
+<div class="card shadow p-3">
+    <div class="table-responsive">
+        <table class="table table-sm table-hover table-borderless text-center">
+            <thead>
+                <tr>
+                    <th>Thời gian xuất hàng</th>
+                    <th>Khách hàng</th>
+                    <th>Địa chỉ</th>
+                    <th>Tổng tiền</th>
+                    <th>Ghi chú</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            @foreach (var item in Model)
+            {
+                <tbody>
+                    <tr>
+                        <td>
+                            @item.OrderDate.ToString("dd/MM/yyyy")
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Customer.ID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @String.Format("{0:0,0}", item.Amount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Description)
+                        </td>
+                        <td>
+                            @Html.Partial("IndexPartialView\\TableFeature", item.ID)
+                        </td>
+                    </tr>
+                </tbody>
+            }
+        </table>
+    </div>
+</div>
+@Html.Partial("IndexPartialView\\PagedList")
