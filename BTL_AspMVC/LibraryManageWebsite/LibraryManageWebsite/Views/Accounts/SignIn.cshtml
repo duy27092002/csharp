@@ -1,0 +1,107 @@
+﻿@model LibraryManageWebsite.Models.EF.User
+
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">Hãy trở thành một phần với chúng tôi!</h1>
+                            @Html.Partial("IndexPartialView\\AlertMessage")
+                        </div>
+                        <div class="user">
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <input type="hidden" id="Id" name="Id" value="@ViewBag.UserId" />
+                            <input type="hidden" id="UserType" name="UserType" value="1" />
+                            <input type="hidden" id="Status" name="Status" value="1" />
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user rounded-pill" id="Name"
+                                       name="Name" placeholder="Họ và tên">
+                                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="text" class="form-control form-control-user rounded-pill" id="Username"
+                                           name="Username" placeholder="Tên đăng nhập">
+                                    @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control form-control-user rounded-pill" id="Password"
+                                           name="Password" placeholder="Mật khẩu">
+                                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <p>Giới tính</p>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Gender" value="0" checked>
+                                        <label class="form-check-label">
+                                            Nam
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Gender" value="1">
+                                        <label class="form-check-label">
+                                            Nữ
+                                        </label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="radio" name="Gender" value="2">
+                                        <label class="form-check-label">
+                                            Khác
+                                        </label>
+                                    </div>
+                                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-6">
+                                    <p>Ngày sinh <small class="text-secondary">(tháng/ ngày/ năm)</small></p>
+                                    <input type="date" class="form-control form-control-user rounded-pill" id="Birthday" name="Birthday">
+                                    @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-6 mb-3 mb-sm-0">
+                                    <input type="email" class="form-control form-control-user rounded-pill"
+                                           id="Email" name="Email" placeholder="Email">
+                                    @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="text" class="form-control form-control-user rounded-pill"
+                                           id="Phone" name="Phone" placeholder="Số điện thoại">
+                                    @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user rounded-pill" id="Address"
+                                       name="Address" placeholder="Địa chỉ">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-user rounded-pill" id="OwnerId"
+                                       name="OwnerId" placeholder="Mã xác minh">
+                                <small class="text-secondary">Mã này do cá nhân hoặc tổ chức quản lý thư viện cung cấp</small>
+                                <p>@Html.ValidationMessageFor(model => model.OwnerId, "", new { @class = "text-danger" })</p>
+                            </div>
+                            <input type="submit" class="btn btn-primary btn-user btn-block rounded-pill" value="Đăng ký">
+                        </div>
+                        <hr>
+                        <div class="text-center">
+                            <a class="small" href="@Url.Action("Login", "Accounts")">Bạn đã có tài khoản? Hãy đăng nhập ngay nào!</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

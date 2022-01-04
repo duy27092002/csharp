@@ -1,0 +1,23 @@
+﻿<div class="row mb-3">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+        <p>
+            @Html.ActionLink("+ Thêm mới", "Create", null, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
+        </p>
+    </div>
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4"></div>
+    <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+        @using (Html.BeginForm())
+        {
+            <div class="input-group">
+                <input type="text" class="form-control bg-light small" id="keyword" name="keyword" placeholder="Nhập từ khóa..."
+                       aria-label="Search" aria-describedby="basic-addon2" value="@ViewBag.Keyword">
+                <input type="hidden" id="page" name="page" value="1" />
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>

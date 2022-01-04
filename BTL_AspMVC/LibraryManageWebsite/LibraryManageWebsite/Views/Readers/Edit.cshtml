@@ -1,0 +1,161 @@
+﻿@model LibraryManageWebsite.Models.EF.Reader
+
+@{
+    ViewBag.Title = "Sửa thông tin đọc giả";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Chỉnh sửa</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <input type="hidden" id="OwnerId" name="OwnerId" value="@Model.OwnerId" />
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Họ và tên <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Giới tính <span class="text-danger">*</span></label>
+                    @if (Model.Gender == 0)
+                    {
+                        <div class="col-md-12 pl-0">
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="0" checked>
+                                <label class="form-check-label">
+                                    Nam
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="1">
+                                <label class="form-check-label">
+                                    Nữ
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="2">
+                                <label class="form-check-label">
+                                    Khác
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    else if (Model.Gender == 1)
+                    {
+                        <div class="col-md-12 pl-0">
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="0">
+                                <label class="form-check-label">
+                                    Nam
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="1" checked>
+                                <label class="form-check-label">
+                                    Nữ
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="2">
+                                <label class="form-check-label">
+                                    Khác
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="col-md-12 pl-0">
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="0">
+                                <label class="form-check-label">
+                                    Nam
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="1">
+                                <label class="form-check-label">
+                                    Nữ
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <input class="form-check-input" type="radio" name="Gender" value="2" checked>
+                                <label class="form-check-label">
+                                    Khác
+                                </label>
+                            </div>
+                        </div>
+                    }
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Ngày sinh <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control" id="Birthday" name="Birthday" value="@Model.Birthday.ToShortDateString()" />
+                        @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Email <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" />
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Số điện thoại <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control" id="Phone" name="Phone" value="@Model.Phone" />
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold">Địa chỉ</label>
+                <div class="col-md-12 pl-0">
+                    <textarea class="form-control" id="Address" name="Address" rows="2">@Model.Address</textarea>
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label font-weight-bold">Trạng thái <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    <select id="Status" name="Status" class="form-control">
+                        @if (Model.Status == 1)
+                        {
+                            <option value="1" selected>Còn dịch vụ</option>
+                            <option value="0">Đã hết dịch vụ</option>
+                        }
+                        else
+                        {
+                            <option value="1">Còn dịch vụ</option>
+                            <option value="0" selected>Đã hết dịch vụ</option>
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                <input type="submit" value="Lưu" class="btn btn-sm btn-primary" />
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+            </div>
+        </div>
+    </div>
+}

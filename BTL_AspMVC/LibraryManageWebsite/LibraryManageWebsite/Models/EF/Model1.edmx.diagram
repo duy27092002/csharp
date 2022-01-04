@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="62210aef00da4d9d9e6ed64d88cdaece" Name="Diagram1">
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.Book" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.Contact" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.Owner" Width="1.5" PointX="0.75" PointY="10.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.PromissoryNote" Width="1.5" PointX="5.25" PointY="16.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.PromissoryNoteDetail" Width="1.5" PointX="5.25" PointY="4" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.Reader" Width="1.5" PointX="3" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.Regulation" Width="1.5" PointX="3" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.User" Width="1.5" PointX="3" PointY="21" IsExpanded="true" />
+        <EntityTypeShape EntityType="DB_LibraryManagementWebsiteModel.UserManual" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_Book_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_PromissoryNoteDetails_Book" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_Contact_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_PromissoryNote_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_Reader_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_Regulation_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_User_Owner" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_PromissoryNote_Reader" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_PromissoryNote_User" ManuallyRouted="false" />
+        <AssociationConnector Association="DB_LibraryManagementWebsiteModel.FK_PromissoryNoteDetails_PromissoryNote" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

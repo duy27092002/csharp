@@ -1,0 +1,88 @@
+﻿@model LibraryManageWebsite.Models.EF.Owner
+
+@{
+    ViewBag.Title = "Chỉnh sửa đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Chỉnh sửa đăng ký mua website</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                <label class="font-weight-bold">Tên cá nhân hoặc tổ chức <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="font-weight-bold">Email <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="email" id="Email" name="Email" class="form-control" value="@Model.Email" />
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="font-weight-bold">Số điện thoại <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        @Html.EditorFor(model => model.Phone, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="font-weight-bold">Tên tài khoản <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="font-weight-bold">Mật khẩu <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="password" id="Password" name="Password" class="form-control" value="@Model.Password" />
+                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold">Trạng thái <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    <select id="Status" name="Status" class="form-control">
+                        @if (Model.Status == 1)
+                        {
+                            <option value="1" selected>Đang hoạt động</option>
+                            <option value="0">Đã ngừng hoạt động</option>
+                        }
+                        else
+                        {
+                            <option value="1">Đang hoạt động</option>
+                            <option value="0" selected>Đã ngừng hoạt động</option>
+                        }
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                <input type="submit" value="Lưu" class="btn btn-sm btn-primary" />
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+            </div>
+        </div>
+    </div>
+}

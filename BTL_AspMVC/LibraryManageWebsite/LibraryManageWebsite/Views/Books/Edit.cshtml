@@ -1,0 +1,98 @@
+﻿@model LibraryManageWebsite.Models.EF.Book
+
+@{
+    ViewBag.Title = "Sửa thông tin sách";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Chỉnh sửa</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <input type="hidden" id="Views" name="Views" value="@Model.Views" />
+            <input type="hidden" id="OwnerId" name="OwnerId" value="@Model.OwnerId" />
+
+            <div class="form-group">
+                <label class="font-weight-bold">Tên sách <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    <input type="text" class="form-control" id="Name" name="Name" value="@Model.Name" />
+                    @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Tác giả <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control" id="Author" name="Author" value="@Model.Author" />
+                        @Html.ValidationMessageFor(model => model.Author, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Nhà xuất bản <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control" id="Publisher" name="Publisher" value="@Model.Publisher" />
+                        @Html.ValidationMessageFor(model => model.Publisher, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Giá sách <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control" id="Price" name="Price" value="@Model.Price" />
+                        @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Số lượng sách <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="number" class="form-control" id="Quantity" name="Quantity" value="@Model.Quantity" min="0" max="100" />
+                        @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Năm phát hành <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control" id="Year" name="Year" value="@Model.Year" />
+                        @Html.ValidationMessageFor(model => model.Year, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="form-label font-weight-bold">Trạng thái <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <select id="Status" name="Status" class="form-control">
+                            @if (Model.Status == 1)
+                            {
+                                <option value="1" selected>Còn sách</option>
+                                <option value="0">Đã hết</option>
+                            }
+                            else
+                            {
+                                <option value="1">Còn sách</option>
+                                <option value="0" selected>Đã hết</option>
+                            }
+                        </select>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                <input type="submit" value="Lưu" class="btn btn-sm btn-primary" />
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+            </div>
+        </div>
+    </div>
+}

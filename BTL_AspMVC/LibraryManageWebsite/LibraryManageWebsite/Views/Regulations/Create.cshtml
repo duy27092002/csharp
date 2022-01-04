@@ -1,0 +1,45 @@
+﻿@model LibraryManageWebsite.Models.EF.Regulation
+
+@{
+    ViewBag.Title = "Tạo mới quy định chung";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Tạo mới quy định chung</h2>
+            @Html.Partial("IndexPartialView\\AlertMessage")
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="form-group">
+                <label class="font-weight-bold">Mã xác minh <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    <input type="text" id="OwnerId" name="OwnerId" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.OwnerId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold">Nội dung <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    <textarea class="form-control" rows="12" id="create_regulation_content" name="RegulationsContent"></textarea>
+                    @Html.ValidationMessageFor(model => model.RegulationsContent, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                <input type="submit" value="Tạo" class="btn btn-sm btn-primary" />
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script>CKEDITOR.replace("create_regulation_content");</script>
+}

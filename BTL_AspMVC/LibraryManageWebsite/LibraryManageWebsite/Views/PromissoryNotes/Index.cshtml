@@ -1,0 +1,55 @@
+﻿@model IEnumerable<LibraryManageWebsite.Models.EF.PromissoryNote>
+
+@{
+    ViewBag.Title = "Danh sách phiếu mượn-trả";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="shadow container mt-3 py-3">
+    <h2 class="text-center mb-3">Danh sách phiếu mượn-trả</h2>
+    @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered table-hover table-striped text-center">
+            <tr>
+                <th>Nhân viên lập phiếu</th>
+                <th>Tên đọc giả</th>
+                <th>Chi phí mượn</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Reader.Name)
+                    </td>
+                    <td style="text-align:right;">
+                        @Html.DisplayFor(modelItem => String.Format("{0:0,0}", item.Total))
+                    </td>
+                    <td class="text-nowrap" style="width:1px">
+                        @if (item.Status == 1)
+                        {
+                            <button class="btn btn-sm btn-success" disabled>Đã trả</button>
+                        }
+                        else if (item.Status == 2)
+                        {
+                            <button class="btn btn-sm btn-danger" disabled>Trễ hạn</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-primary" disabled>Đang mượn</button>
+                        }
+                    </td>
+                    <td class="text-nowrap" style="width:1px">
+                        @Html.Partial("IndexPartialView\\TableFeature", item.Id)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+</div>

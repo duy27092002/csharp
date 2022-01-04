@@ -1,0 +1,39 @@
+﻿@model LibraryManageWebsite.Models.EF.Regulation
+
+@{
+    ViewBag.Title = "Chỉnh sửa quy định chung";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Chỉnh sửa quy định chung</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
+
+            <input type="hidden" id="OwnerId" name="OwnerId" value="@Model.OwnerId" />
+
+            <div class="form-group">
+                <label class="font-weight-bold">Nội dung <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    <textarea class="form-control" rows="12" id="edit_regulation_content" name="RegulationsContent">@Html.Raw(Model.RegulationsContent)</textarea>
+                    @Html.ValidationMessageFor(model => model.RegulationsContent, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                <input type="submit" value="Lưu" class="btn btn-sm btn-primary" />
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script>CKEDITOR.replace("edit_regulation_content");</script>
+}

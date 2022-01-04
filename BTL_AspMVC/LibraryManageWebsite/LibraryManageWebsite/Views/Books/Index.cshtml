@@ -1,0 +1,57 @@
+﻿@model PagedList.PagedList<LibraryManageWebsite.Models.EF.Book>
+
+@{
+    ViewBag.Title = "Danh sách các đầu sách";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="shadow container mt-3 py-3">
+    <h2 class="text-center mb-3">Danh sách các đầu sách</h2>
+    @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
+    @Html.Partial("IndexPartialview\\AlertMessage")
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered table-hover table-striped text-center">
+            <tr>
+                <th>Tên sách</th>
+                <th>Tác giả</th>
+                <th>Nhà xuất bản</th>
+                <th>Giá</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Publisher)
+                    </td>
+                    <td style="text-align:right">
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+                    <td class="text-nowrap" style="width:1px">
+                        @if (item.Status == 1)
+                        {
+                            <button class="btn btn-sm btn-success" disabled>Còn sách</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-danger" disabled>Đã hết</button>
+                        }
+                    </td>
+                    <td class="text-nowrap" style="width:1px">
+                        @Html.Partial("IndexPartialView\\TableFeature", item.Id)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    @Html.Partial("IndexPartialview\\PagedList")
+</div>

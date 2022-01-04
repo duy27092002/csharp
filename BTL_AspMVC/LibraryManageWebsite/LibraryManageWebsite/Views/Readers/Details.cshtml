@@ -1,0 +1,78 @@
+﻿@model LibraryManageWebsite.Models.EF.Reader
+
+@{
+    ViewBag.Title = "Chi tiết đọc giả";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Thông tin chi tiết</h2>
+            <hr />
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Họ và tên</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" id="Name" name="Name" value="@Model.Name" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Giới tính</label>
+                    @{
+                        var getGender = Model.Gender == 0 ? "Name" : Model.Gender == 1 ? "Nữ" : "Khác";
+                    }
+                    <input type="text" class="form-control bg-light" name="Gender" value="@getGender" readonly />
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Ngày sinh</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" id="Birthday" name="Birthday" value="@Model.Birthday.ToShortDateString()" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Email</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="email" class="form-control bg-light" id="Email" name="Email" value="@Model.Email" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Số điện thoại</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" id="Phone" name="Phone" value="@Model.Phone" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold">Địa chỉ</label>
+                <div class="col-md-12 pl-0">
+                    <textarea class="form-control bg-light" id="Address" name="Address" rows="2" readonly>@Model.Address</textarea>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label font-weight-bold">Trạng thái</label>
+                <div class="col-md-12 pl-0">
+                    @{
+                        var getStatus = Model.Status == 1 ? "Còn dịch vụ" : "Đã hết dịch vụ";
+                    }
+                    <input type="text" class="form-control bg-light" id="Status" name="Status" value="@getStatus" readonly />
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning" })
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+            </div>
+        </div>
+    </div>
+}

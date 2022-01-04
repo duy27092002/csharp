@@ -1,0 +1,113 @@
+﻿@model LibraryManageWebsite.Models.EF.Reader
+
+@{
+    ViewBag.Title = "Thêm mới đọc giả";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Thêm mới đọc giả</h2>
+            @Html.Partial("IndexPartialView\\AlertMessage")
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <input type="hidden" id="Id" name="Id" value="@ViewBag.ReaderId" />
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Họ và tên <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Giới tính <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="Gender" value="0" checked>
+                            <label class="form-check-label">
+                                Nam
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="Gender" value="1">
+                            <label class="form-check-label">
+                                Nữ
+                            </label>
+                        </div>
+                        <div class="form-check-inline">
+                            <input class="form-check-input" type="radio" name="Gender" value="2">
+                            <label class="form-check-label">
+                                Khác
+                            </label>
+                        </div>
+                    </div>
+                    @Html.ValidationMessageFor(model => model.Gender, "", new { @class = "text-danger" })
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Ngày sinh <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="date" class="form-control" id="Birthday" name="Birthday" />
+                        @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Email <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="email" class="form-control" id="Email" name="Email" />
+                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Số điện thoại <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control" id="Phone" name="Phone" />
+                        @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="font-weight-bold">Địa chỉ</label>
+                <div class="col-md-12 pl-0">
+                    <textarea class="form-control" id="Address" name="Address" rows="2"></textarea>
+                    @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label font-weight-bold">Trạng thái <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <select id="Status" name="Status" class="form-control">
+                            <option value="1">Còn dịch vụ</option>
+                            <option value="0">Đã hết dịch vụ</option>
+                        </select>
+                        @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="form-label font-weight-bold">Mã xác minh <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" id="OwnerId" name="OwnerId" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.OwnerId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                <input type="submit" value="Tạo" class="btn btn-sm btn-primary" />
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+            </div>
+        </div>
+    </div>
+}

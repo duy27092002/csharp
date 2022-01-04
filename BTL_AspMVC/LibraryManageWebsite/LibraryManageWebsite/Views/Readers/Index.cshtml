@@ -1,0 +1,60 @@
+﻿@model PagedList.PagedList<LibraryManageWebsite.Models.EF.Reader>
+
+@{
+    ViewBag.Title = "Danh sách đọc giả";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="shadow container mt-3 py-3">
+    <h2 class="text-center mb-3">Danh sách đọc giả</h2>
+    @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
+    @Html.Partial("IndexPartialView\\AlertMessage")
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered table-hover table-striped text-center" id="reader_list">
+            <tr>
+                <th>Họ và tên</th>
+                <th>Giới tính</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+                <th>Trạng thái</th>
+                <th>Thao tác</th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @{
+                            var getGender = item.Gender == 0 ? "Nam" : item.Gender == 1 ? "Nữ" : "Khác";
+                        }
+                        @getGender
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Phone)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td class="text-nowrap" style="width:1px">
+                        @if (item.Status == 1)
+                        {
+                            <a class="btn btn-sm btn-success" disabled>Còn dịch vụ</a>
+                        }
+                        else
+                        {
+                            <a class="btn btn-sm btn-danger" disabled>Đã hết dịch vụ</a>
+                        }
+                    </td>
+                    <td class="text-nowrap" style="width:1px">
+                        @Html.Partial("IndexPartialView\\TableFeature", item.Id)
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+    @Html.Partial("IndexPartialView\\PagedList")
+</div>

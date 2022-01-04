@@ -1,0 +1,85 @@
+﻿@model LibraryManageWebsite.Models.EF.Book
+
+@{
+    ViewBag.Title = "Chi tiết sách";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Thông tin chi tiết sách</h2>
+            <hr />
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="form-group">
+                <label class="font-weight-bold">Tên sách</label>
+                <div class="col-md-12 pl-0">
+                    <input type="text" class="form-control bg-light" id="Name" name="Name" value="@Model.Name" readonly />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Tác giả</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" id="Author" name="Author" value="@Model.Author" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Nhà xuất bản</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" id="Publisher" name="Publisher" value="@Model.Publisher" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Giá sách</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" id="Price" name="Price" value="@String.Format("{0:0,0}", Model.Price)" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Số lượng sách</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="number" class="form-control bg-light" id="Quantity" name="Quantity" value="@String.Format("{0:0,0}", Model.Quantity)" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Năm phát hành</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" id="Year" name="Year" value="@Model.Year" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Lượt mượn</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" id="Views" name="Views" value="@Model.Views" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="form-label font-weight-bold">Trạng thái</label>
+                    <div class="col-md-12 pl-0">
+                        @{
+                            var getStatus = Model.Status == 1 ? "Còn sách" : "Đã hết sách";
+                        }
+                        <input type="text" class="form-control bg-light" id="Status" name="Status" value="@getStatus" readonly />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning" })
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+            </div>
+        </div>
+    </div>
+}
