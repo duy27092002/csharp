@@ -12,49 +12,45 @@ using LibraryManageWebsite.Models.EF;
 
 namespace LibraryManageWebsite.Controllers
 {
+    [Authorize]
     public class RegulationsController : Controller
     {
         private RegulationDAO regulationDAO = new RegulationDAO();
 
         // GET: Regulations
+        [Authorize(Roles = "Admin, Nhân viên")]
         public async Task<ActionResult> Index()
         {
             return View(await regulationDAO.GetContent());
         }
 
         // GET: Regulations/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Regulations/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,RegulationsContent,OwnerId")] Regulation regulation)
         {
             if (ModelState.IsValid)
             {
-                var checkOwnerId = await regulationDAO.CheckOwnerId(regulation.OwnerId);
+                await regulationDAO.Add(regulation);
 
-                if (checkOwnerId)
-                {
-                    await regulationDAO.Add(regulation);
+                TempData["AlertSuccessMessage"] = "Tạo quy định thành công!";
 
-                    TempData["AlertSuccessMessage"] = "Tạo quy định thành công!";
-
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["AlertErrorMessage"] = "Mã xác minh không hợp lệ";
-                }
+                return RedirectToAction("Index");
             }
 
             return View(regulation);
         }
 
         // GET: Regulations/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int id)
         {
             if (id == null)
@@ -71,6 +67,7 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // POST: Regulations/Edit/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,RegulationsContent,OwnerId")] Regulation regulation)

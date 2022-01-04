@@ -12,6 +12,7 @@ using LibraryManageWebsite.Models.EF;
 
 namespace LibraryManageWebsite.Controllers
 {
+    [Authorize(Roles = "Admin, Nhân viên")]
     public class ReadersController : Controller
     {
         private ReaderDAO readerDAO = new ReaderDAO();
@@ -51,28 +52,17 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // POST: Readers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,OwnerId,Name,Gender,Birthday,Email,Phone,Address,Status")] Reader reader)
         {
             if (ModelState.IsValid)
             {
-                var checkOwnerId = await readerDAO.CheckOwnerId(reader.OwnerId);
+                await readerDAO.Add(reader);
 
-                if (checkOwnerId)
-                {
-                    await readerDAO.Add(reader);
+                TempData["AlertSuccessMessage"] = "Thêm đọc giả mới thành công!";
 
-                    TempData["AlertSuccessMessage"] = "Thêm đọc giả mới thành công!";
-
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["AlertErrorMessage"] = "Mã xác minh không hợp lệ";
-                }
+                return RedirectToAction("Index");
             }
 
             return View(reader);
@@ -95,8 +85,6 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // POST: Readers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,OwnerId,Name,Gender,Birthday,Email,Phone,Address,Status")] Reader reader)

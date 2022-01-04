@@ -12,11 +12,13 @@ using LibraryManageWebsite.Models.EF;
 
 namespace LibraryManageWebsite.Controllers
 {
+    [Authorize]
     public class ContactsController : Controller
     {
         private ContactDAO contactDAO = new ContactDAO();
 
         // GET: Contacts
+        [Authorize(Roles = "Admin, Nhân viên")]
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
             var getContactList = await contactDAO.GetByPaged(page, pageSize, keyword);
@@ -29,38 +31,32 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // GET: Contacts/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: Contacts/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,OwnerId,AdminName,AdminPhone,AdminEmail,Status")] Contact contact)
         {
             if (ModelState.IsValid)
             {
-                var checkOwnerId = await contactDAO.CheckOwnerId(contact.OwnerId);
+                await contactDAO.Add(contact);
 
-                if (checkOwnerId)
-                {
-                    await contactDAO.Add(contact);
+                TempData["AlertSuccessMessage"] = "Thêm liên hệ mới thành công!";
 
-                    TempData["AlertSuccessMessage"] = "Thêm liên hệ mới thành công!";
-
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["AlertErrorMessage"] = "Mã xác minh không hợp lệ!";
-                }
+                return RedirectToAction("Index");
             }
 
             return View(contact);
         }
 
         // GET: Contacts/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(int id)
         {
             if (id == null)
@@ -77,6 +73,7 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // POST: Contacts/Edit/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,OwnerId,AdminName,AdminPhone,AdminEmail,Status")] Contact contact)
@@ -94,6 +91,7 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // GET: Contacts/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(int id)
         {
             if (id == null)
@@ -109,6 +107,7 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // POST: Contacts/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

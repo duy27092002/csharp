@@ -32,7 +32,7 @@
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
                     <label class="font-weight-bold">Ngày sinh</label>
                     <div class="col-md-12 pl-0">
-                        <input type="text" class="form-control bg-light" id="Birthday" name="Birthday" value="@Model.Birthday.ToShortDateString()" readonly />
+                        <input type="text" class="form-control bg-light" id="Birthday" name="Birthday" value="@Model.Birthday.ToString("MM/dd/yyyy")" readonly />
                     </div>
                 </div>
             </div>

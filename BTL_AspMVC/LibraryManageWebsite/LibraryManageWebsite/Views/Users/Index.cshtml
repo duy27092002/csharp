@@ -14,7 +14,7 @@
             <tr>
                 <th>Họ và tên</th>
                 <th>Giới tính</th>
-                <th>Số điện thoại</th>
+                <th>Ngày sinh</th>
                 <th>Loại tài khoản</th>
                 <th>Trạng thái</th>
                 <th>Thao tác</th>
@@ -33,11 +33,15 @@
                         @getGender
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Phone)
+                        @{ 
+                            var getBirtday = item.Birthday.ToString("MM/dd/yyyy");
+                        }
+                        @getBirtday
                     </td>
                     <td>
                         @{
-                            var getUserType = item.UserType == 0 ? "Admin" : "Nhân viên";
+                            var getUserType = item.UserType == 0 ? "Admin" :
+                                item.UserType == 1 ? "Nhân viên" : "Developer";
                         }
                         @getUserType
                     </td>

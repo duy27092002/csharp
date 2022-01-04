@@ -24,7 +24,7 @@ namespace LibraryManageWebsite.Models.DAO
             return getUser.FirstOrDefault();
         }
 
-        // kiểm tra đăng nhập
+        // kiểm tra đăng nhập của nhân viên, admin thuộc đơn vị chủ quản, chủ sở hữu nào đó
         public bool CheckLogin(User entity)
         {
             var getUser = db.Users.Where(
@@ -40,6 +40,35 @@ namespace LibraryManageWebsite.Models.DAO
             }
 
             return false;
+        }
+
+        // kiểm tra đăng nhập của developer
+        public bool IsDeveloper(User entity)
+        {
+            var getDeveloper = db.Users.Where(
+                t => t.Username == entity.Username &&
+                t.Email == entity.Email &&
+                t.Password == entity.Password &&
+                t.Status == 1).FirstOrDefault();
+
+            if (getDeveloper != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        // lấy thông tin của developer
+        public User GetInfoOfDev(User entity)
+        {
+            var getDeveloper = db.Users.Where(
+                t => t.Username == entity.Username &&
+                t.Password == entity.Password &&
+                t.Email == entity.Email
+                );
+
+            return getDeveloper.FirstOrDefault();
         }
 
         // kiểm tra mã xác minh

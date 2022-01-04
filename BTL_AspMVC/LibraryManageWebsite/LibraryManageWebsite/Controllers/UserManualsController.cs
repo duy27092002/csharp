@@ -12,6 +12,7 @@ using LibraryManageWebsite.Models.EF;
 
 namespace LibraryManageWebsite.Controllers
 {
+    [Authorize]
     public class UserManualsController : Controller
     {
         private UserManualDAO umDAO = new UserManualDAO();
@@ -23,12 +24,14 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // GET: UserManuals/Create
+        [Authorize(Roles = "Developer")]
         public ActionResult Create()
         {
             return View();
         }
 
         // POST: UserManuals/Create
+        [Authorize(Roles = "Developer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,UMContent")] UserManual userManual)
@@ -46,6 +49,7 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // GET: UserManuals/Edit/5
+        [Authorize(Roles = "Developer")]
         public async Task<ActionResult> Edit(int id)
         {
             if (id == null)
@@ -61,6 +65,7 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // POST: UserManuals/Edit/5
+        [Authorize(Roles = "Developer")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "Id,UMContent")] UserManual userManual)

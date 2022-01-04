@@ -12,6 +12,7 @@ using LibraryManageWebsite.Models.EF;
 
 namespace LibraryManageWebsite.Controllers
 {
+    [Authorize(Roles = "Admin, Nhân viên")]
     public class BooksController : Controller
     {
         private BookDAO bookDAO = new BookDAO();
@@ -57,20 +58,11 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                var checkOwnerId = await bookDAO.CheckOwnerId(book.OwnerId);
+                await bookDAO.Add(book);
 
-                if (checkOwnerId)
-                {
-                    await bookDAO.Add(book);
+                TempData["AlertSuccessMessage"] = "Thêm sách mới thành công!";
 
-                    TempData["AlertSuccessMessage"] = "Thêm sách mới thành công!";
-
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["AlertErrorMessage"] = "Mã xác minh không hợp lệ!";
-                }
+                return RedirectToAction("Index");
             }
 
             return View(book);

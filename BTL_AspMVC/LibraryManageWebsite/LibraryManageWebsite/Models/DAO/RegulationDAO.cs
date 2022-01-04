@@ -27,19 +27,6 @@ namespace LibraryManageWebsite.Models.DAO
             return true;
         }
 
-        // kiểm tra mã xác minh chủ sở hữu website
-        public async Task<bool> CheckOwnerId(string ownerId)
-        {
-            var getOwnerId = await db.Owners.FindAsync(ownerId);
-
-            if (getOwnerId != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         // hiển thị quy định
         public async Task<List<Regulation>> GetContent()
         {

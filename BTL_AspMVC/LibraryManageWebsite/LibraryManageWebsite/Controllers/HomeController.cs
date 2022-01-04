@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace LibraryManageWebsite.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin, Nhân viên")]
     public class HomeController : Controller
     {
         public ActionResult Index()

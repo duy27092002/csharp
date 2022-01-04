@@ -91,12 +91,15 @@
             </li>
 
             <!-- Nav Item - Utilities Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Owners")">
-                    <i class="fa fa-star"></i>
-                    <span>Mua website</span>
-                </a>
-            </li>
+            @if (User.IsInRole("Developer"))
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Owners")">
+                        <i class="fa fa-star"></i>
+                        <span>Mua website</span>
+                    </a>
+                </li>
+            }
 
             <!-- Divider -->
             <hr class="sidebar-divider">

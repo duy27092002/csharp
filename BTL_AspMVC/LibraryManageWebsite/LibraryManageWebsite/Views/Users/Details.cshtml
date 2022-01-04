@@ -12,6 +12,7 @@
     <div class="shadow container mt-3 py-3">
         <div class="form-horizontal">
             <h2 class="text-center mb-3">Thông tin chi tiết</h2>
+            @Html.Partial("IndexPartialView\\AlertMessage")
             <hr />
             @Html.HiddenFor(model => model.Id)
 
@@ -86,7 +87,8 @@
                         <label class="form-label font-weight-bold">Loại tài khoản</label>
                         <div class="col-md-12 pl-0">
                             @{
-                                var getUserType = Model.UserType == 1 ? "Nhân viên" : "Admin";
+                                var getUserType = Model.UserType == 1 ? "Nhân viên" :
+                                    Model.UserType == 0 ? "Admin" : "Developer";
                             }
                             <input type="text" class="form-control bg-light" id="UserType" name="UserType" value="@getUserType" readonly />
                         </div>

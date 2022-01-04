@@ -102,7 +102,7 @@
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
                     <label class="font-weight-bold">Ngày sinh <span class="text-danger">*</span></label>
                     <div class="col-md-12 pl-0">
-                        <input type="text" class="form-control" id="Birthday" name="Birthday" value="@Model.Birthday.ToShortDateString()" />
+                        <input type="text" class="form-control" id="Birthday" name="Birthday" value="@Model.Birthday.ToString("MM/dd/yyyy")" />
                         @Html.ValidationMessageFor(model => model.Birthday, "", new { @class = "text-danger" })
                     </div>
                 </div>

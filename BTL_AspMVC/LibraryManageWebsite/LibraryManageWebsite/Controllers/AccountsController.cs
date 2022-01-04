@@ -27,6 +27,7 @@ namespace LibraryManageWebsite.Controllers
             if (accountDAO.CheckLogin(user))
             {
                 FormsAuthentication.SetAuthCookie(user.Username, false);
+
                 Session["username"] = user.Username;
 
                 Session["userId"] = accountDAO.GetUser(user).Id;
@@ -34,9 +35,19 @@ namespace LibraryManageWebsite.Controllers
                 Session["ownerId"] = user.OwnerId;
 
                 return RedirectToAction("Index", "Home");
+            } 
+            else if (accountDAO.IsDeveloper(user))
+            {
+                FormsAuthentication.SetAuthCookie(user.Username, false);
+
+                Session["username"] = user.Username;
+
+                Session["userId"] = accountDAO.GetInfoOfDev(user).Id;
+
+                return RedirectToAction("Index", "Owners");
             }
 
-            TempData["AlertErrorMessage"] = "Sai thông tin đăng nhập. Vui lòng kiểm tra lại!";
+            TempData["AlertErrorMessage"] = "Sai thông tin đăng nhập hoặc là bạn không được cho phép đăng nhập. Vui lòng thử lại!";
 
             return View(user);
         }
@@ -79,7 +90,9 @@ namespace LibraryManageWebsite.Controllers
         public ActionResult Logout()
         {
             Session.Clear();
+
             FormsAuthentication.SignOut();
+
             return RedirectToAction("Login");
         }
     }

@@ -12,11 +12,11 @@
     <div class="shadow container mt-3 py-3">
         <div class="form-horizontal">
             <h2 class="text-center mb-3">Thêm mới nhân viên</h2>
-            @Html.Partial("IndexPartialView\\AlertMessage")
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
             <input type="hidden" id="Id" name="Id" value="@ViewBag.UserId" />
+            <input type="hidden" id="OwnerId" name="OwnerId" value="@Session["ownerId"]" />
 
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4">
@@ -116,7 +116,7 @@
             </div>
 
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="form-group">
                         <label class="form-label font-weight-bold">Loại tài khoản <span class="text-danger">*</span></label>
                         <div class="col-md-12 pl-0">
@@ -128,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
                     <div class="form-group">
                         <label class="form-label font-weight-bold">Trạng thái <span class="text-danger">*</span></label>
                         <div class="col-md-12 pl-0">
@@ -137,15 +137,6 @@
                                 <option value="0">Đã nghỉ</option>
                             </select>
                             @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
-                    <div class="form-group">
-                        <label class="form-label font-weight-bold">Mã xác minh <span class="text-danger">*</span></label>
-                        <div class="col-md-12 pl-0">
-                            <input type="text" id="OwnerId" name="OwnerId" class="form-control" />
-                            @Html.ValidationMessageFor(model => model.OwnerId, "", new { @class = "text-danger" })
                         </div>
                     </div>
                 </div>
