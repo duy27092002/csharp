@@ -65,15 +65,27 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (accountDAO.CheckOwnerId(user.OwnerId))
+                if (accountDAO.CheckUsername(user.Username) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Tên đăng nhập này đã tồi tại. Xin hãy đổi lại!";
+                }
+                else if (accountDAO.CheckEmail(user.Email) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại email!";
+                }
+                else if (accountDAO.CheckPhone(user.Phone) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại số điện thoại!";
+                }
+                else if (accountDAO.CheckOwnerId(user.OwnerId) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Mã xác minh không hợp lệ!";
+                }
+                else
                 {
                     accountDAO.AddNewUser(user);
 
                     return RedirectToAction("Login");
-                }
-                else
-                {
-                    TempData["AlertErrorMessage"] = "Mã xác minh không hợp lệ!";
                 }
             }
 
