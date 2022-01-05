@@ -99,23 +99,19 @@ namespace LibraryManageWebsite.Controllers
             {
                 if (await userDAO.Update(user))
                 {
+                    // nếu là developer sửa thông tin tài khoản thì khi sửa thành công web sẽ điều hướng đến trang người mua web
+                    // nếu là admin or nhân viên thì điều hướng về trang details của chính người đó
                     if (user.UserType == 3)
                     {
                         TempData["AlertSuccessMessage"] = "Cập nhật thông tin tài khoản thành công!";
 
                         return RedirectToAction("Index", "Owners");
                     }
-                    else if (user.UserType == 0)
-                    {
-                        TempData["AlertSuccessMessage"] = "Cập nhật thông tin thành công!";
-
-                        return RedirectToAction("Index");
-                    }
                     else
                     {
                         TempData["AlertSuccessMessage"] = "Cập nhật thông tin tài khoản thành công!";
 
-                        return RedirectToAction("Details", "Users", new { id = Session["userId"] });
+                        return RedirectToAction("Details", "Users", new { id = user.Id });
                     }
                 }
             }

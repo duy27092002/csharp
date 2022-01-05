@@ -58,13 +58,16 @@
                 Quản lý
             </div>
 
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link" href="@Url.Action("Index", "Users")">
-                    <i class="fa fa-users"></i>
-                    <span>Nhân viên</span>
-                </a>
-            </li>
+            @if (User.IsInRole("Admin"))
+            {
+                <!-- Nav Item - Pages Collapse Menu -->
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Index", "Users")">
+                        <i class="fa fa-users"></i>
+                        <span>Nhân viên</span>
+                    </a>
+                </li>
+             }
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">

@@ -3,11 +3,17 @@
 @{
     ViewBag.Title = "Liên hệ";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+
 }
 
 <div class="shadow container mt-3 py-3">
     <h2 class="text-center mb-3">Danh sách liên hệ</h2>
-    @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
+    @if (User.IsInRole("Admin"))
+    {
+        @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
+    }
+
     @Html.Partial("IndexPartialview\\AlertMessage")
     <div class="table-responsive">
         <table class="table table-sm table-bordered table-hover table-striped text-center">
@@ -16,7 +22,10 @@
                 <th>Số điện thoại</th>
                 <th>Email</th>
                 <th>Trạng thái</th>
-                <th>Thao tác</th>
+                @if (User.IsInRole("Admin"))
+                {
+                    <th>Thao tác</th>
+                }
             </tr>
 
             @foreach (var item in Model)
@@ -41,10 +50,13 @@
                             <a class="btn btn-sm btn-danger" disabled>Đã hủy liên hệ</a>
                         }
                     </td>
-                    <td class="text-nowrap" style="width:1px">
-                        @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-warning" })
-                        @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
-                    </td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <td class="text-nowrap" style="width:1px">
+                            @Html.ActionLink("Sửa", "Edit", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-warning" })
+                            @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+                        </td>
+                    }
                 </tr>
             }
 

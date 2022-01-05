@@ -27,7 +27,7 @@ namespace LibraryManageWebsite.Models.EF
 
         [Required(ErrorMessage = "Không được để trống giá sách")]
         [RegularExpression(@"^(?!0\.00)[1-9]\d{0,2}(,\d{3})*(\.\d\d)?$", ErrorMessage = "Sai định dạng giá sách")]
-        public decimal Price { get; set; }
+        public string Price { get; set; }
 
         [Required(ErrorMessage = "Không được để trống số lượng sách")]
         public int Quantity { get; set; }

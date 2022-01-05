@@ -6,13 +6,16 @@
 }
 
 <div class="shadow container mt-3 py-3">
-    <h2 class="text-center">Hướng dẫn sử dụng hệ thống quản lý</h2>
+    <h2 class="text-center mb-3">Hướng dẫn sử dụng hệ thống quản lý</h2>
 
     @Html.Partial("IndexPartialView\\AlertMessage")
 
-    <p>
-        <a class="btn btn-sm btn-primary" href="@Url.Action("Create", "UserManuals")">+ Tạo mới</a>
-    </p>
+    @if (User.IsInRole("Developer"))
+    {
+        <p>
+            <a class="btn btn-sm btn-primary" href="@Url.Action("Create", "UserManuals")">+ Tạo mới</a>
+        </p>
+    }
 
     @foreach (var item in Model)
     {
@@ -22,8 +25,11 @@
             </div>
         </div>
 
-        <p class="mt-3">
-            <a class="btn btn-sm btn-info" href="@Url.Action("Edit", "UserManuals", new { id = item.Id })">Sửa hướng dẫn</a>
-        </p>
+        if (User.IsInRole("Developer"))
+        {
+            <p class="mt-3">
+                <a class="btn btn-sm btn-info" href="@Url.Action("Edit", "UserManuals", new { id = item.Id })">Sửa hướng dẫn</a>
+            </p>
+        }
     }
 </div>
