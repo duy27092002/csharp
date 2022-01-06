@@ -20,7 +20,9 @@ namespace LibraryManageWebsite.Controllers
         // GET: Readers
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
-            var readerList = await readerDAO.GetByPaged(page, pageSize, keyword);
+            var ownerId = (string)Session["ownerId"];
+
+            var readerList = await readerDAO.GetByPaged(page, pageSize, keyword, ownerId);
 
             ViewBag.Keyword = keyword;
             ViewBag.Page = page;
@@ -34,13 +36,16 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Reader reader = await readerDAO.GetById(id);
-            if (reader == null)
+
+            if (reader == null || Session["ownerId"] == null || (string)Session["ownerId"] != reader.OwnerId)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
+
             return View(reader);
         }
 
@@ -73,12 +78,14 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Reader reader = await readerDAO.GetById(id);
-            if (reader == null)
+
+            if (reader == null || Session["ownerId"] == null || (string)Session["ownerId"] != reader.OwnerId)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             return View(reader);
@@ -106,13 +113,16 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Reader reader = await readerDAO.GetById(id);
-            if (reader == null)
+
+            if (reader == null || Session["ownerId"] == null || (string)Session["ownerId"] != reader.OwnerId)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
+
             return View(reader);
         }
 

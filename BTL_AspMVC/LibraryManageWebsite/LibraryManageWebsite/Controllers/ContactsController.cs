@@ -21,7 +21,9 @@ namespace LibraryManageWebsite.Controllers
         [Authorize(Roles = "Admin, Nhân viên")]
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
-            var getContactList = await contactDAO.GetByPaged(page, pageSize, keyword);
+            var ownerId = (string)Session["ownerId"];
+
+            var getContactList = await contactDAO.GetByPaged(page, pageSize, keyword, ownerId);
 
             ViewBag.Keyword = keyword;
             ViewBag.Page = page;
@@ -57,16 +59,18 @@ namespace LibraryManageWebsite.Controllers
 
         // GET: Contacts/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Contact contact = await contactDAO.GetById(id);
-            if (contact == null)
+
+            if (contact == null || Session["ownerId"] == null || (string)Session["ownerId"] != contact.OwnerId)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             return View(contact);
@@ -92,17 +96,20 @@ namespace LibraryManageWebsite.Controllers
 
         // GET: Contacts/Delete/5
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Delete(int id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Contact contact = await contactDAO.GetById(id);
-            if(contact == null)
+
+            if(contact == null || Session["ownerId"] == null || (string)Session["ownerId"] != contact.OwnerId)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
+
             return View(contact);
         }
 

@@ -45,14 +45,14 @@
                 }
             </a>
 
-            <hr class="sidebar-divider">
-
-            <div class="sidebar-heading">
-                Quản lý
-            </div>
-
             @if (User.IsInRole("Developer"))
             {
+                <hr class="sidebar-divider">
+
+                <div class="sidebar-heading">
+                    Quản lý
+                </div>
+
                 <li class="nav-item">
                     <a class="nav-link" href="@Url.Action("Index", "Owners")">
                         <i class="fa fa-star"></i>
@@ -78,6 +78,12 @@
                         <span>Tổng quan</span>
                     </a>
                 </li>
+
+                <hr class="sidebar-divider">
+
+                <div class="sidebar-heading">
+                    Quản lý
+                </div>
                 
                 if (User.IsInRole("Admin"))
                 {

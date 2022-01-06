@@ -9,6 +9,6 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public interface IPagedListDAO<T>
     {
-        Task<IPagedList<T>> GetByPaged(int page, int pageSize, string keyword);
+        Task<IPagedList<T>> GetByPaged(int page, int pageSize, string keyword, string ownerId);
     }
 }

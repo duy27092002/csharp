@@ -62,12 +62,24 @@ namespace LibraryManageWebsite.Models.DAO
             return await db.Owners.Where(t => t.Name.Contains(keyword)).OrderBy(t => t.Name).ToListAsync();
         }
 
+        // không dùng method này
+        public Task<List<Owner>> GetByKeyword(string keyword, string ownerId)
+        {
+            throw new NotImplementedException();
+        }
+
         // phân trang cho danh sách
         public async Task<IPagedList<Owner>> GetByPaged(int page, int pageSize, string keyword)
         {
             var getListByKeyword = await GetByKeyword(keyword);
 
             return getListByKeyword.ToPagedList(page, pageSize);
+        }
+
+        // không dùng method này
+        public Task<IPagedList<Owner>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
+        {
+            throw new NotImplementedException();
         }
 
         // cập nhật thông tin sau khi sửa

@@ -21,7 +21,7 @@ namespace LibraryManageWebsite.Controllers
         [Authorize(Roles = "Admin, Nhân viên")]
         public async Task<ActionResult> Index()
         {
-            return View(await regulationDAO.GetContent());
+            return View(await regulationDAO.GetContent((string)Session["ownerId"]));
         }
 
         // GET: Regulations/Create
@@ -51,16 +51,18 @@ namespace LibraryManageWebsite.Controllers
 
         // GET: Regulations/Edit/5
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Edit(int id)
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Regulation regulation = await regulationDAO.GetById(id);
-            if (regulation == null)
+
+            if (regulation == null || Session["ownerId"] == null || (string)Session["ownerId"] != regulation.OwnerId)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
             
             return View(regulation);

@@ -20,7 +20,9 @@ namespace LibraryManageWebsite.Controllers
         // GET: Books
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
-            var getBookList = await bookDAO.GetByPaged(page, pageSize, keyword);
+            var ownerId = (string)Session["ownerId"];
+
+            var getBookList = await bookDAO.GetByPaged(page, pageSize, keyword, ownerId);
 
             ViewBag.Keyword = keyword;
             ViewBag.Page = page;
@@ -34,13 +36,16 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Book book = await bookDAO.GetById(id);
-            if (book == null)
+
+            if (book == null || Session["ownerId"] == null || book.OwnerId != (string )Session["ownerId"])
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
+
             return View(book);
         }
 
@@ -73,12 +78,14 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Book book = await bookDAO.GetById(id);
-            if (book == null)
+
+            if (book == null || Session["ownerId"] == null || book.OwnerId != (string)Session["ownerId"])
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
             
             return View(book);
@@ -106,13 +113,16 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Book book = await bookDAO.GetById(id);
-            if (book == null)
+
+            if (book == null || Session["ownerId"] == null || book.OwnerId != (string)Session["ownerId"])
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
+
             return View(book);
         }
 

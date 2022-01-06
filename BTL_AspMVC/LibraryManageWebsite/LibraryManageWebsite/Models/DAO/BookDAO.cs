@@ -58,15 +58,15 @@ namespace LibraryManageWebsite.Models.DAO
         }
 
         // lấy danh sách theo tên
-        public async Task<List<Book>> GetByKeyword(string keyword)
+        public async Task<List<Book>> GetByKeyword(string keyword, string ownerId)
         {
-            return await db.Books.Where(t => t.Name.Contains(keyword)).OrderBy(t => t.Name).ToListAsync();
+            return await db.Books.Where(t => t.Name.Contains(keyword) && t.OwnerId == ownerId).OrderBy(t => t.Name).ToListAsync();
         }
 
         // phân trang cho danh sách
-        public async Task<IPagedList<Book>> GetByPaged(int page, int pageSize, string keyword)
+        public async Task<IPagedList<Book>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
         {
-            var getListByKeyword = await GetByKeyword(keyword);
+            var getListByKeyword = await GetByKeyword(keyword, ownerId);
 
             return getListByKeyword.ToPagedList(page, pageSize);
         }

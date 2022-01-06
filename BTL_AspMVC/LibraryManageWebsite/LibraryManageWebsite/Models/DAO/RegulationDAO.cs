@@ -28,9 +28,9 @@ namespace LibraryManageWebsite.Models.DAO
         }
 
         // hiển thị quy định
-        public async Task<List<Regulation>> GetContent()
+        public async Task<List<Regulation>> GetContent(string ownerId)
         {
-            return await db.Regulations.ToListAsync();
+            return await db.Regulations.Where(t => t.OwnerId == ownerId).ToListAsync();
         }
 
         // lấy chi tiết quy định theo id
@@ -54,6 +54,12 @@ namespace LibraryManageWebsite.Models.DAO
             }
 
             return false;
+        }
+
+        // lấy chi tiết quy định theo id (trường hợp bổ sung)
+        public async Task<Regulation> GetById(int? id)
+        {
+            return await db.Regulations.FindAsync(id);
         }
     }
 }

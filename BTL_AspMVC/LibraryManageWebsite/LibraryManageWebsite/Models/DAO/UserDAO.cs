@@ -58,15 +58,15 @@ namespace LibraryManageWebsite.Models.DAO
         }
 
         // lấy danh sách nhân viên theo tên
-        public async Task<List<User>> GetByKeyword(string keyword)
+        public async Task<List<User>> GetByKeyword(string keyword, string ownerId)
         {
-            return await db.Users.Where(t => t.Name.Contains(keyword)).OrderBy(t => t.Name).ToListAsync();
+            return await db.Users.Where(t => t.Name.Contains(keyword) && t.OwnerId == ownerId).OrderBy(t => t.Name).ToListAsync();
         }
 
         // phân trang danh sách nhân viên
-        public async Task<IPagedList<User>> GetByPaged(int page, int pageSize, string keyword)
+        public async Task<IPagedList<User>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
         {
-            var getUserListByKeyword = await GetByKeyword(keyword);
+            var getUserListByKeyword = await GetByKeyword(keyword, ownerId);
 
             return getUserListByKeyword.ToPagedList(page, pageSize);
         }

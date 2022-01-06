@@ -21,7 +21,9 @@ namespace LibraryManageWebsite.Controllers
         // GET: Users
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
-            var userList = await userDAO.GetByPaged(page, pageSize, keyword);
+            var ownerId = (string)Session["ownerId"];
+
+            var userList = await userDAO.GetByPaged(page, pageSize, keyword, ownerId);
 
             ViewBag.Keyword = keyword;
             ViewBag.Page = page;
@@ -36,13 +38,26 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             User user = await userDAO.GetById(id);
-            if (user == null)
+
+            if (User.IsInRole("Admin"))
             {
-                return HttpNotFound();
+                if (user == null || Session["ownerId"] == null || user.OwnerId != (string)Session["ownerId"])
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
+            else
+            {
+                if (user == null || Session["userId"] == null || user.Id != (string)Session["userId"])
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+
             return View(user);
         }
 
@@ -78,14 +93,26 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             User user = await userDAO.GetById(id);
-            if (user == null)
+
+            if (User.IsInRole("Admin"))
             {
-                return HttpNotFound();
+                if (user == null || Session["ownerId"] == null || user.OwnerId != (string)Session["ownerId"])
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
-            //ViewBag.OwnerId = new SelectList(db.Owners, "Id", "Name", user.OwnerId);
+            else
+            {
+                if (user == null || Session["userId"] == null || user.Id != (string)Session["userId"])
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+
             return View(user);
         }
 
@@ -114,13 +141,26 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             User user = await userDAO.GetById(id);
-            if (user == null)
+
+            if (User.IsInRole("Admin"))
             {
-                return HttpNotFound();
+                if (user == null || Session["ownerId"] == null || user.OwnerId != (string)Session["ownerId"])
+                {
+                    return RedirectToAction("Error", "Home");
+                }
             }
+            else
+            {
+                if (user == null || Session["userId"] == null || user.Id != (string)Session["userId"])
+                {
+                    return RedirectToAction("Error", "Home");
+                }
+            }
+
             return View(user);
         }
 

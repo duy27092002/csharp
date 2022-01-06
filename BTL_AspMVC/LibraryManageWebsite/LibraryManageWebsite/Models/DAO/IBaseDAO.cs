@@ -12,7 +12,7 @@ namespace LibraryManageWebsite.Models.DAO
 
         Task<T> GetById(U id);
 
-        Task<List<T>> GetByKeyword(string keyword);
+        Task<List<T>> GetByKeyword(string keyword, string ownerId);
 
         Task<bool> Add(T entity);
 

@@ -58,17 +58,23 @@ namespace LibraryManageWebsite.Models.DAO
         }
 
         // lấy danh sách liên hệ theo từ khóa
-        public async Task<List<Contact>> GetByKeyword(string keyword)
+        public async Task<List<Contact>> GetByKeyword(string keyword, string ownerId)
         {
-            return await db.Contacts.Where(t => t.AdminName.Contains(keyword)).OrderBy(t => t.AdminName).ToListAsync();
+            return await db.Contacts.Where(t => t.AdminName.Contains(keyword) && t.OwnerId == ownerId).OrderBy(t => t.AdminName).ToListAsync();
         }
 
         // phân trang cho danh sách liên hệ
-        public async Task<IPagedList<Contact>> GetByPaged(int page, int pageSize, string keyword)
+        public async Task<IPagedList<Contact>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
         {
-            var getListByKeyword = await GetByKeyword(keyword);
+            var getListByKeyword = await GetByKeyword(keyword, ownerId);
 
             return getListByKeyword.ToPagedList(page, pageSize);
+        }
+
+        // lấy thông tin theo id (trường hợp bổ sung)
+        public async Task<Contact> GetById(int? id)
+        {
+            return await db.Contacts.FindAsync(id);
         }
 
         // cập nhật thông tin liên hệ khi sửa
