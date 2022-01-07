@@ -5,6 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/Content/css/scroll-content.css" rel="stylesheet" />
+
 <div class="shadow container my-3 py-3">
     <h2 class="text-center mb-3">Quy định quản lý thư viện</h2>
 
@@ -20,7 +22,7 @@
     @foreach (var item in Model)
     {
         <div class="card">
-            <div class="card-body">
+            <div class="card-body load-content">
                 @Html.Raw(item.RegulationsContent)
             </div>
         </div>
