@@ -11,6 +11,46 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class UserDAO : BaseDAO, IUserDAO
     {
+
+        // kiểm tra tên đăng nhập là duy nhất
+        public bool CheckUsername(string username)
+        {
+            var getUsername = db.Users.Where(t => t.Username == username && t.Status == 1).FirstOrDefault();
+
+            if (getUsername != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // kiểm tra số điện thoại là duy nhất
+        public bool CheckPhone(string phone)
+        {
+            var getPhone = db.Users.Where(t => t.Phone == phone && t.Status == 1).FirstOrDefault();
+
+            if (getPhone != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // kiểm tra email là duy nhất
+        public bool CheckEmail(string email)
+        {
+            var getEmail = db.Users.Where(t => t.Email == email && t.Status == 1).FirstOrDefault();
+
+            if (getEmail != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         // thêm nhân viên mới
         public async Task<bool> Add(User entity)
         {
@@ -84,7 +124,6 @@ namespace LibraryManageWebsite.Models.DAO
                 getUser.Email = entity.Email;
                 getUser.Phone = entity.Phone;
                 getUser.Address = entity.Address;
-                getUser.Username = entity.Username;
                 getUser.Password = entity.Password;
                 getUser.UserType = entity.UserType;
                 getUser.Status = entity.Status;

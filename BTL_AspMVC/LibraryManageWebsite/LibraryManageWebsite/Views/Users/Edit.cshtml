@@ -12,11 +12,13 @@
     <div class="shadow container mt-3 py-3">
         <div class="form-horizontal">
             <h2 class="text-center mb-3">Chỉnh sửa</h2>
+            @Html.Partial("IndexPartialView\\AlertMessage")
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             @Html.HiddenFor(model => model.Id)
 
             <input type="hidden" id="OwnerId" name="OwnerId" value="@Model.OwnerId" />
+            <input type="hidden" id="Username" name="Username" value="@Model.Username" />
 
             <div class="row">
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4">
@@ -115,7 +117,7 @@
             </div>
 
             <div class="row">
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                     <div class="form-group">
                         <label class="font-weight-bold">Email <span class="text-danger">*</span></label>
                         <div class="col-md-12 pl-0">
@@ -124,7 +126,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4">
                     <div class="form-group">
                         <label class="font-weight-bold">Số điện thoại <span class="text-danger">*</span></label>
                         <div class="col-md-12 pl-0">
@@ -133,17 +135,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-                    <label class="font-weight-bold">Tên đăng nhập <span class="text-danger">*</span></label>
-                    <div class="col-md-12 pl-0">
-                        <input type="text" class="form-control" id="Username" name="Username" value="@Model.Username" />
-                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
                     <label class="font-weight-bold">Mật khẩu <span class="text-danger">*</span></label>
                     <div class="col-md-12 pl-0">
                         <input type="text" class="form-control" id="Password" name="Password" value="@Model.Password" />

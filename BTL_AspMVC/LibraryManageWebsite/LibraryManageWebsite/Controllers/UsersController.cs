@@ -77,11 +77,26 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await userDAO.Add(user);
+                if (userDAO.CheckUsername(user.Username) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Tên đăng nhập này đã tồi tại. Xin hãy đổi lại!";
+                }
+                else if (userDAO.CheckEmail(user.Email) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại email!";
+                }
+                else if (userDAO.CheckPhone(user.Phone) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại số điện thoại!";
+                }
+                else
+                {
+                    await userDAO.Add(user);
 
-                TempData["AlertSuccessMessage"] = "Thêm nhân viên mới thành công!";
+                    TempData["AlertSuccessMessage"] = "Thêm nhân viên mới thành công!";
 
-                return RedirectToAction("Index");
+                    return RedirectToAction("Index");
+                }
             }
 
             return View(user);
@@ -124,8 +139,31 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await userDAO.Update(user))
+                var getUserFromDB = await userDAO.GetById(user.Id);
+
+                if (getUserFromDB.Email != user.Email || getUserFromDB.Phone != user.Phone)
                 {
+                    if (userDAO.CheckEmail(user.Email) == false)
+                    {
+                        TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại email!";
+                    }
+                    else if (userDAO.CheckPhone(user.Phone) == false)
+                    {
+                        TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại số điện thoại!";
+                    }
+                    else
+                    {
+                        await userDAO.Update(user);
+
+                        TempData["AlertSuccessMessage"] = "Cập nhật thông tin tài khoản thành công!";
+
+                        return RedirectToAction("Details", "Users", new { id = user.Id });
+                    }
+                }
+                else
+                {
+                    await userDAO.Update(user);
+
                     TempData["AlertSuccessMessage"] = "Cập nhật thông tin tài khoản thành công!";
 
                     return RedirectToAction("Details", "Users", new { id = user.Id });
