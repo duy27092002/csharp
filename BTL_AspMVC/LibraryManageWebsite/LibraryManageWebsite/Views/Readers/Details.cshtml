@@ -12,6 +12,7 @@
     <div class="shadow container mt-3 py-3">
         <div class="form-horizontal">
             <h2 class="text-center mb-3">Thông tin chi tiết</h2>
+            @Html.Partial("IndexPartialView\\AlertMessage")
             <hr />
             @Html.HiddenFor(model => model.Id)
 
@@ -25,7 +26,7 @@
                 <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
                     <label class="font-weight-bold">Giới tính</label>
                     @{
-                        var getGender = Model.Gender == 0 ? "Name" : Model.Gender == 1 ? "Nữ" : "Khác";
+                        var getGender = Model.Gender == 0 ? "Nam" : Model.Gender == 1 ? "Nữ" : "Khác";
                     }
                     <input type="text" class="form-control bg-light" name="Gender" value="@getGender" readonly />
                 </div>
@@ -70,8 +71,8 @@
             </div>
 
             <div class="form-group text-center mt-5">
-                @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning" })
-                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning mt-3" })
+                <a class="btn btn-sm btn-secondary mt-3" href="@Url.Action("Index", "Readers")">Quay lại danh sách</a>
             </div>
         </div>
     </div>

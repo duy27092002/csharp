@@ -10,6 +10,19 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class RegulationDAO : BaseDAO
     {
+        // kiểm tra xem đã có nội dung quy định trong db chưa
+        public bool IsExited(string ownerId)
+        {
+            var getContent = db.Regulations.Where(t => t.OwnerId == ownerId).FirstOrDefault();
+
+            if (getContent != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         // thêm nội dung quy định mới
         public async Task<bool> Add(Regulation entity)
         {

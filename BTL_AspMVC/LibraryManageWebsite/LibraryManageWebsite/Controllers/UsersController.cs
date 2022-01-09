@@ -17,6 +17,8 @@ namespace LibraryManageWebsite.Controllers
     {
         private UserDAO userDAO = new UserDAO();
 
+        string userId = BaseDAO.RandomString(10);
+
         [Authorize(Roles = "Admin")]
         // GET: Users
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
@@ -65,7 +67,6 @@ namespace LibraryManageWebsite.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            ViewBag.UserId = BaseDAO.RandomString(10);
             return View();
         }
 
@@ -75,6 +76,8 @@ namespace LibraryManageWebsite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,Name,Gender,Birthday,Email,Phone,Address,Username,Password,UserType,OwnerId,Status")] User user)
         {
+            user.Id = userId;
+
             if (ModelState.IsValid)
             {
                 if (userDAO.CheckUsername(user.Username) == false)
@@ -91,11 +94,18 @@ namespace LibraryManageWebsite.Controllers
                 }
                 else
                 {
-                    await userDAO.Add(user);
+                    if (await userDAO.Add(user))
+                    {
+                        TempData["AlertSuccessMessage"] = "Thêm nhân viên mới thành công!";
 
-                    TempData["AlertSuccessMessage"] = "Thêm nhân viên mới thành công!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                    return RedirectToAction("Index");
+                        return View(user);
+                    }
                 }
             }
 
@@ -141,78 +151,40 @@ namespace LibraryManageWebsite.Controllers
             {
                 var getUserFromDB = await userDAO.GetById(user.Id);
 
-                if (getUserFromDB.Email != user.Email || getUserFromDB.Phone != user.Phone)
+                if (getUserFromDB.Email != user.Email)
                 {
                     if (userDAO.CheckEmail(user.Email) == false)
                     {
                         TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại email!";
-                    }
-                    else if (userDAO.CheckPhone(user.Phone) == false)
-                    {
-                        TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại số điện thoại!";
-                    }
-                    else
-                    {
-                        await userDAO.Update(user);
 
-                        TempData["AlertSuccessMessage"] = "Cập nhật thông tin tài khoản thành công!";
-
-                        return RedirectToAction("Details", "Users", new { id = user.Id });
+                        return View(user);
                     }
                 }
-                else
+                else if (getUserFromDB.Phone != user.Phone)
                 {
-                    await userDAO.Update(user);
+                    if (userDAO.CheckPhone(user.Phone) == false)
+                    {
+                        TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại số điện thoại!";
 
+                        return View(user);
+                    }
+                }
+
+                if (await userDAO.Update(user))
+                {
                     TempData["AlertSuccessMessage"] = "Cập nhật thông tin tài khoản thành công!";
 
                     return RedirectToAction("Details", "Users", new { id = user.Id });
                 }
-            }
-
-            return View(user);
-        }
-
-        // GET: Users/Delete/5
-        [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
-            User user = await userDAO.GetById(id);
-
-            if (User.IsInRole("Admin"))
-            {
-                if (user == null || Session["ownerId"] == null || user.OwnerId != (string)Session["ownerId"])
+                else
                 {
-                    return RedirectToAction("Error", "Home");
-                }
-            }
-            else
-            {
-                if (user == null || Session["userId"] == null || user.Id != (string)Session["userId"])
-                {
-                    return RedirectToAction("Error", "Home");
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                    return View(user);
                 }
             }
 
             return View(user);
-        }
-
-        // POST: Users/Delete/5
-        [Authorize(Roles = "Admin")]
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            await userDAO.Delete(id);
-
-            TempData["AlertSuccessMessage"] = "Xóa nhân viên thành công!";
-
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

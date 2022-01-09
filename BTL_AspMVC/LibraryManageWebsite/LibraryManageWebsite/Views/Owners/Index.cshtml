@@ -1,12 +1,12 @@
 ﻿@model PagedList.PagedList<LibraryManageWebsite.Models.EF.Owner>
 
 @{
-    ViewBag.Title = "Danh sách người mua website";
+    ViewBag.Title = "Danh sách khách hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="shadow container mt-3 py-3">
-    <h2 class="text-center mb-3">Danh sách người mua website</h2>
+    <h2 class="text-center mb-3">Danh sách khách hàng</h2>
     @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
     @Html.Partial("IndexPartialView\\AlertMessage")
     <div class="table-responsive">
@@ -26,11 +26,11 @@
                     <td class="text-nowrap" style="width:1px">
                         @if (item.Status == 1)
                         {
-                            <a class="btn btn-sm btn-success" disabled>Đang hoạt động</a>
+                            <a class="btn btn-sm btn-success" disabled>Đã kích hoạt</a>
                         }
                         else
                         {
-                            <a class="btn btn-sm btn-danger" disabled>Đã ngừng hoạt động</a>
+                            <a class="btn btn-sm btn-danger" disabled>Đã ngừng kích hoạt</a>
                         }
                     </td>
                     <td class="text-nowrap" style="width:1px">

@@ -14,9 +14,14 @@
 
     @if (User.IsInRole("Admin"))
     {
-        <p>
-            <a class="btn btn-sm btn-primary" href="@Url.Action("Create", "Regulations")">+ Tạo mới</a>
-        </p>
+        // nếu chưa có nội dung quy định thì sẽ hiển thị nút tạo mới
+        // nếu có rồi thì sẽ ẩn nút tạo mới đi
+        if (ViewBag.IsExited == false)
+        {
+            <p>
+                <a class="btn btn-sm btn-primary" href="@Url.Action("Create", "Regulations")">+ Tạo mới</a>
+            </p>
+        }
     }
 
     @foreach (var item in Model)

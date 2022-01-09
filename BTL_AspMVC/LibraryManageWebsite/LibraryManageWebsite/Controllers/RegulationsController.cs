@@ -21,6 +21,8 @@ namespace LibraryManageWebsite.Controllers
         [Authorize(Roles = "Admin, Nhân viên")]
         public async Task<ActionResult> Index()
         {
+            ViewBag.IsExited = regulationDAO.IsExited((string)Session["ownerId"]);
+
             return View(await regulationDAO.GetContent((string)Session["ownerId"]));
         }
 

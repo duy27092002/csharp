@@ -14,6 +14,8 @@ namespace LibraryManageWebsite.Controllers
     {
         private AccountDAO accountDAO = new AccountDAO();
 
+        string userId = BaseDAO.RandomString(10);
+
         // GET: Login
         public ActionResult Login()
         {
@@ -26,17 +28,23 @@ namespace LibraryManageWebsite.Controllers
         {
             if (accountDAO.CheckLogin(user))
             {
-                FormsAuthentication.SetAuthCookie(user.Username, false);
+                var getUser = accountDAO.GetUser(user);
 
-                Session["username"] = user.Username;
+                if (getUser.UserType != 3)
+                {
+                    FormsAuthentication.SetAuthCookie(user.Username, false);
+                    
+                    Session["username"] = user.Username;
 
-                Session["userId"] = accountDAO.GetUser(user).Id;
+                    Session["userId"] = getUser.Id;
 
-                Session["ownerId"] = user.OwnerId;
+                    Session["ownerId"] = user.OwnerId;
 
-                return RedirectToAction("Index", "Home");
-            } 
-            else if (accountDAO.IsDeveloper(user))
+                    return RedirectToAction("Index", "Home");
+                }
+            }
+
+            if (user.OwnerId == null && user.Username == "DnV" && user.Email == "dnvduynguyen@gmail.com" && user.Password == "27092002")
             {
                 FormsAuthentication.SetAuthCookie(user.Username, false);
 
@@ -55,7 +63,6 @@ namespace LibraryManageWebsite.Controllers
         // GET: Sign in
         public ActionResult SignIn()
         {
-            ViewBag.UserId = BaseDAO.RandomString(10);
             return View();
         }
 
@@ -63,6 +70,8 @@ namespace LibraryManageWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SignIn(User user)
         {
+            user.Id = userId;
+
             if (ModelState.IsValid)
             {
                 if (accountDAO.CheckUsername(user.Username) == false)

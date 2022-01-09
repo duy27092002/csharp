@@ -156,9 +156,11 @@
     <Compile Include="Models\DAO\IContactDAO.cs" />
     <Compile Include="Models\DAO\IOwnerDAO.cs" />
     <Compile Include="Models\DAO\IPagedListDAO.cs" />
+    <Compile Include="Models\DAO\IPromissoryNoteDAO.cs" />
     <Compile Include="Models\DAO\IReaderDAO.cs" />
     <Compile Include="Models\DAO\IUserDAO.cs" />
     <Compile Include="Models\DAO\OwnerDAO.cs" />
+    <Compile Include="Models\DAO\PromissoryNoteDAO.cs" />
     <Compile Include="Models\DAO\ReaderDAO.cs" />
     <Compile Include="Models\DAO\RegulationDAO.cs" />
     <Compile Include="Models\DAO\UserDAO.cs" />
@@ -2534,7 +2536,6 @@
     <Content Include="Views\Shared\IndexPartialView\CreateAndFindByKeyword.cshtml" />
     <Content Include="Views\Shared\IndexPartialView\TableFeature.cshtml" />
     <Content Include="Views\Books\Create.cshtml" />
-    <Content Include="Views\Books\Delete.cshtml" />
     <Content Include="Views\Books\Details.cshtml" />
     <Content Include="Views\Books\Edit.cshtml" />
     <Content Include="Views\Books\Index.cshtml" />
@@ -2543,7 +2544,6 @@
     <Content Include="Views\Contacts\Edit.cshtml" />
     <Content Include="Views\Contacts\Index.cshtml" />
     <Content Include="Views\Owners\Create.cshtml" />
-    <Content Include="Views\Owners\Delete.cshtml" />
     <Content Include="Views\Owners\Details.cshtml" />
     <Content Include="Views\Owners\Edit.cshtml" />
     <Content Include="Views\Owners\Index.cshtml" />
@@ -2553,7 +2553,6 @@
     <Content Include="Views\PromissoryNotes\Edit.cshtml" />
     <Content Include="Views\PromissoryNotes\Index.cshtml" />
     <Content Include="Views\Readers\Create.cshtml" />
-    <Content Include="Views\Readers\Delete.cshtml" />
     <Content Include="Views\Readers\Details.cshtml" />
     <Content Include="Views\Readers\Edit.cshtml" />
     <Content Include="Views\Readers\Index.cshtml" />
@@ -2561,7 +2560,6 @@
     <Content Include="Views\Regulations\Edit.cshtml" />
     <Content Include="Views\Regulations\Index.cshtml" />
     <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />

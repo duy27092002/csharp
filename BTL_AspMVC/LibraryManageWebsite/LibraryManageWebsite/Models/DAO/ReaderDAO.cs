@@ -11,6 +11,32 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class ReaderDAO : BaseDAO, IReaderDAO
     {
+        // kiểm tra số điện thoại là duy nhất
+        public bool CheckPhone(string phone, string ownerId)
+        {
+            var getPhone = db.Readers.Where(t => t.Phone == phone && t.OwnerId == ownerId && t.Status == 1).FirstOrDefault();
+
+            if (getPhone != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // kiểm tra email là duy nhất
+        public bool CheckEmail(string email, string ownerId)
+        {
+            var getEmail = db.Readers.Where(t => t.Email == email && t.OwnerId == ownerId && t.Status == 1).FirstOrDefault();
+
+            if (getEmail != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         // thêm đọc giả mới
         public async Task<bool> Add(Reader entity)
         {
@@ -29,20 +55,9 @@ namespace LibraryManageWebsite.Models.DAO
         }
 
         // xóa đọc giả
-        public async Task<bool> Delete(string id)
+        public Task<bool> Delete(string id)
         {
-            var getReader = await GetById(id);
-
-            if (getReader != null)
-            {
-                db.Readers.Remove(getReader);
-
-                await db.SaveChangesAsync();
-
-                return true;
-            }
-
-            return false;
+            throw new NotImplementedException();
         }
 
         // lấy toàn bộ danh sách đọc giả

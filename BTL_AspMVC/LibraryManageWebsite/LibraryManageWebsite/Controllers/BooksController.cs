@@ -17,6 +17,8 @@ namespace LibraryManageWebsite.Controllers
     {
         private BookDAO bookDAO = new BookDAO();
 
+        string bookId = BaseDAO.RandomString(10);
+
         // GET: Books
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
@@ -52,7 +54,6 @@ namespace LibraryManageWebsite.Controllers
         // GET: Books/Create
         public ActionResult Create()
         {
-            ViewBag.BookId = BaseDAO.RandomString(10);
             return View();
         }
 
@@ -61,13 +62,31 @@ namespace LibraryManageWebsite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "Id,OwnerId,Name,Author,Publisher,Price,Quantity,Year,Views,Status")] Book book)
         {
+            book.Id = bookId;
+
             if (ModelState.IsValid)
             {
-                await bookDAO.Add(book);
+                if (bookDAO.IsExited(book.Name, book.Author, (string)Session["ownerId"]))
+                {
+                    if (await bookDAO.Add(book))
+                    {
+                        TempData["AlertSuccessMessage"] = "Thêm sách mới thành công!";
 
-                TempData["AlertSuccessMessage"] = "Thêm sách mới thành công!";
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                return RedirectToAction("Index");
+                        return View(book);
+                    }
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Sách này đã có trong thư viện. Vui lòng kiểm tra lại!";
+
+                    return View(book);
+                }
             }
 
             return View(book);
@@ -98,44 +117,42 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await bookDAO.Update(book);
+                var getBookFromDB = await bookDAO.GetById(book.Id);
 
-                TempData["AlertSuccessMessage"] = "Cập nhật thông tin thành công!";
+                if (getBookFromDB.Name != book.Name)
+                {
+                    if (!bookDAO.IsExited(book.Name, book.Author, (string)Session["ownerId"]))
+                    {
+                        TempData["AlertErrorMessage"] = "Sách này đã có trong thư viện. Vui lòng kiểm tra lại!";
 
-                return RedirectToAction("Index");
+                        return View(book);
+                    }
+                }
+                else if (getBookFromDB.Author != book.Author)
+                {
+                    if (!bookDAO.IsExited(book.Name, book.Author, (string)Session["ownerId"]))
+                    {
+                        TempData["AlertErrorMessage"] = "Sách này đã có trong thư viện. Vui lòng kiểm tra lại!";
+
+                        return View(book);
+                    }
+                }
+
+                if (await bookDAO.Update(book))
+                {
+                    TempData["AlertSuccessMessage"] = "Cập nhật thông tin thành công!";
+
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                    return View(book);
+                }
             }
             
             return View(book);
-        }
-
-        // GET: Books/Delete/5
-        public async Task<ActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
-            Book book = await bookDAO.GetById(id);
-
-            if (book == null || Session["ownerId"] == null || book.OwnerId != (string)Session["ownerId"])
-            {
-                return RedirectToAction("Error", "Home");
-            }
-
-            return View(book);
-        }
-
-        // POST: Books/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            await bookDAO.Delete(id);
-
-            TempData["AlertSuccessMessage"] = "Xóa sách thành công!";
-
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

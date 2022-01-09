@@ -29,20 +29,9 @@ namespace LibraryManageWebsite.Models.DAO
         }
 
         // xóa người mua website
-        public async Task<bool> Delete(string id)
+        public Task<bool> Delete(string id)
         {
-            var getOwner = await GetById(id);
-
-            if (getOwner != null)
-            {
-                db.Owners.Remove(getOwner);
-
-                await db.SaveChangesAsync();
-
-                return true;
-            }
-
-            return false;
+            throw new NotImplementedException();
         }
 
         public Task<List<Owner>> GetAll()

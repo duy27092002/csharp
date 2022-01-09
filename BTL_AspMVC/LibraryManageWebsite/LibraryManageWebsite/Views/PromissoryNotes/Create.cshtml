@@ -1,81 +1,133 @@
 ﻿@model LibraryManageWebsite.Models.EF.PromissoryNote
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Tạo phiếu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>PromissoryNote</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Id, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ReaderId, "ReaderId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("ReaderId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ReaderId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+    <div class="shadow container my-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Tạo phiếu mượn-trả mới</h2>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, "UserId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("UserId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <input type="hidden" id="Id" name="Id" value="@ViewBag.PNId" />
+            <input type="hidden" id="UserId" name="UserId" value="@Session["userId"]" />
+            <input type="hidden" id="OwnerId" name="OwnerId" value="@Session["ownerId"]" />
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.OwnerId, "OwnerId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("OwnerId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.OwnerId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+            <div class="row mb-3">
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="font-weight-bold">Nhân viên lập phiếu</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Session["username"]" readonly />
+                        @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+                <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                    <label class="font-weight-bold">Số điện thoại đọc giả <span class="text-danger">*</span></label>
+                    <div class="col-md-12 pl-0">
+                        <input class="form-control" list="readerPhone" name="browser" id="reader-phone">
+                        <datalist id="readerPhone">
+                            @foreach (var item in ViewBag.GetReader)
+                            {
+                                <option value="@item.Phone"></option>
+                            }
+                        </datalist>
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Status, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <h5 class="text-center mb-3">Thông tin sách</h5>
+                <div class="table-responsive">
+                    <table class="table table-sm table-bordered table-hover text-center">
+                        <tr>
+                            <th>Tên sách</th>
+                            <th>Tác giả</th>
+                            <th>Ngày mượn</th>
+                            <th>Ngày trả</th>
+                            <th>Chi phí mượn</th>
+                            <th>Trạng thái</th>
+                            <th></th>
+                        </tr>
+                        <tbody id="book-table">
+                            <tr class="text-center">
+                                <td>
+                                    <input type="text" id="bookName" class="form-control text-center" />
+                                </td>
+                                <td>
+                                    <input type="text" id="bookAuthor" class="form-control text-center" />
+                                </td>
+                                <td>
+                                    <input type="text" id="borrowedDate" class="form-control bg-light text-center" readonly value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                                </td>
+                                <td>
+                                    <input type="date" id="payDate" class="form-control text-center" />
+                                </td>
+                                <td>
+                                    <input type="text" id="cost" class="form-control text-right" value="150,000" />
+                                </td>
+                                <td class="text-nowrap" style="width:1px">
+                                    <a class="btn btn-sm btn-success" disabled>Đang mượn</a>
+                                </td>
+                                <td class="text-nowrap" style="width:1px">
+                                    <a class="btn btn-sm btn-danger">Xóa</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" class="text-right">
+                                    <b>Tổng chi phí: 200,000 VNĐ</b>
+                                    <input type="hidden" id="Total" name="Total" value="" />
+                                </td>
+                            </tr>
+                        </tfoot>
+
+                    </table>
+                </div>
+
+                <input type="button" class="btn btn-sm btn-primary mb-3" value="+ Thêm sách" id="add-new-book" />
             </div>
-        </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <div class="form-group">
+                <label class="font-weight-bold">Trạng thái mượn</label>
+                <div class="col-md-12 pl-0">
+                    <select id="Status" name="Status" class="form-control">
+                        <option value="1">Đang mượn</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center mt-5">
+                <input type="submit" value="Tạo" class="btn btn-sm btn-primary" />
+                <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
             </div>
         </div>
     </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+@section Scripts{
+    <script>
+        $("#add-new-book").click(function () {
+            let html = '';
+            html += '<tr class="text-center">';
+            html += '<td><input type = "text" id = "bookName" class="form-control text-center" /></td>';
+            html += '<td><input type="text" id="bookAuthor" class="form-control text-center" /></td>';
+            html += '<td><input type="text" id="borrowedDate" class="form-control bg-light text-center" readonly value="@DateTime.Now.ToString("MM/dd/yyyy")" /></td>';
+            html += '<td><input type="date" id="payDate" class="form-control text-center" /></td>';
+            html += '<td><input type="text" id="cost" class="form-control text-right" value="150,000" /></td>';
+            html += '<td class="text-nowrap" style="width:1px"><a class="btn btn-sm btn-success" disabled>Đang mượn</a></td>';
+            html += '<td class="text-nowrap" style="width:1px"><a class="btn btn-sm btn-danger">Xóa</a></td>';
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+            $("#book-table").append(html);
+        });
+    </script>
 }

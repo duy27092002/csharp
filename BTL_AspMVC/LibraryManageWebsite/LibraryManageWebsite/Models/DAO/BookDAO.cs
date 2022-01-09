@@ -11,6 +11,19 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class BookDAO : BaseDAO, IBookDAO
     {
+        // kiểm tra sự trùng lặp của sách
+        public bool IsExited(string bookName, string author, string ownerId)
+        {
+            var getBook = db.Books.Where(t => t.Name == bookName && t.Author == author && t.OwnerId == ownerId).FirstOrDefault();
+
+            if (getBook != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         // thêm sách mới
         public async Task<bool> Add(Book entity)
         {
@@ -29,20 +42,9 @@ namespace LibraryManageWebsite.Models.DAO
         }
 
         // xóa sách
-        public async Task<bool> Delete(string id)
+        public Task<bool> Delete(string id)
         {
-            var getBook = await GetById(id);
-
-            if (getBook != null)
-            {
-                db.Books.Remove(getBook);
-
-                await db.SaveChangesAsync();
-
-                return true;
-            }
-
-            return false;
+            throw new NotImplementedException();
         }
 
         // lấy toàn bộ sách

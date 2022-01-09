@@ -99,33 +99,6 @@ namespace LibraryManageWebsite.Controllers
             return View(owner);
         }
 
-        // GET: Owners/Delete/5
-        public async Task<ActionResult> Delete(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Owner owner = await ownerDAO.GetById(id);
-            if (owner == null)
-            {
-                return HttpNotFound();
-            }
-            return View(owner);
-        }
-
-        // POST: Owners/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> DeleteConfirmed(string id)
-        {
-            await ownerDAO.Delete(id);
-
-            TempData["AlertSuccessMessage"] = "Xóa người mua thành công!";
-
-            return RedirectToAction("Index");
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (disposing)

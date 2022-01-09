@@ -69,20 +69,9 @@ namespace LibraryManageWebsite.Models.DAO
         }
 
         // xóa nhân viên
-        public async Task<bool> Delete(string id)
+        public Task<bool> Delete(string id)
         {
-            var getUser = await GetById(id);
-
-            if (getUser != null)
-            {
-                db.Users.Remove(getUser);
-
-                await db.SaveChangesAsync();
-
-                return true;
-            }
-
-            return false;
+            throw new NotImplementedException();
         }
 
         // lấy danh sách nhân viên
@@ -100,7 +89,12 @@ namespace LibraryManageWebsite.Models.DAO
         // lấy danh sách nhân viên theo tên
         public async Task<List<User>> GetByKeyword(string keyword, string ownerId)
         {
-            return await db.Users.Where(t => t.Name.Contains(keyword) && t.OwnerId == ownerId).OrderBy(t => t.Name).ToListAsync();
+            return await db.Users.Where(
+                t => t.Name.Contains(keyword) &&
+                t.OwnerId == ownerId && 
+                t.UserType != 3
+                ).OrderBy(t => t.Name)
+                .ToListAsync();
         }
 
         // phân trang danh sách nhân viên

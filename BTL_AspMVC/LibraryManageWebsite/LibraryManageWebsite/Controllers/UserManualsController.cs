@@ -20,6 +20,8 @@ namespace LibraryManageWebsite.Controllers
         // GET: UserManuals
         public async Task<ActionResult> Index()
         {
+            ViewBag.Exited = umDAO.IsExited();
+
             return View(await umDAO.GetContent());
         }
 

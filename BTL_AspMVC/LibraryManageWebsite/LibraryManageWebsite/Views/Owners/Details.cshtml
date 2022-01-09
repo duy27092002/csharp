@@ -1,7 +1,7 @@
 ﻿@model LibraryManageWebsite.Models.EF.Owner
 
 @{
-    ViewBag.Title = "Chi tiết người mua";
+    ViewBag.Title = "Chi tiết khách hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -11,12 +11,12 @@
 
     <div class="shadow container mt-3 py-3">
         <div class="form-horizontal">
-            <h2 class="text-center mb-3">Thông tin chi tiết người mua website</h2>
+            <h2 class="text-center mb-3">Thông tin chi tiết khách hàng</h2>
             <hr />
             @Html.HiddenFor(model => model.Id)
 
             <div class="form-group">
-                <label class="font-weight-bold">Tên cá nhân hoặc tổ chức</label>
+                <label class="font-weight-bold">Tên khách hàng</label>
                 <div class="col-md-12 pl-0">
                     <input type="text" class="form-control bg-light" value="@Model.Name" readonly />
                 </div>
@@ -58,7 +58,7 @@
                 <label class="font-weight-bold">Trạng thái</label>
                 <div class="col-md-12 pl-0">
                     @{
-                        var getStatus = Model.Status == 1 ? "Đang hoạt động" : "Đã ngừng hoạt động";
+                        var getStatus = Model.Status == 1 ? "Đã kích hoạt" : "Đã ngừng kích hoạt";
                     }
                     <input type="text" class="form-control bg-light" value="@getStatus" readonly />
                 </div>

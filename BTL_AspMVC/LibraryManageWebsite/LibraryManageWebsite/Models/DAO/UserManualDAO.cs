@@ -10,6 +10,19 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class UserManualDAO : BaseDAO
     {
+        // kiểm tra xem có hướng dẫn trong db chưa?
+        public bool IsExited()
+        {
+            var getRecord = db.UserManuals.Count();
+
+            if (getRecord > 0)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         // tạo hướng dẫn mới
         public async Task<bool> Add(UserManual entity)
         {

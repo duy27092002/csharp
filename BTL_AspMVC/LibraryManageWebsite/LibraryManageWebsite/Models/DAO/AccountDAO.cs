@@ -42,23 +42,6 @@ namespace LibraryManageWebsite.Models.DAO
             return false;
         }
 
-        // kiểm tra đăng nhập của developer
-        public bool IsDeveloper(User entity)
-        {
-            var getDeveloper = db.Users.Where(
-                t => t.Username == entity.Username &&
-                t.Email == entity.Email &&
-                t.Password == entity.Password &&
-                t.Status == 1).FirstOrDefault();
-
-            if (getDeveloper != null)
-            {
-                return true;
-            }
-
-            return false;
-        }
-
         // lấy thông tin của developer
         public User GetInfoOfDev(User entity)
         {

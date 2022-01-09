@@ -76,7 +76,6 @@ D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\System.Web.We
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\Newtonsoft.Json.xml
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\Antlr3.Runtime.pdb
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\obj\Debug\LibraryManageWebsite.csprojAssemblyReference.cache
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\obj\Debug\LibraryManageWebsite.csproj.CoreCompileInputs.cache
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\obj\Debug\LibraryManageWebsite.csproj.CopyComplete
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\obj\Debug\LibraryManageWebsite.dll
@@ -85,3 +84,4 @@ D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\PagedList.dll
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\PagedList.Mvc.dll
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\PagedList.xml
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\PagedList.Mvc.xml
+D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\obj\Debug\LibraryManageWebsite.csprojAssemblyReference.cache
