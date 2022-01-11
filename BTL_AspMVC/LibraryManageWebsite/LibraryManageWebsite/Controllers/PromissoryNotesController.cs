@@ -16,6 +16,8 @@ namespace LibraryManageWebsite.Controllers
     {
         private PromissoryNoteDAO pnDAO = new PromissoryNoteDAO();
 
+        string pnId = BaseDAO.RandomString(10);
+
         // GET: PromissoryNotes
         public ActionResult Index()
         {
@@ -41,13 +43,11 @@ namespace LibraryManageWebsite.Controllers
         // GET: PromissoryNotes/Create
         public async Task<ActionResult> Create()
         {
-            //ViewBag.ReaderId = new SelectList(db.Readers, "Id", "Name");
-
             var ownerId = (string)(Session["ownerId"]);
 
-            ViewBag.GetReader = await pnDAO.GetReader(ownerId);
+            ViewBag.GetReaderList = await pnDAO.GetReaderList(ownerId);
 
-            ViewBag.PNId = BaseDAO.RandomString(10);
+            ViewBag.GetBookList = await pnDAO.GetBookList(ownerId);
 
             return View();
         }
@@ -57,6 +57,8 @@ namespace LibraryManageWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Id,ReaderId,UserId,OwnerId,Total,Status")] PromissoryNote promissoryNote)
         {
+            promissoryNote.Id = pnId;
+
             if (ModelState.IsValid)
             {
                 //db.PromissoryNotes.Add(promissoryNote);

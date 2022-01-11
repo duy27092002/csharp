@@ -163,5 +163,27 @@ namespace LibraryManageWebsite.Controllers
             }
             base.Dispose(disposing);
         }
+
+        [HttpGet]
+        public async Task<JsonResult> GetBookListForPromissoryNote(string bookName)
+        {
+            // bỏ dấu [] ở định dạng kiểu mảng của tham số json
+            //json = json.Replace("[", "").Replace("]", "");
+
+            // tạo mảng với các phần tử là tên sách trong thư viện
+            //string[] bookNameArr = json == string.Empty ? new string[0] : json.Split(',').Select(t => t).ToArray();
+
+            var model = await bookDAO.GetBookListByName(bookName, (string)Session["ownerId"]);
+
+            return Json(new
+            {
+                data = model.Select(t => new
+                {
+                    Name = t.Name,
+                    Author = t.Author,
+                    Publisher = t.Publisher
+                }).ToArray()
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

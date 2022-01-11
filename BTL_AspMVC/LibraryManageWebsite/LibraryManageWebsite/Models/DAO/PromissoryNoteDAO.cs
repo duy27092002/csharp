@@ -46,9 +46,14 @@ namespace LibraryManageWebsite.Models.DAO
             throw new NotImplementedException();
         }
 
-        public async Task<List<Reader>> GetReader(string ownerId)
+        public async Task<List<Reader>> GetReaderList(string ownerId)
         {
             return await db.Readers.Where(t => t.OwnerId == ownerId && t.Status == 1).ToListAsync();
+        }
+
+        public async Task<List<Book>> GetBookList(string ownerId)
+        {
+            return await db.Books.Where(t => t.OwnerId == ownerId && t.Status == 1).ToListAsync();
         }
     }
 }
