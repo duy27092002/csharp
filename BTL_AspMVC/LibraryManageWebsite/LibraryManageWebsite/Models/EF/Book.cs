@@ -17,7 +17,7 @@ namespace LibraryManageWebsite.Models.EF
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Book()
         {
-            this.PromissoryNoteDetails = new HashSet<PromissoryNoteDetail>();
+            this.PromissoryNotes = new HashSet<PromissoryNote>();
         }
     
         public string Id { get; set; }
@@ -33,6 +33,6 @@ namespace LibraryManageWebsite.Models.EF
     
         public virtual Owner Owner { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromissoryNoteDetail> PromissoryNoteDetails { get; set; }
+        public virtual ICollection<PromissoryNote> PromissoryNotes { get; set; }
     }
 }

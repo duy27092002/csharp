@@ -17,6 +17,8 @@ namespace LibraryManageWebsite.Controllers
     {
         private OwnerDAO ownerDAO = new OwnerDAO();
 
+        string ownerId = BaseDAO.RandomString(10);
+
         // GET: Owners
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
@@ -47,15 +49,16 @@ namespace LibraryManageWebsite.Controllers
         // GET: Owners/Create
         public ActionResult Create()
         {
-            ViewBag.OwnerId = BaseDAO.RandomString(10);
             return View();
         }
 
         // POST: Owners/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Email,Phone,Username,Password,Status")] Owner owner)
+        public async Task<ActionResult> Create([Bind(Include = "Id,Name,Email,Phone,RegistrationTime,ExpireTime,Status")] Owner owner)
         {
+            owner.Id = ownerId;
+
             if (ModelState.IsValid)
             {
                 await ownerDAO.Add(owner);
@@ -86,7 +89,7 @@ namespace LibraryManageWebsite.Controllers
         // POST: Owners/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Email,Phone,Username,Password,Status")] Owner owner)
+        public async Task<ActionResult> Edit([Bind(Include = "Id,Name,Email,Phone,RegistrationTime,ExpireTime,Status")] Owner owner)
         {
             if (ModelState.IsValid)
             {

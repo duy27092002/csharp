@@ -15,8 +15,6 @@
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <input type="hidden" id="Id" name="Id" value="@ViewBag.OwnerId" />
-
             <div class="form-group">
                 <label class="font-weight-bold">Tên khách hàng <span class="text-danger">*</span></label>
                 <div class="col-md-12 pl-0">
@@ -45,18 +43,21 @@
 
             <div class="row">
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-                    <label class="font-weight-bold">Tên tài khoản <span class="text-danger">*</span></label>
+                    <label class="font-weight-bold">Ngày kích hoạt <small class="text-secondary">(tháng/ ngày/ năm)</small></label>
                     <div class="col-md-12 pl-0">
-                        @Html.EditorFor(model => model.Username, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Username, "", new { @class = "text-danger" })
+                        <input type="text" id="RegistrationTime" name="RegistrationTime" class="form-control bg-white" readonly value="@DateTime.Now.ToString("MM/dd/yyyy")" />
                     </div>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-                    <label class="font-weight-bold">Mật khẩu <span class="text-danger">*</span></label>
+                    <label class="font-weight-bold">
+                        Ngày hết hạn kích hoạt 
+                        <span class="text-danger">*</span> 
+                        <small class="text-secondary">(tháng/ ngày/ năm)</small>
+                    </label>
                     <div class="col-md-12 pl-0">
-                        <input type="password" id="Password" name="Password" class="form-control" />
-                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                        <input type="date" id="ExpireTime" name="ExpireTime" class="form-control" />
+                        @Html.ValidationMessageFor(model => model.ExpireTime, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>

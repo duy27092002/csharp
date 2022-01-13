@@ -28,12 +28,10 @@ namespace LibraryManageWebsite.Models.EF
         [RegularExpression(@"^\d{0,20}$", ErrorMessage = "Sai định dạng số điện thoại")]
         public string Phone { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống tên tài khoản")]
-        [MaxLength(50, ErrorMessage = "Tên tài khoản tối đa là 50 ký tự")]
-        public string Username { get; set; }
+        [Required(ErrorMessage = "Không được để trống ngày kích hoạt")]
+        public System.DateTime RegistrationTime { get; set; }
 
-        [Required(ErrorMessage = "Không được để trống mật khẩu")]
-        [MaxLength(50, ErrorMessage = "Mật khẩu tối đa là 50 ký tự")]
-        public string Password { get; set; }
+        [Required(ErrorMessage = "Không được để trống ngày hết hạn kích hoạt")]
+        public System.DateTime ExpireTime { get; set; }
     }
 }

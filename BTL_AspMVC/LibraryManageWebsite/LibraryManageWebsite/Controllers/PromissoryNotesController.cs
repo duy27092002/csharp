@@ -9,9 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using LibraryManageWebsite.Models.DAO;
 using LibraryManageWebsite.Models.EF;
+using Newtonsoft.Json;
 
 namespace LibraryManageWebsite.Controllers
 {
+    [Authorize(Roles = "Admin, Nhân viên")]
     public class PromissoryNotesController : Controller
     {
         private PromissoryNoteDAO pnDAO = new PromissoryNoteDAO();
@@ -47,7 +49,11 @@ namespace LibraryManageWebsite.Controllers
 
             ViewBag.GetReaderList = await pnDAO.GetReaderList(ownerId);
 
-            ViewBag.GetBookList = await pnDAO.GetBookList(ownerId);
+            List<Book> books = await pnDAO.GetBookList(ownerId);
+
+            ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
+
+            ViewBag.GetBookNameList = books.GroupBy(x => x.Name).Select(y => y.First());
 
             return View();
         }
@@ -55,7 +61,7 @@ namespace LibraryManageWebsite.Controllers
         // POST: PromissoryNotes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ReaderId,UserId,OwnerId,Total,Status")] PromissoryNote promissoryNote)
+        public ActionResult Create([Bind(Include = "Id,ReaderId,UserId,OwnerId,BookId,BorrowedDate,ExpiryDate,Cost,Status")] PromissoryNote promissoryNote)
         {
             promissoryNote.Id = pnId;
 
@@ -93,7 +99,7 @@ namespace LibraryManageWebsite.Controllers
         // POST: PromissoryNotes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ReaderId,UserId,OwnerId,Total,Status")] PromissoryNote promissoryNote)
+        public ActionResult Edit([Bind(Include = "Id,ReaderId,UserId,OwnerId,BookId,BorrowedDate,ExpiryDate,Cost,Status")] PromissoryNote promissoryNote)
         {
             if (ModelState.IsValid)
             {

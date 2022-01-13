@@ -40,16 +40,16 @@
 
             <div class="row">
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-                    <label class="font-weight-bold">Tên tài khoản</label>
+                    <label class="font-weight-bold">Ngày kích hoạt <small class="text-secondary">(tháng/ ngày/ năm)</small></label>
                     <div class="col-md-12 pl-0">
-                        <input type="text" class="form-control bg-light" value="@Model.Username" readonly />
+                        <input type="text" class="form-control bg-light" value="@Model.RegistrationTime.ToString("MM/dd/yyyy")" readonly />
                     </div>
                 </div>
 
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
-                    <label class="font-weight-bold">Mật khẩu</label>
+                    <label class="font-weight-bold">Ngày hết hạn kích hoạt <small class="text-secondary">(tháng/ ngày/ năm)</small></label>
                     <div class="col-md-12 pl-0">
-                        <input type="text" class="form-control bg-light" value="@Model.Password" readonly />
+                        <input type="text" class="form-control bg-light" value="@Model.ExpireTime.ToString("MM/dd/yyyy")" readonly />
                     </div>
                 </div>
             </div>

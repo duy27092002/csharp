@@ -14,117 +14,90 @@
         <input type="hidden" id="UserId" name="UserId" value="@Session["userId"]" />
         <input type="hidden" id="OwnerId" name="OwnerId" value="@Session["ownerId"]" />
 
-        <div class="row mb-3">
+        <div class="row">
             <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                 <label class="font-weight-bold">Nhân viên lập phiếu</label>
                 <div class="col-md-12 pl-0">
-                    <input type="text" class="form-control bg-white" id="Username" name="Username" value="@Session["username"]" readonly />
+                    <input type="text" id="Username" name="Username" class="form-control bg-white" value="@Session["username"]" readonly />
                 </div>
             </div>
 
             <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                 <label class="font-weight-bold">Số điện thoại đọc giả <span class="text-danger">*</span></label>
                 <div class="col-md-12 pl-0">
-                    <input class="form-control" list="readerPhone" name="browser" id="reader-phone">
-                    <datalist id="readerPhone">
+                    <input class="form-control" list="readerPhone" name="ReaderId" id="ReaderId">
+                    <datalist id="readerPhone" class="scrollable" style="overflow-y: auto!important">
                         @foreach (var item in ViewBag.GetReaderList)
                         {
-                            <option value="@item.Phone">@item.Name</option>
+                            <option value="@item.Phone"></option>
                         }
                     </datalist>
                 </div>
             </div>
         </div>
 
-        <div class="form-group">
-            <h5 class="text-center mb-3">Thông tin sách</h5>
-            <div class="table-responsive">
-                <table id="book-table" class="table table-sm table-bordered table-hover text-center bg-white">
-                    <tr>
-                        <th>Tên sách</th>
-                        <th>Tác giả</th>
-                        <th>Ngày mượn</th>
-                        <th>Ngày trả</th>
-                        <th>Chi phí mượn</th>
-                        <th>Trạng thái</th>
-                        <th></th>
-                    </tr>
-                    <tbody></tbody>
-                    <tfoot>
-                        <tr>
-                            <td colspan="7" class="text-right">
-                                <b>Tổng chi phí: 200,000 VNĐ</b>
-                                <input type="hidden" id="Total" name="Total" value="" />
-                            </td>
-                        </tr>
-                    </tfoot>
-
-                </table>
-            </div>
-
-            <a class="btn btn-sm btn-primary mb-3" id="add-new-book" data-toggle="modal" data-target="#bookModal">+ Thêm sách</a>
-        </div>
-
-        <div class="form-group">
-            <label class="font-weight-bold">Trạng thái mượn</label>
-            <div class="col-md-12 pl-0">
-                <select id="Status" name="Status" class="form-control">
-                    <option value="1" selected>Đang mượn</option>
-                </select>
-            </div>
-        </div>
-
-        <div class="form-group text-center mt-5">
-            <input type="submit" value="Tạo" class="btn btn-sm btn-primary" id="btn-create-pn" />
-            <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
-        </div>
-    </div>
-</div>
-
-<!--Model sách đang có trong thư viện-->
-<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Thêm sách</h5>
-                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                </button>
-            </div>
-            <div class="modal-body overflow-auto">
-                <div class="form-group">
-                    <label class="font-weight-bold">Tên sách <span class="text-danger">*</span></label>
-                    <input class="form-control" list="bookName" name="browser" id="book-name">
-                    <datalist id="bookName">
-                        @foreach (var item in ViewBag.GetBookList)
+        <div class="row">
+            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                <label class="font-weight-bold">Tên sách <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    <input class="form-control" list="bookName" name="BookName" id="BookName">
+                    <datalist id="bookName" class="scrollable" style="overflow-y: auto!important">
+                        @foreach (var item in ViewBag.GetBookNameList)
                         {
                             <option value="@item.Name"></option>
                         }
                     </datalist>
                 </div>
-                <div class="table-responsive">
-                    <table id="add-book-table" class="table table-sm table-hover table-striped table-bordered text-center">
-                        <thead>
-                            <tr>
-                                <th>Tên sách</th>
-                                <th>Tác giả</th>
-                                <th>Nhà xuất bản</th>
-                                <th>Chọn</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+            </div>
+
+            <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
+                <label class="font-weight-bold">Tác giả <span class="text-danger">*</span></label>
+                <div class="col-md-12 pl-0">
+                    <input class="form-control" list="bookAuthor" name="BookAuthor" id="BookAuthor">
+                    <datalist id="bookAuthor" class="scrollable" style="overflow-y: auto!important">
+                        @foreach (var item in ViewBag.GetAuthorList)
+                        {
+                            <option value="@item.Author"></option>
+                        }
+                    </datalist>
                 </div>
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-sm btn-primary" id="btn-modal-accept">Thêm</button>
-                <button class="btn btn-sm btn-secondary" type="button" data-dismiss="modal">Đóng</button>
+        </div>
+
+        <div class="row">
+            <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
+                <label class="font-weight-bold">Ngày mượn <small class="text-secondary">(tháng/ ngày/ năm)</small></label>
+                <div class="col-md-12 pl-0">
+                    <input type="text" id="BorrowedDate" name="BorrowedDate" class="form-control bg-white" readonly value="@DateTime.Now.ToString("MM/dd/yyyy")" />
+                </div>
             </div>
+
+            <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
+                <label class="font-weight-bold">Ngày trả <span class="text-danger">*</span> <small class="text-secondary">(tháng/ ngày/ năm)</small></label>
+                <div class="col-md-12 pl-0">
+                    <input type="date" id="ExpiryDate" name="ExpiryDate" class="form-control" />
+                    @Html.ValidationMessageFor(model => model.ExpiryDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-12 col-sm-12 col-md-4 col-lg-4">
+                <label class="font-weight-bold">Phí mượn</label>
+                <div class="col-md-12 pl-0">
+                    <input type="text" id="Cost" name="Cost" class="form-control bg-white" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="font-weight-bold">Trạng thái mượn</label>
+            <div class="col-md-12 pl-0">
+                <input type="text" class="form-control bg-white" id="Status" name="Status" readonly value="Đang mượn" />
+            </div>
+        </div>
+
+        <div class="form-group text-center mt-5">
+            <input type="submit" class="btn btn-sm btn-primary" value="Tạo">
+            <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
         </div>
     </div>
 </div>
-
-@section Scripts{
-    <script src="~/Scripts/CustomJs/PromissoryNote/create.js"></script>
-}

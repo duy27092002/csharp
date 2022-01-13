@@ -192,9 +192,6 @@
     <Compile Include="Models\EF\PromissoryNote.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\EF\PromissoryNoteDetail.cs">
-      <DependentUpon>Model1.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\EF\Reader.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -2511,7 +2508,6 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CustomJs\alert-success.js" />
     <Content Include="Scripts\CustomJs\FormatPrice.js" />
-    <Content Include="Scripts\CustomJs\PromissoryNote\create.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />

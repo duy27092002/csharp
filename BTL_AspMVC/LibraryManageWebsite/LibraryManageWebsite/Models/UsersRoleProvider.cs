@@ -9,7 +9,7 @@ namespace LibraryManageWebsite.Models
 {
     public class UsersRoleProvider : RoleProvider
     {
-        private DB_LibraryManagementWebsiteEntities db = new DB_LibraryManagementWebsiteEntities();
+        private DB_LibraryManagerEntities db = new DB_LibraryManagerEntities();
 
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 

@@ -84,4 +84,4 @@ D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\PagedList.dll
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\PagedList.Mvc.dll
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\PagedList.xml
 D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\bin\PagedList.Mvc.xml
-D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\obj\Debug\LibraryManageWebsite.csprojAssemblyReference.cache
+D:\csharp\BTL_AspMVC\LibraryManageWebsite\LibraryManageWebsite\obj\Debug\LibraryManageWebsite.csproj.AssemblyReference.cache

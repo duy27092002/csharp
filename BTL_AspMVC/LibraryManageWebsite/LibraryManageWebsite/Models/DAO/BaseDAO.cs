@@ -8,11 +8,11 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class BaseDAO
     {
-        protected DB_LibraryManagementWebsiteEntities db;
+        protected DB_LibraryManagerEntities db;
 
         public BaseDAO()
         {
-            db = new DB_LibraryManagementWebsiteEntities();
+            db = new DB_LibraryManagerEntities();
         }
 
         private static Random random = new Random();

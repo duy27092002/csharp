@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="DB_LibraryManagementWebsiteModelStoreContainer" CdmEntityContainer="DB_LibraryManagementWebsiteEntities">
+  <EntityContainerMapping StorageEntityContainer="DB_LibraryManagerModelStoreContainer" CdmEntityContainer="DB_LibraryManagerEntities">
     <EntitySetMapping Name="Books">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.Book">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.Book">
         <MappingFragment StoreEntitySet="Book">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
@@ -18,7 +18,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Contacts">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.Contact">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.Contact">
         <MappingFragment StoreEntitySet="Contact">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
@@ -30,45 +30,35 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Owners">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.Owner">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.Owner">
         <MappingFragment StoreEntitySet="Owner">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="RegistrationTime" ColumnName="RegistrationTime" />
+          <ScalarProperty Name="ExpireTime" ColumnName="ExpireTime" />
           <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="PromissoryNotes">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.PromissoryNote">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.PromissoryNote">
         <MappingFragment StoreEntitySet="PromissoryNote">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ReaderId" ColumnName="ReaderId" />
           <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
-          <ScalarProperty Name="Total" ColumnName="Total" />
-          <ScalarProperty Name="Status" ColumnName="Status" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="PromissoryNoteDetails">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.PromissoryNoteDetail">
-        <MappingFragment StoreEntitySet="PromissoryNoteDetails">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="PNId" ColumnName="PNId" />
           <ScalarProperty Name="BookId" ColumnName="BookId" />
           <ScalarProperty Name="BorrowedDate" ColumnName="BorrowedDate" />
-          <ScalarProperty Name="PayDate" ColumnName="PayDate" />
+          <ScalarProperty Name="ExpiryDate" ColumnName="ExpiryDate" />
           <ScalarProperty Name="Cost" ColumnName="Cost" />
           <ScalarProperty Name="Status" ColumnName="Status" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Readers">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.Reader">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.Reader">
         <MappingFragment StoreEntitySet="Reader">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="OwnerId" ColumnName="OwnerId" />
@@ -83,7 +73,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Regulations">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.Regulation">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.Regulation">
         <MappingFragment StoreEntitySet="Regulation">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="RegulationsContent" ColumnName="RegulationsContent" />
@@ -92,7 +82,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.sysdiagram">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
           <ScalarProperty Name="name" ColumnName="name" />
           <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -103,7 +93,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.User">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.User">
         <MappingFragment StoreEntitySet="User">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
@@ -121,7 +111,7 @@
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="UserManuals">
-      <EntityTypeMapping TypeName="DB_LibraryManagementWebsiteModel.UserManual">
+      <EntityTypeMapping TypeName="DB_LibraryManagerModel.UserManual">
         <MappingFragment StoreEntitySet="UserManual">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="UMContent" ColumnName="UMContent" />

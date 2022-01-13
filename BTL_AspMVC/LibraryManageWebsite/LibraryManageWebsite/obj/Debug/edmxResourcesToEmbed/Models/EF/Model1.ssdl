@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DB_LibraryManagementWebsiteModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="DB_LibraryManagerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="Book">
     <Key>
       <PropertyRef Name="Id" />
@@ -34,8 +34,8 @@
     <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Phone" Type="varchar" MaxLength="20" Nullable="false" />
-    <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="RegistrationTime" Type="datetime" Nullable="false" />
+    <Property Name="ExpireTime" Type="datetime" Nullable="false" />
     <Property Name="Status" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="PromissoryNote">
@@ -46,19 +46,10 @@
     <Property Name="ReaderId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="OwnerId" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="Total" Type="float" Nullable="false" />
-    <Property Name="Status" Type="tinyint" Nullable="false" />
-  </EntityType>
-  <EntityType Name="PromissoryNoteDetails">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="varchar" MaxLength="50" Nullable="false" />
-    <Property Name="PNId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="BookId" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="BorrowedDate" Type="datetime" Nullable="false" />
-    <Property Name="PayDate" Type="datetime" Nullable="false" />
-    <Property Name="Cost" Type="float" Nullable="false" />
+    <Property Name="ExpiryDate" Type="datetime" Nullable="false" />
+    <Property Name="Cost" Type="varchar" MaxLength="50" Nullable="false" />
     <Property Name="Status" Type="tinyint" Nullable="false" />
   </EntityType>
   <EntityType Name="Reader">
@@ -141,6 +132,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_PromissoryNote_Book">
+    <End Role="Book" Type="Self.Book" Multiplicity="1" />
+    <End Role="PromissoryNote" Type="Self.PromissoryNote" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Book">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PromissoryNote">
+        <PropertyRef Name="BookId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_PromissoryNote_Owner">
     <End Role="Owner" Type="Self.Owner" Multiplicity="1" />
     <End Role="PromissoryNote" Type="Self.PromissoryNote" Multiplicity="*" />
@@ -174,30 +177,6 @@
       </Principal>
       <Dependent Role="PromissoryNote">
         <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PromissoryNoteDetails_Book">
-    <End Role="Book" Type="Self.Book" Multiplicity="1" />
-    <End Role="PromissoryNoteDetails" Type="Self.PromissoryNoteDetails" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Book">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PromissoryNoteDetails">
-        <PropertyRef Name="BookId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_PromissoryNoteDetails_PromissoryNote">
-    <End Role="PromissoryNote" Type="Self.PromissoryNote" Multiplicity="1" />
-    <End Role="PromissoryNoteDetails" Type="Self.PromissoryNoteDetails" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PromissoryNote">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PromissoryNoteDetails">
-        <PropertyRef Name="PNId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -237,12 +216,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="DB_LibraryManagementWebsiteModelStoreContainer">
+  <EntityContainer Name="DB_LibraryManagerModelStoreContainer">
     <EntitySet Name="Book" EntityType="Self.Book" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Contact" EntityType="Self.Contact" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Owner" EntityType="Self.Owner" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PromissoryNote" EntityType="Self.PromissoryNote" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PromissoryNoteDetails" EntityType="Self.PromissoryNoteDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Reader" EntityType="Self.Reader" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Regulation" EntityType="Self.Regulation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
@@ -256,6 +234,10 @@
       <End Role="Owner" EntitySet="Owner" />
       <End Role="Contact" EntitySet="Contact" />
     </AssociationSet>
+    <AssociationSet Name="FK_PromissoryNote_Book" Association="Self.FK_PromissoryNote_Book">
+      <End Role="Book" EntitySet="Book" />
+      <End Role="PromissoryNote" EntitySet="PromissoryNote" />
+    </AssociationSet>
     <AssociationSet Name="FK_PromissoryNote_Owner" Association="Self.FK_PromissoryNote_Owner">
       <End Role="Owner" EntitySet="Owner" />
       <End Role="PromissoryNote" EntitySet="PromissoryNote" />
@@ -267,14 +249,6 @@
     <AssociationSet Name="FK_PromissoryNote_User" Association="Self.FK_PromissoryNote_User">
       <End Role="User" EntitySet="User" />
       <End Role="PromissoryNote" EntitySet="PromissoryNote" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PromissoryNoteDetails_Book" Association="Self.FK_PromissoryNoteDetails_Book">
-      <End Role="Book" EntitySet="Book" />
-      <End Role="PromissoryNoteDetails" EntitySet="PromissoryNoteDetails" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PromissoryNoteDetails_PromissoryNote" Association="Self.FK_PromissoryNoteDetails_PromissoryNote">
-      <End Role="PromissoryNote" EntitySet="PromissoryNote" />
-      <End Role="PromissoryNoteDetails" EntitySet="PromissoryNoteDetails" />
     </AssociationSet>
     <AssociationSet Name="FK_Reader_Owner" Association="Self.FK_Reader_Owner">
       <End Role="Owner" EntitySet="Owner" />

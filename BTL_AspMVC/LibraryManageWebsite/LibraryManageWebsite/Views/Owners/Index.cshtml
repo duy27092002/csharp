@@ -13,6 +13,8 @@
         <table class="table table-sm table-bordered table-hover table-striped text-center">
             <tr>
                 <th>Tên cá nhân, tổ chức</th>
+                <th>Ngày kích hoạt</th>
+                <th>Ngày hết hạn kích hoạt</th>
                 <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
@@ -22,6 +24,18 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @{
+                            var getRegistrationTime = item.RegistrationTime.ToString("MM/dd/yyyy");
+                        }
+                        @getRegistrationTime
+                    </td>
+                    <td>
+                        @{
+                            var getExpireTime = item.ExpireTime.ToString("MM/dd/yyyy");
+                        }
+                        @getExpireTime
                     </td>
                     <td class="text-nowrap" style="width:1px">
                         @if (item.Status == 1)

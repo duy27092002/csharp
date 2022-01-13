@@ -14,23 +14,19 @@ namespace LibraryManageWebsite.Models.EF
     
     public partial class PromissoryNote
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public PromissoryNote()
-        {
-            this.PromissoryNoteDetails = new HashSet<PromissoryNoteDetail>();
-        }
-    
         public string Id { get; set; }
         public string ReaderId { get; set; }
         public string UserId { get; set; }
         public string OwnerId { get; set; }
-        public double Total { get; set; }
+        public string BookId { get; set; }
+        public System.DateTime BorrowedDate { get; set; }
+        public System.DateTime ExpiryDate { get; set; }
+        public string Cost { get; set; }
         public byte Status { get; set; }
     
+        public virtual Book Book { get; set; }
         public virtual Owner Owner { get; set; }
         public virtual Reader Reader { get; set; }
         public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PromissoryNoteDetail> PromissoryNoteDetails { get; set; }
     }
 }

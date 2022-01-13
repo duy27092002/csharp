@@ -81,8 +81,8 @@ namespace LibraryManageWebsite.Models.DAO
                 getOwner.Name = entity.Name;
                 getOwner.Email = entity.Email;
                 getOwner.Phone = entity.Phone;
-                getOwner.Username = entity.Username;
-                getOwner.Password = entity.Password;
+                getOwner.RegistrationTime = entity.RegistrationTime;
+                getOwner.ExpireTime = entity.ExpireTime;
                 getOwner.Status = entity.Status;
 
                 await db.SaveChangesAsync();

@@ -179,6 +179,7 @@ namespace LibraryManageWebsite.Controllers
             {
                 data = model.Select(t => new
                 {
+                    Id = t.Id,
                     Name = t.Name,
                     Author = t.Author,
                     Publisher = t.Publisher

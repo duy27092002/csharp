@@ -13,10 +13,10 @@ namespace LibraryManageWebsite.Models.EF
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class DB_LibraryManagementWebsiteEntities : DbContext
+    public partial class DB_LibraryManagerEntities : DbContext
     {
-        public DB_LibraryManagementWebsiteEntities()
-            : base("name=DB_LibraryManagementWebsiteEntities")
+        public DB_LibraryManagerEntities()
+            : base("name=DB_LibraryManagerEntities")
         {
         }
     
@@ -29,7 +29,6 @@ namespace LibraryManageWebsite.Models.EF
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Owner> Owners { get; set; }
         public virtual DbSet<PromissoryNote> PromissoryNotes { get; set; }
-        public virtual DbSet<PromissoryNoteDetail> PromissoryNoteDetails { get; set; }
         public virtual DbSet<Reader> Readers { get; set; }
         public virtual DbSet<Regulation> Regulations { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }

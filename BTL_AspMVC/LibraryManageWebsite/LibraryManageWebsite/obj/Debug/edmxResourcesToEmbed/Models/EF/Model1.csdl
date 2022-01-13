@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="DB_LibraryManagementWebsiteModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+<Schema Namespace="DB_LibraryManagerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityType Name="Book">
     <Key>
       <PropertyRef Name="Id" />
@@ -15,7 +15,7 @@
     <Property Name="Views" Type="Int32" Nullable="false" />
     <Property Name="Status" Type="Byte" Nullable="false" />
     <NavigationProperty Name="Owner" Relationship="Self.FK_Book_Owner" FromRole="Book" ToRole="Owner" />
-    <NavigationProperty Name="PromissoryNoteDetails" Relationship="Self.FK_PromissoryNoteDetails_Book" FromRole="Book" ToRole="PromissoryNoteDetails" />
+    <NavigationProperty Name="PromissoryNotes" Relationship="Self.FK_PromissoryNote_Book" FromRole="Book" ToRole="PromissoryNote" />
   </EntityType>
   <EntityType Name="Contact">
     <Key>
@@ -37,8 +37,8 @@
     <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="RegistrationTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExpireTime" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Status" Type="Byte" Nullable="false" />
     <NavigationProperty Name="Books" Relationship="Self.FK_Book_Owner" FromRole="Owner" ToRole="Book" />
     <NavigationProperty Name="Contacts" Relationship="Self.FK_Contact_Owner" FromRole="Owner" ToRole="Contact" />
@@ -55,26 +55,15 @@
     <Property Name="ReaderId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="OwnerId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="Total" Type="Double" Nullable="false" />
+    <Property Name="BookId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="BorrowedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExpiryDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Cost" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
     <Property Name="Status" Type="Byte" Nullable="false" />
+    <NavigationProperty Name="Book" Relationship="Self.FK_PromissoryNote_Book" FromRole="PromissoryNote" ToRole="Book" />
     <NavigationProperty Name="Owner" Relationship="Self.FK_PromissoryNote_Owner" FromRole="PromissoryNote" ToRole="Owner" />
     <NavigationProperty Name="Reader" Relationship="Self.FK_PromissoryNote_Reader" FromRole="PromissoryNote" ToRole="Reader" />
     <NavigationProperty Name="User" Relationship="Self.FK_PromissoryNote_User" FromRole="PromissoryNote" ToRole="User" />
-    <NavigationProperty Name="PromissoryNoteDetails" Relationship="Self.FK_PromissoryNoteDetails_PromissoryNote" FromRole="PromissoryNote" ToRole="PromissoryNoteDetails" />
-  </EntityType>
-  <EntityType Name="PromissoryNoteDetail">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="PNId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="BookId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="BorrowedDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="PayDate" Type="DateTime" Nullable="false" Precision="3" />
-    <Property Name="Cost" Type="Double" Nullable="false" />
-    <Property Name="Status" Type="Byte" Nullable="false" />
-    <NavigationProperty Name="Book" Relationship="Self.FK_PromissoryNoteDetails_Book" FromRole="PromissoryNoteDetails" ToRole="Book" />
-    <NavigationProperty Name="PromissoryNote" Relationship="Self.FK_PromissoryNoteDetails_PromissoryNote" FromRole="PromissoryNoteDetails" ToRole="PromissoryNote" />
   </EntityType>
   <EntityType Name="Reader">
     <Key>
@@ -149,14 +138,14 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PromissoryNoteDetails_Book">
+  <Association Name="FK_PromissoryNote_Book">
     <End Role="Book" Type="Self.Book" Multiplicity="1" />
-    <End Role="PromissoryNoteDetails" Type="Self.PromissoryNoteDetail" Multiplicity="*" />
+    <End Role="PromissoryNote" Type="Self.PromissoryNote" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Book">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="PromissoryNoteDetails">
+      <Dependent Role="PromissoryNote">
         <PropertyRef Name="BookId" />
       </Dependent>
     </ReferentialConstraint>
@@ -245,24 +234,11 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PromissoryNoteDetails_PromissoryNote">
-    <End Role="PromissoryNote" Type="Self.PromissoryNote" Multiplicity="1" />
-    <End Role="PromissoryNoteDetails" Type="Self.PromissoryNoteDetail" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PromissoryNote">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="PromissoryNoteDetails">
-        <PropertyRef Name="PNId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="DB_LibraryManagementWebsiteEntities" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="DB_LibraryManagerEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Books" EntityType="Self.Book" />
     <EntitySet Name="Contacts" EntityType="Self.Contact" />
     <EntitySet Name="Owners" EntityType="Self.Owner" />
     <EntitySet Name="PromissoryNotes" EntityType="Self.PromissoryNote" />
-    <EntitySet Name="PromissoryNoteDetails" EntityType="Self.PromissoryNoteDetail" />
     <EntitySet Name="Readers" EntityType="Self.Reader" />
     <EntitySet Name="Regulations" EntityType="Self.Regulation" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
@@ -272,9 +248,9 @@
       <End Role="Owner" EntitySet="Owners" />
       <End Role="Book" EntitySet="Books" />
     </AssociationSet>
-    <AssociationSet Name="FK_PromissoryNoteDetails_Book" Association="Self.FK_PromissoryNoteDetails_Book">
+    <AssociationSet Name="FK_PromissoryNote_Book" Association="Self.FK_PromissoryNote_Book">
       <End Role="Book" EntitySet="Books" />
-      <End Role="PromissoryNoteDetails" EntitySet="PromissoryNoteDetails" />
+      <End Role="PromissoryNote" EntitySet="PromissoryNotes" />
     </AssociationSet>
     <AssociationSet Name="FK_Contact_Owner" Association="Self.FK_Contact_Owner">
       <End Role="Owner" EntitySet="Owners" />
@@ -303,10 +279,6 @@
     <AssociationSet Name="FK_PromissoryNote_User" Association="Self.FK_PromissoryNote_User">
       <End Role="User" EntitySet="Users" />
       <End Role="PromissoryNote" EntitySet="PromissoryNotes" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PromissoryNoteDetails_PromissoryNote" Association="Self.FK_PromissoryNoteDetails_PromissoryNote">
-      <End Role="PromissoryNote" EntitySet="PromissoryNotes" />
-      <End Role="PromissoryNoteDetails" EntitySet="PromissoryNoteDetails" />
     </AssociationSet>
   </EntityContainer>
 </Schema>
