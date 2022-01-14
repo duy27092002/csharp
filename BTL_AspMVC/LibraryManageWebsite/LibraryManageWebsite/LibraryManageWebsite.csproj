@@ -2508,6 +2508,7 @@
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CustomJs\alert-success.js" />
     <Content Include="Scripts\CustomJs\FormatPrice.js" />
+    <Content Include="Scripts\CustomJs\promissory-note.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
@@ -2570,6 +2571,8 @@
     <Content Include="Views\Shared\IndexPartialView\PagedList.cshtml" />
     <Content Include="Views\Shared\IndexPartialView\AlertMessage.cshtml" />
     <Content Include="Views\Home\Error.cshtml" />
+    <Content Include="Views\Owners\AddNewAdmin.cshtml" />
+    <Content Include="Views\Owners\AdminList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

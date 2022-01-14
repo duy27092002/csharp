@@ -61,15 +61,24 @@ namespace LibraryManageWebsite.Controllers
         // POST: PromissoryNotes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,ReaderId,UserId,OwnerId,BookId,BorrowedDate,ExpiryDate,Cost,Status")] PromissoryNote promissoryNote)
+        public async Task<ActionResult> Create(/*[Bind(Include = "Id,ReaderId,UserId,OwnerId,BookId,BorrowedDate,ExpiryDate,Cost,Status")]*/ PromissoryNote promissoryNote)
         {
             promissoryNote.Id = pnId;
 
             if (ModelState.IsValid)
             {
-                //db.PromissoryNotes.Add(promissoryNote);
-                //db.SaveChanges();
-                return RedirectToAction("Index");
+                if (await pnDAO.Add(promissoryNote))
+                {
+                    TempData["AlertSuccessMessage"] = "Tạo phiếu thành công!";
+
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                    return View(promissoryNote);
+                }
             }
 
             //ViewBag.OwnerId = new SelectList(db.Owners, "Id", "Name", promissoryNote.OwnerId);
@@ -146,6 +155,32 @@ namespace LibraryManageWebsite.Controllers
                 //db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetReaderId(string readerPhone)
+        {
+            var getReader = await pnDAO.GetReaderId(readerPhone, (string)Session["ownerId"]);
+
+            if (getReader != null)
+            {
+                return Json(new { success = true, readerId = getReader.Id }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> GetBookId(string bookName, string bookAuthor)
+        {
+            var getBook = await pnDAO.GetBookId(bookName, bookAuthor, (string)Session["ownerId"]);
+
+            if (getBook != null)
+            {
+                return Json(new { success = true, bookId = getBook.Id }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }

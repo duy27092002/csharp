@@ -14,7 +14,18 @@ namespace LibraryManageWebsite.Models.DAO
     {
         public async Task<bool> Add(PromissoryNote entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                db.PromissoryNotes.Add(entity);
+
+                await db.SaveChangesAsync();
+            }
+            catch(Exception ex)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<bool> Delete(string id)
@@ -55,6 +66,21 @@ namespace LibraryManageWebsite.Models.DAO
         public async Task<List<Book>> GetBookList(string ownerId)
         {
             return await db.Books.Where(t => t.OwnerId == ownerId && t.Status == 1).ToListAsync();
+        }
+
+        public async Task<Reader> GetReaderId(string phone, string ownerId)
+        {
+            return await db.Readers.Where(t => t.Phone == phone && t.OwnerId == ownerId && t.Status == 1).FirstOrDefaultAsync();
+        }
+
+        public async Task<Book> GetBookId(string bookName, string bookAuthor, string ownerId)
+        {
+            return await db.Books.Where(
+                t => t.Name == bookName &&
+                t.Author == bookAuthor &&
+                t.OwnerId == ownerId &&
+                t.Status == 1
+                ).FirstOrDefaultAsync();
         }
     }
 }

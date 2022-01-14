@@ -68,7 +68,7 @@ namespace LibraryManageWebsite.Models.DAO
             return true;
         }
 
-        // xóa nhân viên
+        // xóa nhân viên (không dùng method này)
         public Task<bool> Delete(string id)
         {
             throw new NotImplementedException();
@@ -128,6 +128,25 @@ namespace LibraryManageWebsite.Models.DAO
             }
 
             return false;
+        }
+
+        // tìm kiếm admin theo từ khóa và mã khách hàng
+        public async Task<List<User>> GetAdminListByKeyword(string keyword, string ownerId)
+        {
+            return await db.Users.Where(
+                t => t.Name.Contains(keyword) &&
+                t.OwnerId == ownerId &&
+                t.UserType == 0
+                ).OrderBy(t => t.Name)
+                .ToListAsync();
+        }
+
+        // phân trang danh sách nhân viên
+        public async Task<IPagedList<User>> GetAdminListByPaged(int page, int pageSize, string keyword, string ownerId)
+        {
+            var getAdminListByKeyword = await GetAdminListByKeyword(keyword, ownerId);
+
+            return getAdminListByKeyword.ToPagedList(page, pageSize);
         }
     }
 }

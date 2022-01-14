@@ -37,8 +37,7 @@
                 </div>
                 @if (User.IsInRole("Developer"))
                 {
-                    <div class="sidebar-brand-text mx-3">Quản Lý Website</div>
-                }
+                    <div class="sidebar-brand-text mx-3">Quản Lý Website</div> }
                 else
                 {
                     <div class="sidebar-brand-text mx-3">Quản Lý Thư Viện</div>
@@ -66,7 +65,7 @@
                         <span>Hướng dẫn sử dụng</span>
                     </a>
                 </li>
-            }
+}
             else
             {
 
@@ -84,7 +83,6 @@
                 <div class="sidebar-heading">
                     Quản lý
                 </div>
-                
                 if (User.IsInRole("Admin"))
                 {
                     <li class="nav-item">
@@ -124,7 +122,7 @@
 
                 <li class="nav-item">
                     <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseTwo"
-                       aria-expanded="true" aria-controls="collapseTwo">
+                        aria-expanded="true" aria-controls="collapseTwo">
                         <i class="fas fa-fw fa-table"></i>
                         <span>Quy định</span>
                     </a>
@@ -259,6 +257,9 @@
 
     <!-- Custom js -->
     <script src="~/Scripts/CustomJs/alert-success.js"></script>
+
+    <!-- Sweetalert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/jquery")

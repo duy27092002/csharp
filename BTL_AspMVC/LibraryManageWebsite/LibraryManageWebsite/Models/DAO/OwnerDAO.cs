@@ -51,7 +51,7 @@ namespace LibraryManageWebsite.Models.DAO
             return await db.Owners.Where(t => t.Name.Contains(keyword)).OrderBy(t => t.Name).ToListAsync();
         }
 
-        // không dùng method này
+        // tìm kiếm admin theo mã khách hàng và từ khóa nhập liệu
         public Task<List<Owner>> GetByKeyword(string keyword, string ownerId)
         {
             throw new NotImplementedException();
@@ -65,7 +65,7 @@ namespace LibraryManageWebsite.Models.DAO
             return getListByKeyword.ToPagedList(page, pageSize);
         }
 
-        // không dùng method này
+        // load danh sách admin theo mã khách hàng
         public Task<IPagedList<Owner>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
         {
             throw new NotImplementedException();

@@ -8,11 +8,14 @@
 <div class="shadow container my-3 py-3">
     <div class="form-horizontal">
         <h2 class="text-center mb-3">Tạo phiếu mượn-trả mới</h2>
+        @Html.Partial("IndexPartialView\\AlertMessage")
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
         <input type="hidden" id="UserId" name="UserId" value="@Session["userId"]" />
         <input type="hidden" id="OwnerId" name="OwnerId" value="@Session["ownerId"]" />
+        <input type="text" id="ReaderId" name="ReaderId" value="" style="display:none;" />
+        <input type="text" id="BookId" name="BookId" value="" style="display:none;" />
 
         <div class="row">
             <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
@@ -25,7 +28,7 @@
             <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                 <label class="font-weight-bold">Số điện thoại đọc giả <span class="text-danger">*</span></label>
                 <div class="col-md-12 pl-0">
-                    <input class="form-control" list="readerPhone" name="ReaderId" id="ReaderId">
+                    <input class="form-control" list="readerPhone" name="ReaderPhone" id="ReaderPhone">
                     <datalist id="readerPhone" class="scrollable" style="overflow-y: auto!important">
                         @foreach (var item in ViewBag.GetReaderList)
                         {
@@ -96,8 +99,12 @@
         </div>
 
         <div class="form-group text-center mt-5">
-            <input type="submit" class="btn btn-sm btn-primary" value="Tạo">
+            <input type="button" class="btn btn-sm btn-primary" value="Tạo" id="create-pn-btn">
             <a class="btn btn-sm btn-secondary" onclick="window.history.go(-1); return false;">Quay Lại</a>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="~/Scripts/CustomJs/promissory-note.js"></script>
+}

@@ -49,6 +49,8 @@
                     </td>
                     <td class="text-nowrap" style="width:1px">
                         @Html.Partial("IndexPartialView\\TableFeature", item.Id)
+                        @Html.ActionLink("Thêm Admin", "AddNewAdmin", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-success" })
+                        @Html.ActionLink("Danh sách Admin", "AdminList", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
                     </td>
                 </tr>
             }
