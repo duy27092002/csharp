@@ -38,13 +38,16 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Owner owner = await ownerDAO.GetById(id);
+
             if (owner == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
+
             return View(owner);
         }
 
@@ -78,13 +81,16 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             Owner owner = await ownerDAO.GetById(id);
+
             if (owner == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
+
             return View(owner);
         }
 
@@ -118,14 +124,14 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
 
             Owner owner = await ownerDAO.GetById(id);
 
             if (owner == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
 
             Session["OwnerIdToAddAdmin"]  = owner.Id;

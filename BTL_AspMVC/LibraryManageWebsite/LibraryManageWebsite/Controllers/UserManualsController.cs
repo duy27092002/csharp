@@ -56,13 +56,16 @@ namespace LibraryManageWebsite.Controllers
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return RedirectToAction("Error", "Home");
             }
+
             UserManual userManual = await umDAO.GetById(id);
+
             if (userManual == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Error", "Home");
             }
+
             return View(userManual);
         }
 

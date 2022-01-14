@@ -6,14 +6,15 @@ using System.Web.Mvc;
 
 namespace LibraryManageWebsite.Controllers
 {
-    [Authorize(Roles = "Admin, Nhân viên")]
     public class HomeController : Controller
     {
+        [Authorize(Roles = "Admin, Nhân viên")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin, Nhân viên, Developer")]
         public ActionResult Error()
         {
             return View();
