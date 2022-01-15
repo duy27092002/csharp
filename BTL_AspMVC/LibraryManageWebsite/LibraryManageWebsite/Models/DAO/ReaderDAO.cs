@@ -78,12 +78,23 @@ namespace LibraryManageWebsite.Models.DAO
             return await db.Readers.Where(t => t.Name.Contains(keyword) && t.OwnerId == ownerId).OrderBy(t => t.Name).ToListAsync();
         }
 
+        public async Task<List<Reader>> GetReaderList(string ownerId)
+        {
+            return await db.Readers.Where(t => t.OwnerId == ownerId && t.Status == 1).ToListAsync();
+        }
+
         // phân trang cho danh sách đọc giả
         public async Task<IPagedList<Reader>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
         {
             var getListByKeyword = await GetByKeyword(keyword, ownerId);
 
             return getListByKeyword.ToPagedList(page, pageSize);
+        }
+
+        // lấy mã đọc giả theo số điện thoại
+        public async Task<Reader> GetReaderId(string phone, string ownerId)
+        {
+            return await db.Readers.Where(t => t.Phone == phone && t.OwnerId == ownerId && t.Status == 1).FirstOrDefaultAsync();
         }
 
         // cập nhật thông tin đọc giả sau khi sửa

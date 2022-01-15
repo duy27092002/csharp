@@ -92,5 +92,10 @@ namespace LibraryManageWebsite.Models.DAO
 
             return false;
         }
+
+        public Owner GetOwner(string ownerId)
+        {
+            return db.Owners.Where(t => t.Id == ownerId && t.Status == 1).FirstOrDefault();
+        }
     }
 }

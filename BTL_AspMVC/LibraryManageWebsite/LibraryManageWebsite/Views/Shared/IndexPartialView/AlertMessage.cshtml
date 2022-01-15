@@ -13,3 +13,11 @@
         <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
     </div>
 }
+
+@if (TempData["AlertWarningMessage"] != null)
+{
+    <div class="alert alert-warning">
+        <strong>Cảnh báo! </strong>@TempData["AlertWarningMessage"]
+        <button type="button" class="close" data-dismiss="alert"><span>&times;</span></button>
+    </div>
+}

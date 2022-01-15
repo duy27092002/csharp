@@ -28,59 +28,39 @@ namespace LibraryManageWebsite.Models.DAO
             return true;
         }
 
-        public async Task<bool> Delete(string id)
+        public Task<bool> Delete(string id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<List<PromissoryNote>> GetAll()
+        public Task<List<PromissoryNote>> GetAll()
         {
             throw new NotImplementedException();
         }
 
         public async Task<PromissoryNote> GetById(string id)
         {
-            throw new NotImplementedException();
+            return await db.PromissoryNotes.FindAsync(id);
         }
 
         public async Task<List<PromissoryNote>> GetByKeyword(string keyword, string ownerId)
         {
-            throw new NotImplementedException();
+            return await db.PromissoryNotes.Where(
+                t => t.Reader.Name.Contains(keyword) && 
+                t.OwnerId == ownerId
+                ).OrderBy(t => t.Reader.Name).ToListAsync();
         }
 
         public async Task<IPagedList<PromissoryNote>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
         {
-            throw new NotImplementedException();
+            var getListByKeyword = await GetByKeyword(keyword, ownerId);
+
+            return getListByKeyword.ToPagedList(page, pageSize);
         }
 
         public async Task<bool> Update(PromissoryNote entity)
         {
             throw new NotImplementedException();
-        }
-
-        public async Task<List<Reader>> GetReaderList(string ownerId)
-        {
-            return await db.Readers.Where(t => t.OwnerId == ownerId && t.Status == 1).ToListAsync();
-        }
-
-        public async Task<List<Book>> GetBookList(string ownerId)
-        {
-            return await db.Books.Where(t => t.OwnerId == ownerId && t.Status == 1).ToListAsync();
-        }
-
-        public async Task<Reader> GetReaderId(string phone, string ownerId)
-        {
-            return await db.Readers.Where(t => t.Phone == phone && t.OwnerId == ownerId && t.Status == 1).FirstOrDefaultAsync();
-        }
-
-        public async Task<Book> GetBookId(string bookName, string bookAuthor, string ownerId)
-        {
-            return await db.Books.Where(
-                t => t.Name == bookName &&
-                t.Author == bookAuthor &&
-                t.OwnerId == ownerId &&
-                t.Status == 1
-                ).FirstOrDefaultAsync();
         }
     }
 }

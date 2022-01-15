@@ -14,6 +14,8 @@ namespace LibraryManageWebsite.Controllers
     {
         private AccountDAO accountDAO = new AccountDAO();
 
+        private OwnerDAO ownerDAO = new OwnerDAO();
+
         string userId = BaseDAO.RandomString(10);
 
         // GET: Login
@@ -39,6 +41,15 @@ namespace LibraryManageWebsite.Controllers
                     Session["userId"] = getUser.Id;
 
                     Session["ownerId"] = user.OwnerId;
+
+                    var getOwnerInfo = ownerDAO.GetOwner(user.OwnerId);
+
+                    TimeSpan days = (DateTime.Parse(getOwnerInfo.ExpireTime.ToShortDateString()) - DateTime.Today);
+
+                    if (days.TotalDays <= 30 && days.TotalDays > 0 && getUser.UserType == 0)
+                    {
+                        TempData["AlertWarningMessage"] = "Thời hạn thuê Website sắp hết (chỉ còn " + days.TotalDays + " ngày). Vui lòng liên hệ với Developer để gia hạn!";
+                    }
 
                     return RedirectToAction("Index", "Home");
                 }

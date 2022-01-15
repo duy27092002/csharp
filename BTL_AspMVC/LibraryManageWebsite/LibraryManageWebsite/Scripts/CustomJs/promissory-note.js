@@ -26,8 +26,8 @@
             || bookAuthor.length == 0 || bookAuthor.trim == "" || expiryDate.length == 0 || expiryDate == null) {
             swal({
                 title: "Lỗi dữ liệu!",
-                text: "Xin hãy nhập đầy đủ dữ liệu",
-                icon: "warning",
+                text: "Xin hãy nhập đầy đủ dữ liệu!",
+                icon: "error",
                 buttons: "Đã hiểu",
             });
         }
@@ -39,71 +39,25 @@
                 swal({
                     title: "Lỗi!",
                     text: "Ngày trả đã ở trong quá khứ. Vui lòng kiểm tra lại!",
-                    icon: "warning",
+                    icon: "error",
                     buttons: "Đã hiểu",
                 });
             }
             else {
                 if (getDays == 0) {
-                    cost = 5000;
+                    cost = 5,000;
                 }
                 else {
-                    cost = 5000 + ((getDays - 1) * 3000);
+                    cost = formatNumber(5000 + ((getDays - 1) * 3000));
                 }
             }
 
-            // sử dụng ajax lấy mã đọc giả theo số điện thoại
-            $.ajax({
-                url: "/PromissoryNotes/GetReaderId",
-                type: "Post",
-                dataType: "json",
-                data: {
-                    readerPhone: readerPhone
-                },
-                success: function (result) {
-                    if (result.success) {
-                        // lấy mã đọc giả
-                        $("#ReaderId").val(result.readerId);
-                    }
-                },
-                error: function (result) {
-                    if (!result.success) {
-                        console.log("Không lấy được mã đọc giả!");
-                    }
-                }
-            });
-
-            // sử dụng ajax lấy mã sách theo tên sách và tác giả
-            $.ajax({
-                url: "/PromissoryNotes/GetBookId",
-                type: "Post",
-                dataType: "json",
-                data: {
-                    bookName: bookName,
-                    bookAuthor: bookAuthor
-                },
-                success: function (result) {
-                    if (result.success) {
-                        // lấy mã sách
-                        $("#BookId").val(result.readerId);
-                    }
-                },
-                error: function (result) {
-                    if (!result.success) {
-                        console.log("Không lấy được mã sách!");
-                    }
-                }
-            });
-
-            let readerId = $("#ReaderId").val();
-            let bookId = $("#BookId").val();
-
             let pnData = {
                 Id: "",
-                ReaderId: readerId,
+                ReaderId: "",
                 UserId: userId,
                 OwnerId: ownerId,
-                BookId: bookId,
+                BookId: "",
                 BorrowedDate: borrowedDate,
                 ExpiryDate: getExpiryDate,
                 Cost: cost,
@@ -111,20 +65,28 @@
             }
 
             $.ajax({
-                url: "/PromissoryNotes/Create",
+                url: "/PromissoryNotes/CreateConfirmed",
                 type: "Post",
                 dataType: "json",
                 data: {
-                    promissoryNote: pnData
+                    promissoryNote: pnData,
+                    readerPhone: readerPhone,
+                    bookName: bookName,
+                    bookAuthor: bookAuthor
                 },
                 success: function (result) {
                     if (result.success) {
-                        window.location("/PromissoryNotes");
+                        window.location = "/PromissoryNotes/Index";
                     }
                 },
                 error: function (result) {
-                    if (!result.success) {
-                        console.log("Tạo phiếu không thành công!");
+                    if (result.error) {
+                        swal({
+                            title: "Lỗi!",
+                            text: "" + result.mess,
+                            icon: "error",
+                            buttons: "Đã hiểu",
+                        });
                     }
                 }
             });
@@ -132,3 +94,31 @@
     });
 
 });
+
+function formatNumber(nStr) {
+
+    let groupSeperate = ',';
+
+    let x = formatString(nStr);
+
+    let rgx = /(\d+)(\d{3})/;
+
+    while (rgx.test(x)) {
+        x = x.replace(rgx, '$1' + groupSeperate + '$2');
+    }
+
+    return x;
+}
+
+function formatString(money) {
+
+    let x = '';
+
+    let arr = money.toString().split(',');
+
+    arr.forEach((str) => {
+        x += str;
+    });
+
+    return x;
+}

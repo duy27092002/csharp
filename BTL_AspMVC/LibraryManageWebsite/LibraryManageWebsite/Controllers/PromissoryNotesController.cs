@@ -18,13 +18,26 @@ namespace LibraryManageWebsite.Controllers
     {
         private PromissoryNoteDAO pnDAO = new PromissoryNoteDAO();
 
+        private ReaderDAO readerDAO = new ReaderDAO();
+
+        private BookDAO bookDAO = new BookDAO();
+
         string pnId = BaseDAO.RandomString(10);
 
+        string msg;
+
         // GET: PromissoryNotes
-        public ActionResult Index()
+        public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
-            //var promissoryNotes = db.PromissoryNotes.Include(p => p.Owner).Include(p => p.Reader).Include(p => p.User);
-            return View(/*promissoryNotes.ToList()*/);
+            var ownerId = (string)Session["ownerId"];
+
+            var getPNList = await pnDAO.GetByPaged(page, pageSize, keyword, ownerId);
+
+            ViewBag.Keyword = keyword;
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+
+            return View(getPNList);
         }
 
         // GET: PromissoryNotes/Details/5
@@ -47,9 +60,9 @@ namespace LibraryManageWebsite.Controllers
         {
             var ownerId = (string)(Session["ownerId"]);
 
-            ViewBag.GetReaderList = await pnDAO.GetReaderList(ownerId);
+            ViewBag.GetReaderList = await readerDAO.GetReaderList(ownerId);
 
-            List<Book> books = await pnDAO.GetBookList(ownerId);
+            List<Book> books = await bookDAO.GetBookList(ownerId);
 
             ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
 
@@ -60,13 +73,32 @@ namespace LibraryManageWebsite.Controllers
 
         // POST: PromissoryNotes/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(/*[Bind(Include = "Id,ReaderId,UserId,OwnerId,BookId,BorrowedDate,ExpiryDate,Cost,Status")]*/ PromissoryNote promissoryNote)
+        public async Task<JsonResult> CreateConfirmed(PromissoryNote promissoryNote, string readerPhone, string bookName, string bookAuthor)
         {
-            promissoryNote.Id = pnId;
+            var ownerId = (string)(Session["ownerId"]);
 
-            if (ModelState.IsValid)
+            var getReaderId = await readerDAO.GetReaderId(readerPhone, ownerId);
+
+            var getBookId = await bookDAO.GetBookId(bookName, bookAuthor, ownerId);
+
+            if (getReaderId == null)
             {
+                msg = "Số điện thoại không tồn tại. Vui lòng thử lại!";
+
+                return Json(new { error = true, mess = msg }, JsonRequestBehavior.AllowGet);
+            }
+            else if (getBookId == null)
+            {
+                msg = "Thông tin sách không chính xác. Vui lòng thử lại!";
+
+                return Json(new { error = true, mess = msg }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                promissoryNote.Id = pnId;
+                promissoryNote.ReaderId = getReaderId.Id;
+                promissoryNote.BookId = getBookId.Id;
+
                 if (await pnDAO.Add(promissoryNote))
                 {
                     TempData["AlertSuccessMessage"] = "Tạo phiếu thành công!";
@@ -75,16 +107,11 @@ namespace LibraryManageWebsite.Controllers
                 }
                 else
                 {
-                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+                    msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                    return View(promissoryNote);
+                    return Json(new { error = true, mess = msg }, JsonRequestBehavior.AllowGet);
                 }
             }
-
-            //ViewBag.OwnerId = new SelectList(db.Owners, "Id", "Name", promissoryNote.OwnerId);
-            //ViewBag.ReaderId = new SelectList(db.Readers, "Id", "OwnerId", promissoryNote.ReaderId);
-            //ViewBag.UserId = new SelectList(db.Users, "Id", "Name", promissoryNote.UserId);
-            return View(promissoryNote);
         }
 
         // GET: PromissoryNotes/Edit/5
@@ -155,32 +182,6 @@ namespace LibraryManageWebsite.Controllers
                 //db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> GetReaderId(string readerPhone)
-        {
-            var getReader = await pnDAO.GetReaderId(readerPhone, (string)Session["ownerId"]);
-
-            if (getReader != null)
-            {
-                return Json(new { success = true, readerId = getReader.Id }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
-        }
-
-        [HttpPost]
-        public async Task<JsonResult> GetBookId(string bookName, string bookAuthor)
-        {
-            var getBook = await pnDAO.GetBookId(bookName, bookAuthor, (string)Session["ownerId"]);
-
-            if (getBook != null)
-            {
-                return Json(new { success = true, bookId = getBook.Id }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }
