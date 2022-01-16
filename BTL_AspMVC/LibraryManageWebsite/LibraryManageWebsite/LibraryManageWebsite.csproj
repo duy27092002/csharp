@@ -2507,9 +2507,11 @@
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CustomJs\alert-success.js" />
-    <Content Include="Scripts\CustomJs\check-expire-time.js" />
+    <Content Include="Scripts\CustomJs\check-expire-time-for-owner.js" />
+    <Content Include="Scripts\CustomJs\check-expire-time-for-pnote.js" />
+    <Content Include="Scripts\CustomJs\edit-promissory-note.js" />
     <Content Include="Scripts\CustomJs\FormatPrice.js" />
-    <Content Include="Scripts\CustomJs\promissory-note.js" />
+    <Content Include="Scripts\CustomJs\create-promissory-note.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />

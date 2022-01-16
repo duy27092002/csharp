@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -28,9 +29,20 @@ namespace LibraryManageWebsite.Models.DAO
             return true;
         }
 
-        public Task<bool> Delete(string id)
+        public async Task<bool> Delete(string id)
         {
-            throw new NotImplementedException();
+            var getPN = await GetById(id);
+
+            if (getPN != null)
+            {
+                db.PromissoryNotes.Remove(getPN);
+
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
 
         public Task<List<PromissoryNote>> GetAll()
@@ -60,7 +72,22 @@ namespace LibraryManageWebsite.Models.DAO
 
         public async Task<bool> Update(PromissoryNote entity)
         {
-            throw new NotImplementedException();
+            var getPN = await GetById(entity.Id);
+
+            if (getPN != null)
+            {
+                getPN.ReaderId = entity.ReaderId;
+                getPN.BookId = entity.BookId;
+                getPN.ExpiryDate = entity.ExpiryDate;
+                getPN.Cost = entity.Cost;
+                getPN.Status = entity.Status;
+
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }

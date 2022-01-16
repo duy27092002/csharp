@@ -1,59 +1,95 @@
 ﻿@model LibraryManageWebsite.Models.EF.PromissoryNote
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Chi tiết phiếu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Details</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-<div>
-    <h4>PromissoryNote</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Total)
-        </dt>
+    <div class="shadow container mt-3 py-3">
+        <div class="form-horizontal">
+            <h2 class="text-center mb-3">Thông tin chi tiết phiếu</h2>
+            @Html.Partial("IndexPartialView\\AlertMessage")
+            <hr />
+            @Html.HiddenFor(model => model.Id)
 
-        <dd>
-            @Html.DisplayFor(model => model.Total)
-        </dd>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Nhân viên lập phiếu</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Model.User.Name" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Tên đọc giả</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Model.Reader.Name" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-4 col-lg-4 form-group">
+                    <label class="font-weight-bold">Số điện thoại đọc giả</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Model.Reader.Phone" readonly />
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Status)
-        </dt>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Tác sách</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Model.Book.Name" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Tác giả</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Model.Book.Author" readonly />
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Status)
-        </dd>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Ngày mượn</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Model.BorrowedDate.ToString("MM/dd/yyyy")" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6 form-group">
+                    <label class="font-weight-bold">Ngày trả</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Model.ExpiryDate.ToString("MM/dd/yyyy")" readonly />
+                    </div>
+                </div>
+            </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Owner.Name)
-        </dt>
+            <div class="row">
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group">
+                    <label class="font-weight-bold">Chi phí mượn</label>
+                    <div class="col-md-12 pl-0">
+                        <input type="text" class="form-control bg-light" value="@Model.Cost" readonly />
+                    </div>
+                </div>
+                <div class="col-12 col-sm-12 col-md-6 col-lg-6  form-group">
+                    <label class="form-label font-weight-bold">Trạng thái</label>
+                    <div class="col-md-12 pl-0">
+                        @{
+                            var getStatus = Model.Status == 0 ? "Đang mượn" :
+                                Model.Status == 1 ? "Đã trả" : "Trễ hạn";
+                        }
+                        <input type="text" class="form-control bg-light" value="@getStatus" readonly />
+                    </div>
+                </div>
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Owner.Name)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Reader.OwnerId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Reader.OwnerId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.Name)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.Name)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+            <div class="form-group text-center mt-5">
+                @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning" })
+                <a class="btn btn-sm btn-secondary" href="@Url.Action("Index", "PromissoryNotes")">Quay lại</a>
+            </div>
+        </div>
+    </div>
+}

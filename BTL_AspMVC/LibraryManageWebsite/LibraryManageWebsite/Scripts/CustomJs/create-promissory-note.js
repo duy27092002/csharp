@@ -1,25 +1,41 @@
 ﻿$(document).ready(function () {
 
+    // lấy dữ liệu đầu vào
+    let userId = $("#UserId").val();
+    let ownerId = $("#OwnerId").val();
+    let readerPhone = $("#ReaderPhone").val();
+    let bookName = $("#BookName").val();
+    let bookAuthor = $("#BookAuthor").val();
+    let borrowedDate = $("#BorrowedDate").val();
+    let expiryDate = $("#ExpiryDate").val();
+    let cost = 0;
+    let status = 0;
+
+    // custom lại ngày trả sách
+    let getExpiryDate = new Date(expiryDate);
+    let dd = String(getExpiryDate.getDate()).padStart(2, '0');
+    let mm = String(getExpiryDate.getMonth() + 1).padStart(2, '0');
+    let yyyy = getExpiryDate.getFullYear();
+    getExpiryDate = mm + '/' + dd + '/' + yyyy;
+
+    // tính khoảng cách thời gian giữa ngày mượn và trả
+    let getDays = Math.round(((new Date(expiryDate)).getTime() - (new Date(borrowedDate)).getTime()) / (1000 * 3600 * 24));
+
+    // sự kiện thay đổi ngày trả để tính chi phí mượn
+    $("#ExpiryDate").change(function () {
+
+        if (getDays == 0) {
+            $("#Cost").val(formatNumber(5000));
+        }
+        else {
+            cost = formatNumber(5000 + ((getDays - 1) * 3000));
+            $("#Cost").val(cost);
+        }
+
+    });
+
+    // sự kiện ấn nút tạo phiếu
     $("body").on("click", "#create-pn-btn", function () {
-
-        // lấy dữ liệu đầu vào
-        let userId = $("#UserId").val();
-        let ownerId = $("#OwnerId").val();
-        let readerPhone = $("#ReaderPhone").val();
-        let bookName = $("#BookName").val();
-        let bookAuthor = $("#BookAuthor").val();
-        let borrowedDate = $("#BorrowedDate").val();
-        let expiryDate = $("#ExpiryDate").val();
-        let cost = 0;
-        let status = 0;
-
-        // custom lại ngày trả sách
-        let getExpiryDate = new Date(expiryDate);
-        let dd = String(getExpiryDate.getDate()).padStart(2, '0');
-        let mm = String(getExpiryDate.getMonth() + 1).padStart(2, '0'); //January is 0!
-        let yyyy = getExpiryDate.getFullYear();
-
-        getExpiryDate = mm + '/' + dd + '/' + yyyy;
 
         // kiểm tra dữ liệu đầu vào
         if (readerPhone.length == 0 || readerPhone.trim == "" || bookName.length == 0 || bookName.trim == ""
@@ -33,8 +49,6 @@
         }
         else {
 
-            let getDays = Math.round(((new Date(expiryDate)).getTime() - (new Date(borrowedDate)).getTime()) / (1000 * 3600 * 24));
-
             if (getDays < 0) {
                 swal({
                     title: "Lỗi!",
@@ -42,10 +56,11 @@
                     icon: "error",
                     buttons: "Đã hiểu",
                 });
+                return;
             }
             else {
                 if (getDays == 0) {
-                    cost = 5,000;
+                    cost = formatNumber(5000);
                 }
                 else {
                     cost = formatNumber(5000 + ((getDays - 1) * 3000));
@@ -78,9 +93,7 @@
                     if (result.success) {
                         window.location = "/PromissoryNotes/Index";
                     }
-                },
-                error: function (result) {
-                    if (result.error) {
+                    else {
                         swal({
                             title: "Lỗi!",
                             text: "" + result.mess,
@@ -88,7 +101,8 @@
                             buttons: "Đã hiểu",
                         });
                     }
-                }
+                },
+                error: function (result) {}
             });
         }
     });

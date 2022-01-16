@@ -22,6 +22,8 @@ namespace LibraryManageWebsite.Controllers
 
         private BookDAO bookDAO = new BookDAO();
 
+        private UserDAO userDAO = new UserDAO();
+
         string pnId = BaseDAO.RandomString(10);
 
         string msg;
@@ -41,23 +43,30 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // GET: PromissoryNotes/Details/5
-        public ActionResult Details(string id)
+        public async Task<ActionResult> Details(string id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //PromissoryNote promissoryNote = db.PromissoryNotes.Find(id);
-            //if (promissoryNote == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View(/*promissoryNote*/);
+            if (id == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            PromissoryNote promissoryNote = await pnDAO.GetById(id);
+
+            if (promissoryNote == null || Session["ownerId"] == null || promissoryNote.OwnerId != (string)Session["ownerId"])
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            return View(promissoryNote);
         }
 
         // GET: PromissoryNotes/Create
         public async Task<ActionResult> Create()
         {
+            var getNameOfUser = await userDAO.GetById((string)Session["userId"]);
+
+            ViewBag.NameOfUser = getNameOfUser.Name;
+
             var ownerId = (string)(Session["ownerId"]);
 
             ViewBag.GetReaderList = await readerDAO.GetReaderList(ownerId);
@@ -85,13 +94,13 @@ namespace LibraryManageWebsite.Controllers
             {
                 msg = "Số điện thoại không tồn tại. Vui lòng thử lại!";
 
-                return Json(new { error = true, mess = msg }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
             }
             else if (getBookId == null)
             {
                 msg = "Thông tin sách không chính xác. Vui lòng thử lại!";
 
-                return Json(new { error = true, mess = msg }, JsonRequestBehavior.AllowGet);
+                return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
             }
             else
             {
@@ -109,69 +118,119 @@ namespace LibraryManageWebsite.Controllers
                 {
                     msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                    return Json(new { error = true, mess = msg }, JsonRequestBehavior.AllowGet);
+                    return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
                 }
             }
         }
 
         // GET: PromissoryNotes/Edit/5
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //PromissoryNote promissoryNote = db.PromissoryNotes.Find(id);
-            //if (promissoryNote == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            //ViewBag.OwnerId = new SelectList(db.Owners, "Id", "Name", promissoryNote.OwnerId);
-            //ViewBag.ReaderId = new SelectList(db.Readers, "Id", "OwnerId", promissoryNote.ReaderId);
-            //ViewBag.UserId = new SelectList(db.Users, "Id", "Name", promissoryNote.UserId);
-            return View(/*promissoryNote*/);
+            if (id == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            PromissoryNote promissoryNote = await pnDAO.GetById(id);
+
+            if (promissoryNote == null || Session["ownerId"] == null || promissoryNote.OwnerId != (string)Session["ownerId"])
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            #region lấy dữ liệu khởi tạo ban đầu
+
+            var ownerId = (string)(Session["ownerId"]);
+
+            ViewBag.GetReaderList = await readerDAO.GetReaderList(ownerId);
+
+            List<Book> books = await bookDAO.GetBookList(ownerId);
+
+            ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
+
+            ViewBag.GetBookNameList = books.GroupBy(x => x.Name).Select(y => y.First());
+
+            #endregion
+
+            return View(promissoryNote);
         }
 
         // POST: PromissoryNotes/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,ReaderId,UserId,OwnerId,BookId,BorrowedDate,ExpiryDate,Cost,Status")] PromissoryNote promissoryNote)
+        public async Task<JsonResult> EditConfirmed(PromissoryNote promissoryNote, string readerPhone, string bookName, string bookAuthor)
         {
-            if (ModelState.IsValid)
+            var ownerId = (string)(Session["ownerId"]);
+
+            var getReaderId = await readerDAO.GetReaderId(readerPhone, ownerId);
+
+            var getBookId = await bookDAO.GetBookId(bookName, bookAuthor, ownerId);
+
+            if (getReaderId == null)
             {
-                //db.Entry(promissoryNote).State = EntityState.Modified;
-                //db.SaveChanges();
-                return RedirectToAction("Index");
+                msg = "Số điện thoại không tồn tại. Vui lòng thử lại!";
+
+                return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
             }
-            //ViewBag.OwnerId = new SelectList(db.Owners, "Id", "Name", promissoryNote.OwnerId);
-            //ViewBag.ReaderId = new SelectList(db.Readers, "Id", "OwnerId", promissoryNote.ReaderId);
-            //ViewBag.UserId = new SelectList(db.Users, "Id", "Name", promissoryNote.UserId);
-            return View(promissoryNote);
+            else if (getBookId == null)
+            {
+                msg = "Thông tin sách không chính xác. Vui lòng thử lại!";
+
+                return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                promissoryNote.ReaderId = getReaderId.Id;
+                promissoryNote.BookId = getBookId.Id;
+
+                if (await pnDAO.Update(promissoryNote))
+                {
+                    TempData["AlertSuccessMessage"] = "Cập nhật phiếu thành công!";
+
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                    return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
+                }
+            }
         }
 
         // GET: PromissoryNotes/Delete/5
-        public ActionResult Delete(string id)
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> Delete(string id)
         {
-            //if (id == null)
-            //{
-            //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            //}
-            //PromissoryNote promissoryNote = db.PromissoryNotes.Find(id);
-            //if (promissoryNote == null)
-            //{
-            //    return HttpNotFound();
-            //}
-            return View(/*promissoryNote*/);
+            if (id == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            PromissoryNote promissoryNote = await pnDAO.GetById(id);
+
+            if (promissoryNote == null || Session["ownerId"] == null || promissoryNote.OwnerId != (string)Session["ownerId"])
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            return View(promissoryNote);
         }
 
         // POST: PromissoryNotes/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            //PromissoryNote promissoryNote = db.PromissoryNotes.Find(id);
-            //db.PromissoryNotes.Remove(promissoryNote);
-            //db.SaveChanges();
+            if (await pnDAO.Delete(id))
+            {
+                TempData["AlertSuccessMessage"] = "Xóa phiếu thành công!";
+            }
+            else
+            {
+                TempData["AlertErrorMessage"] = "Xóa phiếu thất bại. Vui lòng thử lại!";
+            }
+
             return RedirectToAction("Index");
         }
 

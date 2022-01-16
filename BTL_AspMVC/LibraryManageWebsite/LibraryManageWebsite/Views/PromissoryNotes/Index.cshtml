@@ -10,46 +10,72 @@
     @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
     @Html.Partial("IndexPartialView\\AlertMessage")
     <div class="table-responsive">
-        <table class="table table-sm table-bordered table-hover table-striped text-center">
+        <table class="table table-sm table-bordered table-hover table-striped text-center" id="pn-table">
             <tr>
                 <th>Nhân viên lập phiếu</th>
                 <th>Tên đọc giả</th>
+                <th>Số điện thoại</th>
+                <th>Tên sách</th>
+                <th>Ngày trả</th>
                 <th>Chi phí mượn</th>
                 <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Reader.Name)
-                    </td>
-                    <td style="text-align:right;">
-                        @Html.DisplayFor(modelItem => item.Cost)
-                    </td>
-                    <td class="text-nowrap" style="width:1px">
-                        @if (item.Status == 1)
-                        {
-                            <button class="btn btn-sm btn-success" disabled>Đã trả</button>
-                        }
-                        else if (item.Status == 2)
-                        {
-                            <button class="btn btn-sm btn-danger" disabled>Trễ hạn</button>
-                        }
-                        else
-                        {
-                            <button class="btn btn-sm btn-primary" disabled>Đang mượn</button>
-                        }
-                    </td>
-                    <td class="text-nowrap" style="width:1px">
-                        @Html.Partial("IndexPartialView\\TableFeature", item.Id)
-                    </td>
-                </tr>
-            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.User.Name)</td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reader.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reader.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Book.Name)
+                        </td>
+                        <td>
+                            @{
+                                var getExpiryDate = item.ExpiryDate.ToString("MM/dd/yyyy");
+                            }
+                            @getExpiryDate
+                            <span class="badge rounded-pill bg-warning text-white msg"></span>
+                        </td>
+                        <td style="text-align:right;">
+                            @Html.DisplayFor(modelItem => item.Cost)
+                        </td>
+                        <td class="text-nowrap" style="width:1px">
+                            @if (item.Status == 1)
+                            {
+                                <a class="btn btn-sm btn-success" disabled>Đã trả</a>
+                            }
+                            else if (item.Status == 2)
+                            {
+                                <a class="btn btn-sm btn-danger" disabled>Trễ hạn</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-sm btn-primary" disabled>Đang mượn</a>
+                            }
+                        </td>
+                        <td class="text-nowrap" style="width:1px">
+                            @Html.Partial("IndexPartialView\\TableFeature", item.Id)
+                            @if (User.IsInRole("Admin"))
+                            {
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
 
         </table>
     </div>
     @Html.Partial("IndexPartialView\\PagedList")
 </div>
+
+@section Scripts{
+    <script src="~/Scripts/CustomJs/check-expire-time-for-pnote.js"></script>
+}
