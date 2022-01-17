@@ -110,16 +110,18 @@ namespace LibraryManageWebsite.Controllers
 
                 if (await pnDAO.Add(promissoryNote))
                 {
-                    TempData["AlertSuccessMessage"] = "Tạo phiếu thành công!";
+                    // cập nhật số lượng, số lượt mượn cho sách tương ứng --> giảm số lượng, tăng lượt mượn
+                    if (await bookDAO.UpdateQuantityAndViews(promissoryNote.BookId, 0))
+                    {
+                        TempData["AlertSuccessMessage"] = "Tạo phiếu thành công!";
 
-                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                        return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                    }
                 }
-                else
-                {
-                    msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                    return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
-                }
+                msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
             }
         }
 
@@ -184,6 +186,24 @@ namespace LibraryManageWebsite.Controllers
 
                 if (await pnDAO.Update(promissoryNote))
                 {
+                    // nếu đã trả sách thì:
+                    // cập nhật số lượng, số lượt mượn cho sách tương ứng --> tăng số lượng, giảm lượt mượn
+                    if (promissoryNote.Status == 1)
+                    {
+                        if (await bookDAO.UpdateQuantityAndViews(promissoryNote.BookId, 1))
+                        {
+                            TempData["AlertSuccessMessage"] = "Cập nhật phiếu thành công!";
+
+                            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                        }
+                        else
+                        {
+                            msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                            return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+
                     TempData["AlertSuccessMessage"] = "Cập nhật phiếu thành công!";
 
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -222,13 +242,24 @@ namespace LibraryManageWebsite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(string id)
         {
-            if (await pnDAO.Delete(id))
+            PromissoryNote promissoryNote = await pnDAO.GetById(id);
+
+            if (promissoryNote.Status == 0)
             {
-                TempData["AlertSuccessMessage"] = "Xóa phiếu thành công!";
+                TempData["AlertErrorMessage"] = "Sách ở phiếu này chưa được trả. Không được phép xóa!";
+
+                return View(promissoryNote);
             }
             else
             {
-                TempData["AlertErrorMessage"] = "Xóa phiếu thất bại. Vui lòng thử lại!";
+                if (await pnDAO.Delete(id))
+                {
+                    TempData["AlertSuccessMessage"] = "Xóa phiếu thành công!";
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Xóa phiếu thất bại. Vui lòng thử lại!";
+                }
             }
 
             return RedirectToAction("Index");

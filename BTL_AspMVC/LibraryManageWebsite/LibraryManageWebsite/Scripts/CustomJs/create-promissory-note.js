@@ -1,28 +1,15 @@
 ﻿$(document).ready(function () {
 
-    // lấy dữ liệu đầu vào
-    let userId = $("#UserId").val();
-    let ownerId = $("#OwnerId").val();
-    let readerPhone = $("#ReaderPhone").val();
-    let bookName = $("#BookName").val();
-    let bookAuthor = $("#BookAuthor").val();
     let borrowedDate = $("#BorrowedDate").val();
-    let expiryDate = $("#ExpiryDate").val();
     let cost = 0;
-    let status = 0;
-
-    // custom lại ngày trả sách
-    let getExpiryDate = new Date(expiryDate);
-    let dd = String(getExpiryDate.getDate()).padStart(2, '0');
-    let mm = String(getExpiryDate.getMonth() + 1).padStart(2, '0');
-    let yyyy = getExpiryDate.getFullYear();
-    getExpiryDate = mm + '/' + dd + '/' + yyyy;
-
-    // tính khoảng cách thời gian giữa ngày mượn và trả
-    let getDays = Math.round(((new Date(expiryDate)).getTime() - (new Date(borrowedDate)).getTime()) / (1000 * 3600 * 24));
 
     // sự kiện thay đổi ngày trả để tính chi phí mượn
     $("#ExpiryDate").change(function () {
+
+        let expiryDate = $("#ExpiryDate").val();
+
+        // tính khoảng cách thời gian giữa ngày mượn và trả
+        let getDays = Math.round(((new Date(expiryDate)).getTime() - (new Date(borrowedDate)).getTime()) / (1000 * 3600 * 24));
 
         if (getDays == 0) {
             $("#Cost").val(formatNumber(5000));
@@ -36,6 +23,25 @@
 
     // sự kiện ấn nút tạo phiếu
     $("body").on("click", "#create-pn-btn", function () {
+
+        // lấy dữ liệu đầu vào
+        let userId = $("#UserId").val();
+        let ownerId = $("#OwnerId").val();
+        let readerPhone = $("#ReaderPhone").val();
+        let bookName = $("#BookName").val();
+        let bookAuthor = $("#BookAuthor").val();
+        let expiryDate = $("#ExpiryDate").val();
+        let status = 0;
+
+        // custom lại ngày trả sách
+        let getExpiryDate = new Date(expiryDate);
+        let dd = String(getExpiryDate.getDate()).padStart(2, '0');
+        let mm = String(getExpiryDate.getMonth() + 1).padStart(2, '0');
+        let yyyy = getExpiryDate.getFullYear();
+        getExpiryDate = mm + '/' + dd + '/' + yyyy;
+
+        // tính khoảng cách thời gian giữa ngày mượn và trả
+        let getDays = Math.round(((new Date(expiryDate)).getTime() - (new Date(borrowedDate)).getTime()) / (1000 * 3600 * 24));
 
         // kiểm tra dữ liệu đầu vào
         if (readerPhone.length == 0 || readerPhone.trim == "" || bookName.length == 0 || bookName.trim == ""

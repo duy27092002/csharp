@@ -110,5 +110,30 @@ namespace LibraryManageWebsite.Models.DAO
 
             return false;
         }
+
+        // cập nhật số lượng và lượt mượn sách sau khi thêm or sửa phiếu mượn-trả
+        public async Task<bool> UpdateQuantityAndViews(string bookId, byte type)
+        {
+            var getBook = await GetById(bookId);
+
+            if (getBook != null)
+            {
+                if (type == 0) // nếu mượn sách
+                {
+                    getBook.Quantity -= 1;
+                    getBook.Views += 1;
+                }
+                else if (type == 1) // nếu trả sách
+                {
+                    getBook.Quantity += 1;
+                }
+
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }
