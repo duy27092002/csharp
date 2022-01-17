@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 
@@ -26,6 +27,19 @@ namespace LibraryManageWebsite.Models.DAO
             }
 
             return true;
+        }
+
+        // kiểm tra định dạng thời gian trước khi cập nhật thông tin
+        public bool CheckFormatDate(string registrationTime, string expireTime)
+        {
+            Regex formatDate = new Regex(@"^([0]?[0-9]|[1][0-2])\/([0]?[0-9]|[1|2][0-9]|[3][0-1])\/([0-9]{4})$");
+
+            if (formatDate.IsMatch(registrationTime) && formatDate.IsMatch(expireTime))
+            {
+                return true;
+            }
+
+            return false;
         }
 
         // xóa người mua website

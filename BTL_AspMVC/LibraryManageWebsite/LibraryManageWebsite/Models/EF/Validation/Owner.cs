@@ -29,9 +29,13 @@ namespace LibraryManageWebsite.Models.EF
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "Không được để trống ngày kích hoạt")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime RegistrationTime { get; set; }
 
         [Required(ErrorMessage = "Không được để trống ngày hết hạn kích hoạt")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:MM/dd/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime ExpireTime { get; set; }
     }
 }

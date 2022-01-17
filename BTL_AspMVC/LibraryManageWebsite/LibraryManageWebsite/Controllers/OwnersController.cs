@@ -66,11 +66,18 @@ namespace LibraryManageWebsite.Controllers
 
             if (ModelState.IsValid)
             {
-                await ownerDAO.Add(owner);
+                if (await ownerDAO.Add(owner))
+                {
+                    TempData["AlertSuccessMessage"] = "Thêm người mua mới thành công!";
 
-                TempData["AlertSuccessMessage"] = "Thêm người mua mới thành công!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                return RedirectToAction("Index");
+                    return View(owner);
+                }
             }
 
             return View(owner);
@@ -101,11 +108,31 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await ownerDAO.Update(owner);
+                var getRegistrationTime = owner.RegistrationTime.ToString("MM/dd/yyyy");
 
-                TempData["AlertSuccessMessage"] = "Cập nhật thông tin thành công!";
+                var getExpireTime = owner.ExpireTime.ToString("MM/dd/yyyy");
 
-                return RedirectToAction("Index");
+                if (ownerDAO.CheckFormatDate(getRegistrationTime, getExpireTime))
+                {
+                    if (await ownerDAO.Update(owner))
+                    {
+                        TempData["AlertSuccessMessage"] = "Cập nhật thông tin thành công!";
+
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                        return View(owner);
+                    }
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Sai định dạng thời gian. Vui lòng thử lại!";
+
+                    return View(owner);
+                }
             }
             return View(owner);
         }
