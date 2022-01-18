@@ -91,23 +91,19 @@
             <label class="font-weight-bold">Trạng thái</label>
             <div class="col-md-12 pl-0">
                 <select id="Status" name="Status" class="form-control">
-                    @if (Model.Status == 1)
-                    {
-                        <option value="0">Đang mượn</option>
-                        <option value="1" selected>Đã trả</option>
-                        <option value="2">Trễ hạn</option>
-                    }
-                    else if (Model.Status == 0)
+                    @if (Model.Status == 0)
                     {
                         <option value="0" selected>Đang mượn</option>
-                        <option value="1">Đã trả</option>
                         <option value="2">Trễ hạn</option>
+                    }
+                    else if(Model.Status == 2)
+                    {
+                        <option value="0">Đang mượn</option>
+                        <option value="2" selected>Trễ hạn</option>
                     }
                     else
                     {
-                        <option value="0">Đang mượn</option>
-                        <option value="1">Đã trả</option>
-                        <option value="2" selected>Trễ hạn</option>
+                        <option value="1" selected>Đã trả</option>
                     }
                 </select>
             </div>

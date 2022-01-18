@@ -10,48 +10,60 @@
     @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
     @Html.Partial("IndexPartialview\\AlertMessage")
     <div class="table-responsive">
-        <table class="table table-sm table-bordered table-hover table-striped text-center">
+        <table class="table table-sm table-bordered table-hover table-striped text-center" id="book-list-table">
             <tr>
                 <th>Tên sách</th>
                 <th>Tác giả</th>
                 <th>Nhà xuất bản</th>
+                <th>Số lượng</th>
                 <th>Giá</th>
                 <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Author)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Publisher)
-                    </td>
-                    <td style="text-align:right">
-                        @Html.DisplayFor(modelItem => item.Price)
-                    </td>
-                    <td class="text-nowrap" style="width:1px">
-                        @if (item.Status == 1)
-                        {
-                            <a class="btn btn-sm btn-success" disabled>Còn sách</a>
-                        }
-                        else
-                        {
-                            <a class="btn btn-sm btn-danger" disabled>Đã hết</a>
-                        }
-                    </td>
-                    <td class="text-nowrap" style="width:1px">
-                        @Html.Partial("IndexPartialView\\TableFeature", item.Id)
-                    </td>
-                </tr>
-            }
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Author)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Publisher)
+                        </td>
+                        <td style="text-align:right">
+                            <span class="badge rounded-pill bg-warning text-white msg"></span>
+                            @Html.DisplayFor(modelItem => item.Quantity)
+                        </td>
+                        <td style="text-align:right">
+                            @Html.DisplayFor(modelItem => item.Price)
+                        </td>
+                        <td class="text-nowrap" style="width:1px">
+                            @if (item.Status == 1)
+                            {
+                                <a class="btn btn-sm btn-success" disabled>Còn sách</a>
+                            }
+                            else
+                            {
+                                <a class="btn btn-sm btn-danger" disabled>Đã hết</a>
+                            }
+                        </td>
+                        <td class="text-nowrap" style="width:1px">
+                            @Html.Partial("IndexPartialView\\TableFeature", item.Id)
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
 
         </table>
     </div>
     @Html.Partial("IndexPartialview\\PagedList")
 </div>
+
+@section Scripts{
+    <script src="~/Scripts/CustomJs/check-book-quantity.js"></script>
+}

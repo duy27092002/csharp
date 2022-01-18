@@ -59,6 +59,7 @@ namespace LibraryManageWebsite.Models.DAO
             return await db.Books.FindAsync(id);
         }
 
+        // lấy id của những cuốn sách có số lượng > 0
         public async Task<Book> GetBookId(string bookName, string bookAuthor, string ownerId)
         {
             return await db.Books.Where(
@@ -66,6 +67,16 @@ namespace LibraryManageWebsite.Models.DAO
                 t.Author == bookAuthor &&
                 t.OwnerId == ownerId &&
                 t.Status == 1
+                ).FirstOrDefaultAsync();
+        }
+
+        // lấy tất cả id sách kể cả đã hết
+        public async Task<Book> GetAllBookId(string bookName, string bookAuthor, string ownerId)
+        {
+            return await db.Books.Where(
+                t => t.Name == bookName &&
+                t.Author == bookAuthor &&
+                t.OwnerId == ownerId
                 ).FirstOrDefaultAsync();
         }
 
@@ -126,6 +137,30 @@ namespace LibraryManageWebsite.Models.DAO
                 else if (type == 1) // nếu trả sách
                 {
                     getBook.Quantity += 1;
+                }
+
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        // cập nhật trạng thái khi sách đã hết
+        public async Task<bool> UpdateStatus(string bookId)
+        {
+            var getBook = await GetById(bookId);
+
+            if (getBook != null)
+            {
+                if (getBook.Quantity > 0)
+                {
+                    getBook.Status = 1;
+                }
+                else if (getBook.Quantity == 0)
+                {
+                    getBook.Status = 0;
                 }
 
                 await db.SaveChangesAsync();

@@ -55,11 +55,13 @@ namespace LibraryManageWebsite.Models.DAO
             return await db.PromissoryNotes.FindAsync(id);
         }
 
+        // lấy danh sách phiếu chưa được trả (status != 1) theo tên sách
         public async Task<List<PromissoryNote>> GetByKeyword(string keyword, string ownerId)
         {
             return await db.PromissoryNotes.Where(
                 t => t.Reader.Name.Contains(keyword) && 
-                t.OwnerId == ownerId
+                t.OwnerId == ownerId && 
+                t.Status != 1
                 ).OrderBy(t => t.Reader.Name).ToListAsync();
         }
 
@@ -81,6 +83,23 @@ namespace LibraryManageWebsite.Models.DAO
                 getPN.ExpiryDate = entity.ExpiryDate;
                 getPN.Cost = entity.Cost;
                 getPN.Status = entity.Status;
+
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        // chuyển trạng thái khi trả sách
+        public async Task<bool> UpdateStatus(string id)
+        {
+            var getPN = await GetById(id);
+
+            if (getPN != null)
+            {
+                getPN.Status = 1;
 
                 await db.SaveChangesAsync();
 

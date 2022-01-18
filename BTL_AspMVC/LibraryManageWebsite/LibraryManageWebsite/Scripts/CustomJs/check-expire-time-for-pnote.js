@@ -12,11 +12,12 @@
     $.each(trs, function (i, e) {
 
         let expireTime = $($(e).find('td')[4]).text().trim();
+        let status = $($(e).find('td')[6]).text().trim();
 
         let getDays = Math.round((new Date(expireTime)).getTime() - (new Date(today)).getTime()) / (1000 * 3600 * 24);
 
         // nếu thời hạn còn nhỏ hơn 30 ngày thì sẽ cảnh báo
-        if (getDays <= 1 && getDays > 0) {
+        if (getDays <= 1 && getDays >= 0 && status != "Đã trả") {
             $(this).find(".msg").text("Sắp hết hạn");
         }
 
@@ -24,7 +25,7 @@
         if (getDays < 0) {
             $(this).find(".msg").removeClass("bg-warning");
             $(this).find(".msg").addClass("bg-danger");
-            $(this).find(".msg").text("Đã hết hạn");
+            $(this).find(".msg").text("Đã trễ hạn");
         }
 
     });

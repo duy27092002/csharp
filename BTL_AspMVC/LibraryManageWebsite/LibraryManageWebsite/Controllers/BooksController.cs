@@ -163,5 +163,21 @@ namespace LibraryManageWebsite.Controllers
             }
             base.Dispose(disposing);
         }
+
+        // cập nhật trạng thái cho sách đã hết khi load danh sách liệt kê
+        public async Task<JsonResult> UpdateStatus(string bookName, string bookAuthor)
+        {
+            var getBookId = await bookDAO.GetAllBookId(bookName, bookAuthor, (string)Session["ownerId"]);
+
+            if (getBookId != null)
+            {
+                if (await bookDAO.UpdateStatus(getBookId.Id))
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -2507,6 +2507,7 @@
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\CustomJs\alert-success.js" />
+    <Content Include="Scripts\CustomJs\check-book-quantity.js" />
     <Content Include="Scripts\CustomJs\check-expire-time-for-owner.js" />
     <Content Include="Scripts\CustomJs\check-expire-time-for-pnote.js" />
     <Content Include="Scripts\CustomJs\edit-promissory-note.js" />
@@ -2576,6 +2577,7 @@
     <Content Include="Views\Home\Error.cshtml" />
     <Content Include="Views\Owners\AddNewAdmin.cshtml" />
     <Content Include="Views\Owners\AdminList.cshtml" />
+    <Content Include="Views\PromissoryNotes\ReturningBook.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

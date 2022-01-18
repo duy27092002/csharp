@@ -186,24 +186,6 @@ namespace LibraryManageWebsite.Controllers
 
                 if (await pnDAO.Update(promissoryNote))
                 {
-                    // nếu đã trả sách thì:
-                    // cập nhật số lượng, số lượt mượn cho sách tương ứng --> tăng số lượng, giảm lượt mượn
-                    if (promissoryNote.Status == 1)
-                    {
-                        if (await bookDAO.UpdateQuantityAndViews(promissoryNote.BookId, 1))
-                        {
-                            TempData["AlertSuccessMessage"] = "Cập nhật phiếu thành công!";
-
-                            return Json(new { success = true }, JsonRequestBehavior.AllowGet);
-                        }
-                        else
-                        {
-                            msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
-
-                            return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
-                        }
-                    }
-
                     TempData["AlertSuccessMessage"] = "Cập nhật phiếu thành công!";
 
                     return Json(new { success = true }, JsonRequestBehavior.AllowGet);
@@ -213,6 +195,62 @@ namespace LibraryManageWebsite.Controllers
                     msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
                     return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
+                }
+            }
+        }
+
+        // trả sách
+        public async Task<ActionResult> ReturningBook(string id)
+        {
+            if (id == null)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            PromissoryNote promissoryNote = await pnDAO.GetById(id);
+
+            if (promissoryNote == null || Session["ownerId"] == null || promissoryNote.OwnerId != (string)Session["ownerId"])
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
+            return View(promissoryNote);
+        }
+
+        [HttpPost, ActionName("ReturningBook")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> ReturningBookConfirmed(string id)
+        {
+            PromissoryNote promissoryNote = await pnDAO.GetById(id);
+
+            if (promissoryNote.Status == 1)
+            {
+                TempData["AlertWarningMessage"] = "Sách ở phiếu này đã được trả!";
+
+                return View(promissoryNote);
+            }
+            else
+            {
+                if (await pnDAO.UpdateStatus(id))
+                {
+                    if (await bookDAO.UpdateQuantityAndViews(promissoryNote.BookId, 1))
+                    {
+                        TempData["AlertSuccessMessage"] = "Trả sách thành công!";
+
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                        return View(promissoryNote);
+                    }
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Trả sách thất bại. Vui lòng thử lại!";
+
+                    return View(promissoryNote);
                 }
             }
         }
@@ -255,14 +293,16 @@ namespace LibraryManageWebsite.Controllers
                 if (await pnDAO.Delete(id))
                 {
                     TempData["AlertSuccessMessage"] = "Xóa phiếu thành công!";
+
+                    return RedirectToAction("Index");
                 }
                 else
                 {
                     TempData["AlertErrorMessage"] = "Xóa phiếu thất bại. Vui lòng thử lại!";
+
+                    return View(promissoryNote);
                 }
             }
-
-            return RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
