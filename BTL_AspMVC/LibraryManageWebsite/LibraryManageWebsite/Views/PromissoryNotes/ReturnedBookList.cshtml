@@ -1,16 +1,34 @@
 ﻿@model PagedList.PagedList<LibraryManageWebsite.Models.EF.PromissoryNote>
 
 @{
-    ViewBag.Title = "Danh sách phiếu mượn";
+    ViewBag.Title = "Danh sách phiếu đã trả";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="shadow container mt-3 py-3">
-    <h2 class="text-center mb-3">Danh sách phiếu mượn</h2>
-    @Html.Partial("IndexPartialView\\CreateAndFindByKeyword")
+    <h2 class="text-center mb-3">Danh sách phiếu đã trả</h2>
+    <div class="row my-3">
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4"></div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4"></div>
+        <div class="col-12 col-sm-12 col-md-4 col-lg-4 mb-3">
+            @using (Html.BeginForm())
+            {
+                <div class="input-group">
+                    <input type="text" class="form-control bg-light small" id="keyword" name="keyword" placeholder="Nhập từ khóa..."
+                           aria-label="Search" aria-describedby="basic-addon2" value="@ViewBag.Keyword">
+                    <input type="hidden" id="page" name="page" value="1" />
+                    <div class="input-group-append">
+                        <button class="btn btn-primary" type="submit">
+                            <i class="fas fa-search fa-sm"></i>
+                        </button>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
     @Html.Partial("IndexPartialView\\AlertMessage")
     <div class="table-responsive">
-        <table class="table table-sm table-bordered table-hover table-striped text-center" id="pn-table">
+        <table class="table table-sm table-bordered table-hover table-striped text-center">
             <tr>
                 <th>Nhân viên lập phiếu</th>
                 <th>Tên đọc giả</th>
@@ -18,7 +36,6 @@
                 <th>Tên sách</th>
                 <th>Ngày trả</th>
                 <th>Chi phí mượn</th>
-                <th>Trạng thái</th>
                 <th>Thao tác</th>
             </tr>
 
@@ -41,24 +58,16 @@
                                 var getExpiryDate = item.ExpiryDate.ToString("MM/dd/yyyy");
                             }
                             @getExpiryDate
-                            <span class="badge rounded-pill bg-warning text-white msg"></span>
                         </td>
                         <td style="text-align:right;">
                             @Html.DisplayFor(modelItem => item.Cost)
                         </td>
                         <td class="text-nowrap" style="width:1px">
-                            @if (item.Status == 2)
+                            @Html.ActionLink("Chi tiết", "Details", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-primary" })
+                            @if (User.IsInRole("Admin"))
                             {
-                                <a class="btn btn-sm btn-danger" disabled>Trễ hạn</a>
+                                @Html.ActionLink("Xóa", "Delete", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-danger" })
                             }
-                            else if(item.Status == 0)
-                            {
-                                <a class="btn btn-sm btn-primary" disabled>Đang mượn</a>
-                            }
-                        </td>
-                        <td class="text-nowrap" style="width:1px">
-                            @Html.Partial("IndexPartialView\\TableFeature", item.Id)
-                            @Html.ActionLink("Trả sách", "ReturningBook", new { id = item.Id }, htmlAttributes: new { @class = "btn btn-sm btn-success" })
                         </td>
                     </tr>
                 }
@@ -68,7 +77,3 @@
     </div>
     @Html.Partial("IndexPartialView\\PagedList")
 </div>
-
-@section Scripts{
-    <script src="~/Scripts/CustomJs/check-expire-time-for-pnote.js"></script>
-}

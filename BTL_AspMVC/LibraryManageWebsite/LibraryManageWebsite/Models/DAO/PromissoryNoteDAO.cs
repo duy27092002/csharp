@@ -65,6 +65,7 @@ namespace LibraryManageWebsite.Models.DAO
                 ).OrderBy(t => t.Reader.Name).ToListAsync();
         }
 
+        // phân trang cho danh sách chứa những phiếu chưa được trả
         public async Task<IPagedList<PromissoryNote>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
         {
             var getListByKeyword = await GetByKeyword(keyword, ownerId);
@@ -107,6 +108,24 @@ namespace LibraryManageWebsite.Models.DAO
             }
 
             return false;
+        }
+
+        // lấy danh sách phiếu đã được trả (status == 1) theo tên sách
+        public async Task<List<PromissoryNote>> GetByKeywordByReturnedBookList(string keyword, string ownerId)
+        {
+            return await db.PromissoryNotes.Where(
+                t => t.Reader.Name.Contains(keyword) &&
+                t.OwnerId == ownerId &&
+                t.Status == 1
+                ).OrderBy(t => t.Reader.Name).ToListAsync();
+        }
+
+        // phân trang cho danh sách chứa những phiếu đã được trả
+        public async Task<IPagedList<PromissoryNote>> GetByPagedForReturnedBookList(int page, int pageSize, string keyword, string ownerId)
+        {
+            var getListByKeyword = await GetByKeywordByReturnedBookList(keyword, ownerId);
+
+            return getListByKeyword.ToPagedList(page, pageSize);
         }
     }
 }

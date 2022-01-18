@@ -28,12 +28,27 @@ namespace LibraryManageWebsite.Controllers
 
         string msg;
 
+        // trả ra danh sách phiếu đang mượn và đã trễ hạn
         // GET: PromissoryNotes
         public async Task<ActionResult> Index(int page = 1, int pageSize = 10, string keyword = "")
         {
             var ownerId = (string)Session["ownerId"];
 
             var getPNList = await pnDAO.GetByPaged(page, pageSize, keyword, ownerId);
+
+            ViewBag.Keyword = keyword;
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+
+            return View(getPNList);
+        }
+
+        // trả ra danh sách phiếu đã trả
+        public async Task<ActionResult> ReturnedBookList(int page = 1, int pageSize = 10, string keyword = "")
+        {
+            var ownerId = (string)Session["ownerId"];
+
+            var getPNList = await pnDAO.GetByPagedForReturnedBookList(page, pageSize, keyword, ownerId);
 
             ViewBag.Keyword = keyword;
             ViewBag.Page = page;
@@ -282,26 +297,17 @@ namespace LibraryManageWebsite.Controllers
         {
             PromissoryNote promissoryNote = await pnDAO.GetById(id);
 
-            if (promissoryNote.Status == 0)
+            if (await pnDAO.Delete(id))
             {
-                TempData["AlertErrorMessage"] = "Sách ở phiếu này chưa được trả. Không được phép xóa!";
+                TempData["AlertSuccessMessage"] = "Xóa phiếu thành công!";
 
-                return View(promissoryNote);
+                return RedirectToAction("ReturnedBookList");
             }
             else
             {
-                if (await pnDAO.Delete(id))
-                {
-                    TempData["AlertSuccessMessage"] = "Xóa phiếu thành công!";
+                TempData["AlertErrorMessage"] = "Xóa phiếu thất bại. Vui lòng thử lại!";
 
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    TempData["AlertErrorMessage"] = "Xóa phiếu thất bại. Vui lòng thử lại!";
-
-                    return View(promissoryNote);
-                }
+                return View(promissoryNote);
             }
         }
 

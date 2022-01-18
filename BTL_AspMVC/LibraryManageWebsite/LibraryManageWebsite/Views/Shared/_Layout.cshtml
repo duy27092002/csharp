@@ -108,10 +108,17 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Index", "PromissoryNotes")">
+                    <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#collapseOne"
+                        aria-expanded="true" aria-controls="collapseOne">
                         <i class="fa fa-file"></i>
                         <span>Phiếu mượn-trả</span>
                     </a>
+                    <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionSidebar">
+                        <div class="bg-white py-2 collapse-inner rounded">
+                            <a class="collapse-item" href="@Url.Action("Index", "PromissoryNotes")">Phiếu mượn</a>
+                            <a class="collapse-item" href="@Url.Action("ReturnedBookList", "PromissoryNotes")">Phiếu đã trả</a>
+                        </div>
+                    </div>
                 </li>
 
                 <hr class="sidebar-divider">

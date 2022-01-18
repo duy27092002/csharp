@@ -2578,6 +2578,7 @@
     <Content Include="Views\Owners\AddNewAdmin.cshtml" />
     <Content Include="Views\Owners\AdminList.cshtml" />
     <Content Include="Views\PromissoryNotes\ReturningBook.cshtml" />
+    <Content Include="Views\PromissoryNotes\ReturnedBookList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
