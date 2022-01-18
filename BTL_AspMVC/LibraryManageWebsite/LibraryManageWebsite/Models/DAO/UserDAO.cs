@@ -80,6 +80,12 @@ namespace LibraryManageWebsite.Models.DAO
             return await db.Users.ToListAsync();
         }
 
+        // lấy danh sách nhân viên đang làm việc theo ownerId
+        public async Task<List<User>> GetAllUserByStatus(string ownerId)
+        {
+            return await db.Users.Where(t => t.OwnerId == ownerId && t.Status == 1).ToListAsync();
+        }
+
         // lấy thông tin nhân viên theo id
         public async Task<User> GetById(string id)
         {

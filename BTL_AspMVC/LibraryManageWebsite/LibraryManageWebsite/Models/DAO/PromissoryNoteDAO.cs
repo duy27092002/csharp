@@ -50,6 +50,13 @@ namespace LibraryManageWebsite.Models.DAO
             throw new NotImplementedException();
         }
 
+        // lấy danh sách phiếu theo ownerId và trạng thái phiếu
+        public async Task<List<PromissoryNote>> GetAllByStatus(string ownerId, int status)
+        {
+            return await db.PromissoryNotes.Where(t => t.OwnerId == ownerId && t.Status == status).ToListAsync();
+        }
+
+
         public async Task<PromissoryNote> GetById(string id)
         {
             return await db.PromissoryNotes.FindAsync(id);
