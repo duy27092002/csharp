@@ -1,5 +1,7 @@
 ﻿$(document).ready(function () {
 
+    let bookName = $("#BookName").val(); // tên sách khi mới load trang edit
+    let bookAuthor = $("#BookAuthor").val(); // tên tác giả khi mới load trang edit
     let formatDate = /^([0]?[0-9]|[1][0-2])\/([0]?[0-9]|[1|2][0-9]|[3][0-1])\/([0-9]{4})$/;
     let borrowedDate = $("#BorrowedDate").val();
     let cost = 0;
@@ -30,8 +32,8 @@
         let userId = $("#UserId").val();
         let ownerId = $("#OwnerId").val();
         let readerPhone = $("#ReaderPhone").val();
-        let bookName = $("#BookName").val();
-        let bookAuthor = $("#BookAuthor").val();
+        //let bookName = $("#BookName").val();
+        //let bookAuthor = $("#BookAuthor").val();
         let expiryDate = $("#ExpiryDate").val();
         let status = $("#Status").val();
 
@@ -89,31 +91,69 @@
                     Status: status
                 }
 
-                $.ajax({
-                    url: "/PromissoryNotes/EditConfirmed",
-                    type: "Post",
-                    dataType: "json",
-                    data: {
-                        promissoryNote: pnData,
-                        readerPhone: readerPhone,
-                        bookName: bookName,
-                        bookAuthor: bookAuthor
-                    },
-                    success: function (result) {
-                        if (result.success) {
-                            window.location = "/PromissoryNotes/Index";
-                        }
-                        else {
-                            swal({
-                                title: "Lỗi!",
-                                text: "" + result.mess,
-                                icon: "error",
-                                buttons: "Đã hiểu",
-                            });
-                        }
-                    },
-                    error: function (result) { }
-                });
+                // nếu không thay đổi thông tin sách (tức là: vẫn mượn sách cũ)
+                if (bookName == $("#BookName").val() && bookAuthor == $("#BookAuthor").val()) {
+
+                    $.ajax({
+                        url: "/PromissoryNotes/EditAndDoNotChangeBookInfo",
+                        type: "Post",
+                        dataType: "json",
+                        data: {
+                            promissoryNote: pnData,
+                            readerPhone: readerPhone,
+                            bookName: bookName,
+                            bookAuthor: bookAuthor
+                        },
+                        success: function (result) {
+                            if (result.success) {
+                                window.location = "/PromissoryNotes/Index";
+                            }
+                            else {
+                                swal({
+                                    title: "Lỗi!",
+                                    text: "" + result.mess,
+                                    icon: "error",
+                                    buttons: "Đã hiểu",
+                                });
+                            }
+                        },
+                        error: function (result) { }
+                    });
+                }
+                else { // nếu thay đổi thông tin sách (tức là: đổi sách mới)
+
+                    // lấy dữ liệu sách mới
+                    let newBookName = $("#BookName").val();
+                    let newBookAuthor = $("#BookAuthor").val();
+
+                    $.ajax({
+                        url: "/PromissoryNotes/EditAndChangeBookInfo",
+                        type: "Post",
+                        dataType: "json",
+                        data: {
+                            promissoryNote: pnData,
+                            readerPhone: readerPhone,
+                            newBookName: newBookName,
+                            newBookAuthor: newBookAuthor,
+                            oldBookName: bookName,
+                            oldBookAuthor: bookAuthor
+                        },
+                        success: function (result) {
+                            if (result.success) {
+                                window.location = "/PromissoryNotes/Index";
+                            }
+                            else {
+                                swal({
+                                    title: "Lỗi!",
+                                    text: "" + result.mess,
+                                    icon: "error",
+                                    buttons: "Đã hiểu",
+                                });
+                            }
+                        },
+                        error: function (result) { }
+                    });
+                }
             }
             else // nếu sai định dạng
             {

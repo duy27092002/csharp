@@ -173,14 +173,20 @@ namespace LibraryManageWebsite.Controllers
         }
 
         // POST: PromissoryNotes/Edit/5
+        // phương thức này sử dụng khi thông tin sách được thay đổi
         [HttpPost]
-        public async Task<JsonResult> EditConfirmed(PromissoryNote promissoryNote, string readerPhone, string bookName, string bookAuthor)
+        public async Task<JsonResult> EditAndChangeBookInfo(PromissoryNote promissoryNote, string readerPhone, string newBookName, string newBookAuthor, 
+            string oldBookName, string oldBookAuthor)
         {
             var ownerId = (string)(Session["ownerId"]);
 
             var getReaderId = await readerDAO.GetReaderId(readerPhone, ownerId);
 
-            var getBookId = await bookDAO.GetBookId(bookName, bookAuthor, ownerId);
+            // lấy thông tin sách mới (sách thay thế)
+            var getNewBookId = await bookDAO.GetBookId(newBookName, newBookAuthor, ownerId);
+
+            // lấy thông tin sách cũ (sách bị thay thế)
+            var getOldBook = await bookDAO.GetAllBookId(oldBookName, oldBookAuthor, ownerId);
 
             if (getReaderId == null)
             {
@@ -188,9 +194,53 @@ namespace LibraryManageWebsite.Controllers
 
                 return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
             }
-            else if (getBookId == null)
+            else if (getNewBookId == null)
             {
                 msg = "Thông tin sách không chính xác. Vui lòng thử lại!";
+
+                return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                promissoryNote.ReaderId = getReaderId.Id;
+                promissoryNote.BookId = getNewBookId.Id; // id sách mới
+
+                if (await pnDAO.Update(promissoryNote))
+                {
+                    // cập nhật lại lượt mượn cho 2 loại sách
+                    // với sách cũ thì giảm lượt mượn đi 1 (-1), tăng số lượng lên 1 (+1) --> type = 2
+                    // với sách mới thì tăng lượt mượn lên 1 (+1), giảm số lượng đi 1 (-1) --> type = 0
+                    // để làm được điều này cần có: id sách CŨ & MỚI (ở đây chỉ có id sách mới)
+                    if (await bookDAO.UpdateQuantityAndViews(getOldBook.Id, 2) &&
+                        await bookDAO.UpdateQuantityAndViews(promissoryNote.BookId, 0))
+                    {
+                        TempData["AlertSuccessMessage"] = "Cập nhật phiếu thành công!";
+
+                        return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+
+                msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        // POST: PromissoryNotes/Edit/5
+        // phương thức này sử dụng khi thông tin sách không thay đổi
+        // tránh trường hợp số lượng sách thuộc phiếu đang sửa = 0
+        [HttpPost]
+        public async Task<JsonResult> EditAndDoNotChangeBookInfo(PromissoryNote promissoryNote, string readerPhone, string bookName, string bookAuthor)
+        {
+            var ownerId = (string)(Session["ownerId"]);
+
+            var getReaderId = await readerDAO.GetReaderId(readerPhone, ownerId);
+
+            var getBookId = await bookDAO.GetAllBookId(bookName, bookAuthor, ownerId);
+
+            if (getReaderId == null)
+            {
+                msg = "Số điện thoại không tồn tại. Vui lòng thử lại!";
 
                 return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
             }
@@ -254,19 +304,11 @@ namespace LibraryManageWebsite.Controllers
 
                         return RedirectToAction("Index");
                     }
-                    else
-                    {
-                        TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
-
-                        return View(promissoryNote);
-                    }
                 }
-                else
-                {
-                    TempData["AlertErrorMessage"] = "Trả sách thất bại. Vui lòng thử lại!";
 
-                    return View(promissoryNote);
-                }
+                TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                return View(promissoryNote);
             }
         }
 

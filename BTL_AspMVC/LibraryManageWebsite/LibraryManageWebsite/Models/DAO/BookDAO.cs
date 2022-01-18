@@ -138,6 +138,11 @@ namespace LibraryManageWebsite.Models.DAO
                 {
                     getBook.Quantity += 1;
                 }
+                else if (type == 2) // trường hợp này xử lý cho sách bị thay thế khi edit (bị thay bởi sách khác)
+                {
+                    getBook.Quantity += 1;
+                    getBook.Views -= 1;
+                }
 
                 await db.SaveChangesAsync();
 
