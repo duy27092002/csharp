@@ -12,6 +12,7 @@
     <div class="table-responsive">
         <table class="table table-sm table-bordered table-hover table-striped text-center" id="owner-table">
             <tr>
+                <th>Mã</th>
                 <th>Tên cá nhân, tổ chức</th>
                 <th>Ngày kích hoạt</th>
                 <th>Ngày hết hạn kích hoạt</th>
@@ -23,6 +24,9 @@
                 @foreach (var item in Model)
                 {
                     <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>

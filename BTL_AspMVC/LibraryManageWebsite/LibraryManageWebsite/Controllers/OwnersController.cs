@@ -207,6 +207,7 @@ namespace LibraryManageWebsite.Controllers
             return View(user);
         }
 
+        // lấy danh sách admin của từng khách hàng
         public async Task<ActionResult> AdminList(string id, int page = 1, int pageSize = 10, string keyword = "")
         {
             var getAdminListByOwnerId = await userDAO.GetAdminListByPaged(page, pageSize, keyword, id);
@@ -216,6 +217,22 @@ namespace LibraryManageWebsite.Controllers
             ViewBag.PageSize = pageSize;
 
             return View(getAdminListByOwnerId);
+        }
+
+        // cập nhật trạng thái cho sách đã hết khi load danh sách liệt kê
+        public async Task<JsonResult> UpdateStatus(string ownerId)
+        {
+            var getOwner = await ownerDAO.GetOwnerId(ownerId);
+
+            if (getOwner != null)
+            {
+                if (await ownerDAO.UpdateStatus(getOwner.Id))
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            return Json(new { success = false }, JsonRequestBehavior.AllowGet);
         }
     }
 }

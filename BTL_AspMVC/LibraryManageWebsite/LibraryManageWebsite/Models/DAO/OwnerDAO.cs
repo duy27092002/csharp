@@ -107,9 +107,40 @@ namespace LibraryManageWebsite.Models.DAO
             return false;
         }
 
+        // lấy thông tin khách hàng còn kích hoạt
         public Owner GetOwner(string ownerId)
         {
             return db.Owners.Where(t => t.Id == ownerId && t.Status == 1).FirstOrDefault();
+        }
+
+        // lấy thông tin khách hàng có trong db (kể cả đã hủy kích hoạt)
+        public async Task<Owner> GetOwnerId(string ownerId)
+        {
+            return await db.Owners.Where(t => t.Id == ownerId).FirstOrDefaultAsync();
+        }
+
+        // cập nhật trạng thái kích hoạt
+        public async Task<bool> UpdateStatus(string ownerId)
+        {
+            var getOwner = await GetById(ownerId);
+
+            if (getOwner != null)
+            {
+                if (getOwner.Status == 0)
+                {
+                    getOwner.Status = 1;
+                }
+                else if (getOwner.Status == 1)
+                {
+                    getOwner.Status = 0;
+                }
+
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
         }
     }
 }
