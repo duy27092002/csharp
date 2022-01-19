@@ -26,6 +26,10 @@
             $(this).find(".msg").text("Sắp hết hạn");
 
         } else if (getDays < 0 && status == "Đã kích hoạt") {
+            // thay đổi trạng thái kích hoạt về ngừng kích hoạt
+            updateStatus(ownerId);
+        } else if (getDays > 30 && status == "Đã hủy kích hoạt") {
+            // chuyển: đã ngừng kích hoạt -> đã kích hoạt
             updateStatus(ownerId);
         }
 

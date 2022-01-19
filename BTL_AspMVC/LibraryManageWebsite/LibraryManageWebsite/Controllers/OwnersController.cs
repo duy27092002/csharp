@@ -68,7 +68,7 @@ namespace LibraryManageWebsite.Controllers
             {
                 if (await ownerDAO.Add(owner))
                 {
-                    TempData["AlertSuccessMessage"] = "Thêm người mua mới thành công!";
+                    TempData["AlertSuccessMessage"] = "Thêm khách hàng mới thành công!";
 
                     return RedirectToAction("Index");
                 }
@@ -191,7 +191,7 @@ namespace LibraryManageWebsite.Controllers
                 {
                     if (await userDAO.Add(user))
                     {
-                        TempData["AlertSuccessMessage"] = "Thêm nhân viên mới thành công!";
+                        TempData["AlertSuccessMessage"] = "Thêm Admin mới thành công!";
 
                         return RedirectToAction("Index");
                     }
