@@ -10,13 +10,15 @@
         let getQty = $($(e).find('td')[3]).text().trim();
         let status = $($(e).find('td')[5]).text().trim();
 
-        if (getQty > 0 && getQty <= 10) {
+        if (getQty > 0) {
             if (status == "Đã hết") {
                 // cập nhật trạng thái của sách
                 updateStatus(bookName, bookAuthor);
             }
 
-            $(this).find(".msg").text("Sắp hết sách");
+            if (getQty <= 10) {
+                $(this).find(".msg").text("Sắp hết sách");
+            }
         }
         else if (getQty <= 0 && status == "Còn sách") {
             // cập nhật trạng thái của sách khi sách đã hết bằng ajax
