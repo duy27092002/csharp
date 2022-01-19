@@ -12,6 +12,7 @@
     <div class="shadow container mt-3 py-3">
         <div class="form-horizontal">
             <h2 class="text-center mt-3">Thêm khách hàng</h2>
+            @Html.Partial("IndexPartialView\\AlertMessage")
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
@@ -51,8 +52,8 @@
 
                 <div class="form-group col-12 col-sm-12 col-md-6 col-lg-6">
                     <label class="font-weight-bold">
-                        Ngày hết hạn kích hoạt 
-                        <span class="text-danger">*</span> 
+                        Ngày hết hạn kích hoạt
+                        <span class="text-danger">*</span>
                         <small class="text-secondary">(tháng/ ngày/ năm)</small>
                     </label>
                     <div class="col-md-12 pl-0">

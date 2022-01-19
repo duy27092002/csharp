@@ -11,6 +11,32 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class ContactDAO : BaseDAO, IContactDAO
     {
+        // kiểm tra số điện thoại là duy nhất
+        public bool CheckPhone(string phone)
+        {
+            var getPhone = db.Contacts.Where(t => t.AdminPhone == phone && t.Status == 1).FirstOrDefault();
+
+            if (getPhone != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // kiểm tra email là duy nhất
+        public bool CheckEmail(string email)
+        {
+            var getEmail = db.Contacts.Where(t => t.AdminEmail == email && t.Status == 1).FirstOrDefault();
+
+            if (getEmail != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         // thêm mới liên hệ
         public async Task<bool> Add(Contact entity)
         {

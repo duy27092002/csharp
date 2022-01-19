@@ -47,17 +47,28 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await contactDAO.Add(contact))
+                if (contactDAO.CheckEmail(contact.AdminEmail) == false)
                 {
-                    TempData["AlertSuccessMessage"] = "Thêm liên hệ mới thành công!";
-
-                    return RedirectToAction("Index");
+                    TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại email!";
+                }
+                else if (contactDAO.CheckPhone(contact.AdminPhone) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại số điện thoại!";
                 }
                 else
                 {
-                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+                    if (await contactDAO.Add(contact))
+                    {
+                        TempData["AlertSuccessMessage"] = "Thêm liên hệ mới thành công!";
 
-                    return View(contact);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                        return View(contact);
+                    }
                 }
             }
 
@@ -91,6 +102,27 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+                var getContactFromDB = await contactDAO.GetById(contact.Id);
+
+                if (getContactFromDB.AdminEmail != contact.AdminEmail)
+                {
+                    if (contactDAO.CheckEmail(contact.AdminEmail) == false)
+                    {
+                        TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại email!";
+
+                        return View(contact);
+                    }
+                }
+                else if (getContactFromDB.AdminPhone != contact.AdminPhone)
+                {
+                    if (contactDAO.CheckPhone(contact.AdminPhone) == false)
+                    {
+                        TempData["AlertErrorMessage"] = "Vui lòng kiểm tra lại số điện thoại!";
+
+                        return View(contact);
+                    }
+                }
+
                 if (await contactDAO.Update(contact))
                 {
                     TempData["AlertSuccessMessage"] = "Cập nhật thông tin thành công!";

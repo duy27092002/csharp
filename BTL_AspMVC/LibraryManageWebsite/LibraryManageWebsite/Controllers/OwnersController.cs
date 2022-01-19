@@ -66,17 +66,28 @@ namespace LibraryManageWebsite.Controllers
 
             if (ModelState.IsValid)
             {
-                if (await ownerDAO.Add(owner))
+                if (ownerDAO.CheckEmail(owner.Email) == false)
                 {
-                    TempData["AlertSuccessMessage"] = "Thêm khách hàng mới thành công!";
-
-                    return RedirectToAction("Index");
+                    TempData["AlertErrorMessage"] = "Email này đã tồn tại. Vui lòng kiểm tra lại!";
+                }
+                else if (ownerDAO.CheckPhone(owner.Phone) == false)
+                {
+                    TempData["AlertErrorMessage"] = "Số điện thoại này đã tồn tại. Vui lòng kiểm tra lại!";
                 }
                 else
                 {
-                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+                    if (await ownerDAO.Add(owner))
+                    {
+                        TempData["AlertSuccessMessage"] = "Thêm khách hàng mới thành công!";
 
-                    return View(owner);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                        return View(owner);
+                    }
                 }
             }
 
@@ -108,6 +119,29 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
+                var getOwnerFromDB = await ownerDAO.GetById(owner.Id);
+
+                // nếu thay đổi email hoặc sđt thì kiểm tra xem chúng có trùng lặp với khách hàng khác không
+                if (getOwnerFromDB.Email != owner.Email)
+                {
+                    if (ownerDAO.CheckEmail(owner.Email) == false)
+                    {
+                        TempData["AlertErrorMessage"] = "Email này đã tồn tại. Vui lòng kiểm tra lại!";
+
+                        return View(owner);
+                    }
+                }
+                else if (getOwnerFromDB.Phone != owner.Phone)
+                {
+                    if (ownerDAO.CheckPhone(owner.Phone) == false)
+                    {
+                        TempData["AlertErrorMessage"] = "Số điện thoại này đã tồn tại. Vui lòng kiểm tra lại!";
+
+                        return View(owner);
+                    }
+                }
+
+                // nếu không thay đổi email or sđt thì tiến hành lưu như bình thường
                 var getRegistrationTime = owner.RegistrationTime.ToString("MM/dd/yyyy");
 
                 var getExpireTime = owner.ExpireTime.ToString("MM/dd/yyyy");

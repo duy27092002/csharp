@@ -12,6 +12,32 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class OwnerDAO : BaseDAO, IOwnerDAO
     {
+        // kiểm tra số điện thoại là duy nhất
+        public bool CheckPhone(string phone)
+        {
+            var getPhone = db.Owners.Where(t => t.Phone == phone && t.Status == 1).FirstOrDefault();
+
+            if (getPhone != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        // kiểm tra email là duy nhất
+        public bool CheckEmail(string email)
+        {
+            var getEmail = db.Owners.Where(t => t.Email == email && t.Status == 1).FirstOrDefault();
+
+            if (getEmail != null)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         // thêm người mua website mới
         public async Task<bool> Add(Owner entity)
         {
