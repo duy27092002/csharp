@@ -103,9 +103,16 @@ namespace LibraryManageWebsite.Controllers
                 }
                 else
                 {
-                    accountDAO.AddNewUser(user);
+                    if (accountDAO.AddNewUser(user))
+                    {
+                        return RedirectToAction("Login");
+                    }
+                    else
+                    {
+                        TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                    return RedirectToAction("Login");
+                        return View(user);
+                    }
                 }
             }
 

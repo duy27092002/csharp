@@ -47,11 +47,18 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await contactDAO.Add(contact);
+                if (await contactDAO.Add(contact))
+                {
+                    TempData["AlertSuccessMessage"] = "Thêm liên hệ mới thành công!";
 
-                TempData["AlertSuccessMessage"] = "Thêm liên hệ mới thành công!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                return RedirectToAction("Index");
+                    return View(contact);
+                }
             }
 
             return View(contact);
@@ -84,11 +91,18 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await contactDAO.Update(contact);
+                if (await contactDAO.Update(contact))
+                {
+                    TempData["AlertSuccessMessage"] = "Cập nhật thông tin thành công!";
 
-                TempData["AlertSuccessMessage"] = "Cập nhật thông tin thành công!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                return RedirectToAction("Index");
+                    return View(contact);
+                }
             }
             
             return View(contact);
@@ -119,11 +133,20 @@ namespace LibraryManageWebsite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            await contactDAO.Delete(id);
+            Contact contact = await contactDAO.GetById(id);
 
-            TempData["AlertSuccessMessage"] = "Xóa liên hệ thành công!";
+            if (await contactDAO.Delete(id))
+            {
+                TempData["AlertSuccessMessage"] = "Xóa liên hệ thành công!";
 
-            return RedirectToAction("Index");
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                return View(contact);
+            }
         }
 
         protected override void Dispose(bool disposing)

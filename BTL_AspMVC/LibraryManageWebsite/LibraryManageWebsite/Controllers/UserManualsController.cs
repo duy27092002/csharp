@@ -40,11 +40,18 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await umDAO.Add(userManual);
+                if (await umDAO.Add(userManual))
+                {
+                    TempData["AlertSuccessMessage"] = "Tạo hướng dẫn thành công!";
 
-                TempData["AlertSuccessMessage"] = "Tạo hướng dẫn thành công!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                return RedirectToAction("Index");
+                    return View(userManual);
+                }
             }
 
             return View(userManual);
@@ -77,11 +84,19 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await umDAO.Update(userManual);
+                if (await umDAO.Update(userManual))
+                {
+                    TempData["AlertSuccessMessage"] = "Cập nhật hướng dẫn thành công!";
 
-                TempData["AlertSuccessMessage"] = "Cập nhật hướng dẫn thành công!";
+                    return RedirectToAction("Index");
 
-                return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+                    return View(userManual);
+                }
             }
             return View(userManual);
         }

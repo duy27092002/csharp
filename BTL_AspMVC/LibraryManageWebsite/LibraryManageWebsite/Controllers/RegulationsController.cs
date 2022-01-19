@@ -41,11 +41,18 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await regulationDAO.Add(regulation);
+                if (await regulationDAO.Add(regulation))
+                {
+                    TempData["AlertSuccessMessage"] = "Tạo quy định thành công!";
 
-                TempData["AlertSuccessMessage"] = "Tạo quy định thành công!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                return RedirectToAction("Index");
+                    return View(regulation);
+                }
             }
 
             return View(regulation);
@@ -78,11 +85,18 @@ namespace LibraryManageWebsite.Controllers
         {
             if (ModelState.IsValid)
             {
-                await regulationDAO.Update(regulation);
+                if (await regulationDAO.Update(regulation))
+                {
+                    TempData["AlertSuccessMessage"] = "Cập nhật quy định thành công!";
 
-                TempData["AlertSuccessMessage"] = "Cập nhật quy định thành công!";
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                return RedirectToAction("Index");
+                    return View(regulation);
+                }
             }
             
             return View(regulation);
