@@ -24,6 +24,20 @@
 
     });
 
+    // sự kiện chọn tên sách, datalist bên trường tác giả sẽ thay đổi theo
+    $("#BookName").change(function () {
+        let getBookName = $("#BookName").val();
+
+        getBookAuthorListByBookName(getBookName);
+    });
+
+    // hiển thị danh sách tác giả tương ứng với tên sách đã chọn
+    $("#BookAuthor").focus(function () {
+        let getBookName = $("#BookName").val();
+
+        getBookAuthorListByBookName(getBookName);
+    });
+
     // sự kiện ấn nút lưu phiếu sau khi sửa
     $("body").on("click", "#update-pn-btn", function () {
 
@@ -32,8 +46,6 @@
         let userId = $("#UserId").val();
         let ownerId = $("#OwnerId").val();
         let readerPhone = $("#ReaderPhone").val();
-        //let bookName = $("#BookName").val();
-        //let bookAuthor = $("#BookAuthor").val();
         let expiryDate = $("#ExpiryDate").val();
         let status = $("#Status").val();
 
@@ -168,6 +180,36 @@
     });
 
 });
+
+function getBookAuthorListByBookName(getBookName) {
+    $.ajax({
+        url: "/PromissoryNotes/GetBookAuthorListByBookName",
+        type: "Get",
+        dataType: "json",
+        data: {
+            bookName: getBookName
+        },
+        success: function (result) {
+            if (result.success) {
+                let data = result.data;
+                let html = '';
+                $.each(data, function (i, e) {
+                    html += '<option value="' + e.AuthorName + '"></option>';
+                });
+                $('#bookAuthor').empty().append(html);
+            }
+            else {
+                swal({
+                    title: "Lỗi!",
+                    text: "" + result.mess,
+                    icon: "error",
+                    buttons: "Đã hiểu",
+                });
+            }
+        },
+        error: function (result) { }
+    });
+}
 
 function formatNumber(nStr) {
 

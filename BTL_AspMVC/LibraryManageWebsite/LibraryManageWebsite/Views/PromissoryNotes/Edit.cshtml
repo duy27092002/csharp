@@ -54,12 +54,7 @@
                 <label class="font-weight-bold">Tác giả <span class="text-danger">*</span></label>
                 <div class="col-md-12 pl-0">
                     <input class="form-control" list="bookAuthor" name="BookAuthor" id="BookAuthor" value="@Model.Book.Author">
-                    <datalist id="bookAuthor" class="scrollable" style="overflow-y: auto!important">
-                        @foreach (var item in ViewBag.GetAuthorList)
-                        {
-                            <option value="@item.Author"></option>
-                        }
-                    </datalist>
+                    <datalist id="bookAuthor" class="scrollable" style="overflow-y: auto!important"></datalist>
                 </div>
             </div>
         </div>
@@ -96,7 +91,7 @@
                         <option value="0" selected>Đang mượn</option>
                         <option value="2">Trễ hạn</option>
                     }
-                    else if(Model.Status == 2)
+                    else if (Model.Status == 2)
                     {
                         <option value="0">Đang mượn</option>
                         <option value="2" selected>Trễ hạn</option>

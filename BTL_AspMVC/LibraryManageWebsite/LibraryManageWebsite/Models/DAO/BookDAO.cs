@@ -85,6 +85,12 @@ namespace LibraryManageWebsite.Models.DAO
             return await db.Books.Where(t => t.OwnerId == ownerId && t.Status == 1).ToListAsync();
         }
 
+        // liệt kê các đầu sách theo tên sách, phục vụ cho lấy tên tác giả
+        public async Task<List<Book>> GetBookListByName(string bookName, string ownerId)
+        {
+            return await db.Books.Where(t => t.Name == bookName && t.OwnerId == ownerId && t.Status == 1).ToListAsync();
+        }
+
         // lấy danh sách theo tên
         public async Task<List<Book>> GetByKeyword(string keyword, string ownerId)
         {

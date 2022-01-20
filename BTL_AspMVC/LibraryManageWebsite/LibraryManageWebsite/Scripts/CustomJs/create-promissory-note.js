@@ -1,9 +1,44 @@
 ﻿$(document).ready(function () {
 
+    // sự kiện chọn tên sách, datalist bên trường tác giả sẽ thay đổi theo
+    $("#BookName").change(function () {
+
+        let getBookName = $("#BookName").val();
+
+        $.ajax({
+            url: "/PromissoryNotes/GetBookAuthorListByBookName",
+            type: "Get",
+            dataType: "json",
+            data: {
+                bookName: getBookName
+            },
+            success: function (result) {
+                if (result.success) {
+                    let data = result.data;
+                    let html = '';
+                    $.each(data, function (i, e) {
+                        html += '<option value="' + e.AuthorName + '"></option>';
+                    });
+                    $('#bookAuthor').empty().append(html);
+                }
+                else {
+                    swal({
+                        title: "Lỗi!",
+                        text: "" + result.mess,
+                        icon: "error",
+                        buttons: "Đã hiểu",
+                    });
+                }
+            },
+            error: function (result) { }
+        });
+
+    });
+
+    // sự kiện thay đổi ngày trả để tính chi phí mượn
     let borrowedDate = $("#BorrowedDate").val();
     let cost = 0;
 
-    // sự kiện thay đổi ngày trả để tính chi phí mượn
     $("#ExpiryDate").change(function () {
 
         let expiryDate = $("#ExpiryDate").val();

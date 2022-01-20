@@ -75,6 +75,28 @@ namespace LibraryManageWebsite.Controllers
             return View(promissoryNote);
         }
 
+        // lấy danh sách tác giả theo tên sách đã chọn
+        public async Task<JsonResult> GetBookAuthorListByBookName(string bookName)
+        {
+            var getBookListByBookName = await bookDAO.GetBookListByName(bookName, (string)(Session["ownerId"]));
+
+            if (getBookListByBookName != null)
+            {
+                return Json(new
+                {
+                    success = true,
+                    data = getBookListByBookName.Select(t => new
+                    {
+                        AuthorName = t.Author
+                    }).ToArray()
+                }, JsonRequestBehavior.AllowGet) ;
+            }
+
+            msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+            return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
+        }
+
         // GET: PromissoryNotes/Create
         public async Task<ActionResult> Create()
         {
@@ -88,7 +110,7 @@ namespace LibraryManageWebsite.Controllers
 
             List<Book> books = await bookDAO.GetBookList(ownerId);
 
-            ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
+            //ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
 
             ViewBag.GetBookNameList = books.GroupBy(x => x.Name).Select(y => y.First());
 
@@ -163,7 +185,7 @@ namespace LibraryManageWebsite.Controllers
 
             List<Book> books = await bookDAO.GetBookList(ownerId);
 
-            ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
+            //ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
 
             ViewBag.GetBookNameList = books.GroupBy(x => x.Name).Select(y => y.First());
 
