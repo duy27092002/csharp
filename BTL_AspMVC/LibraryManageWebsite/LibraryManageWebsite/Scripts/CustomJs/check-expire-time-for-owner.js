@@ -18,7 +18,7 @@
         let getDays = Math.round((new Date(expireTime)).getTime() - (new Date(today)).getTime()) / (1000 * 3600 * 24);
 
         // nếu thời hạn còn nhỏ hơn 30 ngày thì sẽ cảnh báo
-        if (getDays <= 30 && getDays > 0) {
+        if (getDays <= 30 && getDays >= 0) {
             if (status == "Đã hủy kích hoạt") {
                 updateStatus(ownerId);
             }
