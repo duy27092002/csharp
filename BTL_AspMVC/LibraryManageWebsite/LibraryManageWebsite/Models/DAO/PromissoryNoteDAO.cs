@@ -117,6 +117,24 @@ namespace LibraryManageWebsite.Models.DAO
             return false;
         }
 
+        // cập nhật thời gian trả, chi phí mượn trước khi trả sách
+        public async Task<bool> UpdateExpiryDateAndCost(string id, DateTime expiryDate, string cost)
+        {
+            var getPN = await GetById(id);
+
+            if (getPN != null)
+            {
+                getPN.ExpiryDate = expiryDate;
+                getPN.Cost = cost;
+
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
         // lấy danh sách phiếu đã được trả (status == 1) theo tên sách
         public async Task<List<PromissoryNote>> GetByKeywordByReturnedBookList(string keyword, string ownerId)
         {

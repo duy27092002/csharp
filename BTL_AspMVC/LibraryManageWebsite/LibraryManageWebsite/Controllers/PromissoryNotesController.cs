@@ -110,8 +110,6 @@ namespace LibraryManageWebsite.Controllers
 
             List<Book> books = await bookDAO.GetBookList(ownerId);
 
-            //ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
-
             ViewBag.GetBookNameList = books.GroupBy(x => x.Name).Select(y => y.First());
 
             return View();
@@ -172,7 +170,8 @@ namespace LibraryManageWebsite.Controllers
 
             PromissoryNote promissoryNote = await pnDAO.GetById(id);
 
-            if (promissoryNote == null || Session["ownerId"] == null || promissoryNote.OwnerId != (string)Session["ownerId"])
+            if (promissoryNote == null || promissoryNote.Status == 1 || Session["ownerId"] == null ||
+                promissoryNote.OwnerId != (string)Session["ownerId"])
             {
                 return RedirectToAction("Error", "Home");
             }
@@ -184,8 +183,6 @@ namespace LibraryManageWebsite.Controllers
             ViewBag.GetReaderList = await readerDAO.GetReaderList(ownerId);
 
             List<Book> books = await bookDAO.GetBookList(ownerId);
-
-            //ViewBag.GetAuthorList = books.GroupBy(x => x.Author).Select(y => y.First());
 
             ViewBag.GetBookNameList = books.GroupBy(x => x.Name).Select(y => y.First());
 
@@ -304,11 +301,12 @@ namespace LibraryManageWebsite.Controllers
             return View(promissoryNote);
         }
 
-        [HttpPost, ActionName("ReturningBook")]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ReturningBookConfirmed(string id)
+        [HttpPost]
+        public async Task<ActionResult> ReturningBookConfirmed(string id, string expiryDate, string cost)
         {
             PromissoryNote promissoryNote = await pnDAO.GetById(id);
+
+            DateTime getExpiryDate = DateTime.Parse(expiryDate);
 
             if (promissoryNote.Status == 1)
             {
@@ -318,19 +316,19 @@ namespace LibraryManageWebsite.Controllers
             }
             else
             {
-                if (await pnDAO.UpdateStatus(id))
+                if (await pnDAO.UpdateStatus(id) && await pnDAO.UpdateExpiryDateAndCost(id, getExpiryDate, cost))
                 {
                     if (await bookDAO.UpdateQuantityAndViews(promissoryNote.BookId, 1))
                     {
                         TempData["AlertSuccessMessage"] = "Trả sách thành công!";
 
-                        return RedirectToAction("Index");
+                        return Json(new { success = true }, JsonRequestBehavior.AllowGet);
                     }
                 }
 
-                TempData["AlertErrorMessage"] = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+                msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
 
-                return View(promissoryNote);
+                return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
             }
         }
 

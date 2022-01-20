@@ -2513,6 +2513,7 @@
     <Content Include="Scripts\CustomJs\edit-promissory-note.js" />
     <Content Include="Scripts\CustomJs\FormatPrice.js" />
     <Content Include="Scripts\CustomJs\create-promissory-note.js" />
+    <Content Include="Scripts\CustomJs\returning-book-pnote.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
