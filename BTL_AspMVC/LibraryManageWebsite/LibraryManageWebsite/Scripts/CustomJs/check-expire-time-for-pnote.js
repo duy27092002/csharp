@@ -16,7 +16,7 @@
 
         let getDays = Math.round((new Date(expireTime)).getTime() - (new Date(today)).getTime()) / (1000 * 3600 * 24);
 
-        // nếu thời hạn còn nhỏ hơn 30 ngày thì sẽ cảnh báo
+        // nếu thời hạn còn nhỏ hơn 1 ngày thì sẽ cảnh báo
         if (getDays <= 1 && getDays >= 0 && status != "Đã trả") {
             $(this).find(".msg").text("Sắp hết hạn");
         }
