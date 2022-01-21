@@ -28,30 +28,33 @@ namespace LibraryManageWebsite.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(User user)
         {
-            if (accountDAO.CheckLogin(user))
+            if (ownerDAO.CheckActiveStatus(user.OwnerId))
             {
-                var getUser = accountDAO.GetUser(user);
-
-                if (getUser.UserType != 3)
+                if (accountDAO.CheckLogin(user))
                 {
-                    FormsAuthentication.SetAuthCookie(user.Username, false);
-                    
-                    Session["username"] = user.Username;
+                    var getUser = accountDAO.GetUser(user);
 
-                    Session["userId"] = getUser.Id;
-
-                    Session["ownerId"] = user.OwnerId;
-
-                    var getOwnerInfo = ownerDAO.GetOwner(user.OwnerId);
-
-                    TimeSpan days = (DateTime.Parse(getOwnerInfo.ExpireTime.ToShortDateString()) - DateTime.Today);
-
-                    if (days.TotalDays <= 30 && days.TotalDays > 0 && getUser.UserType == 0)
+                    if (getUser.UserType != 3)
                     {
-                        TempData["AlertWarningMessage"] = "Thời hạn thuê Website sắp hết (chỉ còn " + days.TotalDays + " ngày). Vui lòng liên hệ với Developer để gia hạn!";
-                    }
+                        FormsAuthentication.SetAuthCookie(user.Username, false);
 
-                    return RedirectToAction("Index", "Home");
+                        Session["username"] = user.Username;
+
+                        Session["userId"] = getUser.Id;
+
+                        Session["ownerId"] = user.OwnerId;
+
+                        var getOwnerInfo = ownerDAO.GetOwner(user.OwnerId);
+
+                        TimeSpan days = (DateTime.Parse(getOwnerInfo.ExpireTime.ToShortDateString()) - DateTime.Today);
+
+                        if (days.TotalDays <= 30 && days.TotalDays > 0 && getUser.UserType == 0)
+                        {
+                            TempData["AlertWarningMessage"] = "Thời hạn thuê Website sắp hết (chỉ còn " + days.TotalDays + " ngày). Vui lòng liên hệ với Developer để gia hạn!";
+                        }
+
+                        return RedirectToAction("Index", "Home");
+                    }
                 }
             }
 

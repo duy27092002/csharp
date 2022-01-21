@@ -12,6 +12,19 @@ namespace LibraryManageWebsite.Models.DAO
 {
     public class OwnerDAO : BaseDAO, IOwnerDAO
     {
+        // kiểm tra trạng thái kích hoạt của khách hàng trước khi login
+        public bool CheckActiveStatus(string ownerId)
+        {
+            var getStatus = db.Owners.Where(t => t.Id == ownerId && t.Status == 1).FirstOrDefault();
+
+            if (getStatus != null)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         // kiểm tra số điện thoại là duy nhất
         public bool CheckPhone(string phone)
         {
