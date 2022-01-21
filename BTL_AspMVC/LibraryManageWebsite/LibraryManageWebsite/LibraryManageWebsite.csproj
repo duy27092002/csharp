@@ -2580,6 +2580,7 @@
     <Content Include="Views\Owners\AdminList.cshtml" />
     <Content Include="Views\PromissoryNotes\ReturningBook.cshtml" />
     <Content Include="Views\PromissoryNotes\ReturnedBookList.cshtml" />
+    <Content Include="Views\PromissoryNotes\LatedPNList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

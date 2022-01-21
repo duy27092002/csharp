@@ -56,23 +56,22 @@ namespace LibraryManageWebsite.Models.DAO
             return await db.PromissoryNotes.Where(t => t.OwnerId == ownerId && t.Status == status).ToListAsync();
         }
 
-
         public async Task<PromissoryNote> GetById(string id)
         {
             return await db.PromissoryNotes.FindAsync(id);
         }
 
-        // lấy danh sách phiếu chưa được trả (status != 1) theo tên sách
+        // lấy danh sách phiếu đang mượn (status = 0) theo tên đọc giả
         public async Task<List<PromissoryNote>> GetByKeyword(string keyword, string ownerId)
         {
             return await db.PromissoryNotes.Where(
                 t => t.Reader.Name.Contains(keyword) && 
                 t.OwnerId == ownerId && 
-                t.Status != 1
+                t.Status == 0
                 ).OrderBy(t => t.Reader.Name).ToListAsync();
         }
 
-        // phân trang cho danh sách chứa những phiếu chưa được trả
+        // phân trang cho danh sách chứa những phiếu đang mượn
         public async Task<IPagedList<PromissoryNote>> GetByPaged(int page, int pageSize, string keyword, string ownerId)
         {
             var getListByKeyword = await GetByKeyword(keyword, ownerId);
@@ -135,7 +134,31 @@ namespace LibraryManageWebsite.Models.DAO
             return false;
         }
 
-        // lấy danh sách phiếu đã được trả (status == 1) theo tên sách
+        // chuyển trạng thái qua lại giữa đang mượn và trễ hạn
+        public async Task<bool> UpdateStatusBorrowAndLate(string id)
+        {
+            var getPN = await GetById(id);
+
+            if (getPN != null)
+            {
+                if (getPN.Status == 0)
+                {
+                    getPN.Status = 2;
+                }
+                else if (getPN.Status == 2)
+                {
+                    getPN.Status = 0;
+                }
+
+                await db.SaveChangesAsync();
+
+                return true;
+            }
+
+            return false;
+        }
+
+        // lấy danh sách phiếu đã được trả (status == 1) theo tên đọc giả
         public async Task<List<PromissoryNote>> GetByKeywordByReturnedBookList(string keyword, string ownerId)
         {
             return await db.PromissoryNotes.Where(
@@ -149,6 +172,24 @@ namespace LibraryManageWebsite.Models.DAO
         public async Task<IPagedList<PromissoryNote>> GetByPagedForReturnedBookList(int page, int pageSize, string keyword, string ownerId)
         {
             var getListByKeyword = await GetByKeywordByReturnedBookList(keyword, ownerId);
+
+            return getListByKeyword.ToPagedList(page, pageSize);
+        }
+
+        // lấy danh sách phiếu trễ hạn (status == 2) theo tên đọc giả
+        public async Task<List<PromissoryNote>> GetByKeywordByLatedPNList(string keyword, string ownerId)
+        {
+            return await db.PromissoryNotes.Where(
+                t => t.Reader.Name.Contains(keyword) &&
+                t.OwnerId == ownerId &&
+                t.Status == 2
+                ).OrderBy(t => t.Reader.Name).ToListAsync();
+        }
+
+        // phân trang cho danh sách chứa những phiếu đã trễ hạn
+        public async Task<IPagedList<PromissoryNote>> GetByPagedForLatedPNList(int page, int pageSize, string keyword, string ownerId)
+        {
+            var getListByKeyword = await GetByKeywordByLatedPNList(keyword, ownerId);
 
             return getListByKeyword.ToPagedList(page, pageSize);
         }

@@ -1,5 +1,7 @@
 ﻿@model PagedList.PagedList<LibraryManageWebsite.Models.EF.PromissoryNote>
 
+@using PagedList.Mvc
+
 @{
     ViewBag.Title = "Danh sách phiếu đã trả";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -75,5 +77,9 @@
 
         </table>
     </div>
-    @Html.Partial("IndexPartialView\\PagedList")
+
+    <div class="text-center">
+        @Html.PagedListPager(Model, page => Url.Action("ReturnedBookList",
+        new { page = page, pageSize = ViewBag.PageSize, keyword = ViewBag.Keyword }))
+    </div>
 </div>

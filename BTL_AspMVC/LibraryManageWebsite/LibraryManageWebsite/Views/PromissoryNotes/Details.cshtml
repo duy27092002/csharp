@@ -87,14 +87,19 @@
             </div>
 
             <div class="form-group text-center mt-5">
-                @if (Model.Status != 1)
+                @if (Model.Status == 0)
                 {
                     @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning" })
                     <a class="btn btn-sm btn-secondary" href="@Url.Action("Index", "PromissoryNotes")">Quay lại</a>
                 }
-                else
+                else if (Model.Status == 1)
                 {
                     <a class="btn btn-sm btn-secondary" href="@Url.Action("ReturnedBookList", "PromissoryNotes")">Quay lại</a>
+                }
+                else
+                {
+                    @Html.ActionLink("Sửa", "Edit", new { id = Model.Id }, new { @class = "btn btn-sm btn-warning" })
+                    <a class="btn btn-sm btn-secondary" href="@Url.Action("LatedPNList", "PromissoryNotes")">Quay lại</a>
                 }
             </div>
         </div>

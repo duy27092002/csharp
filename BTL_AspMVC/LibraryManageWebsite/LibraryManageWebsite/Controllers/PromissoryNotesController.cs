@@ -57,6 +57,20 @@ namespace LibraryManageWebsite.Controllers
             return View(getPNList);
         }
 
+        // trả ra danh sách phiếu trễ hạn
+        public async Task<ActionResult> LatedPNList(int page = 1, int pageSize = 10, string keyword = "")
+        {
+            var ownerId = (string)Session["ownerId"];
+
+            var getPNList = await pnDAO.GetByPagedForLatedPNList(page, pageSize, keyword, ownerId);
+
+            ViewBag.Keyword = keyword;
+            ViewBag.Page = page;
+            ViewBag.PageSize = pageSize;
+
+            return View(getPNList);
+        }
+
         // GET: PromissoryNotes/Details/5
         public async Task<ActionResult> Details(string id)
         {
@@ -380,6 +394,24 @@ namespace LibraryManageWebsite.Controllers
                 //db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        // cập nhật trạng thái qua lại giữa: đang mượn và trễ hạn
+        public async Task<JsonResult> UpdateStatus(string pnId)
+        {
+            var getPN = await pnDAO.GetById(pnId);
+
+            if (getPN != null)
+            {
+                if (await pnDAO.UpdateStatusBorrowAndLate(getPN.Id))
+                {
+                    return Json(new { success = true }, JsonRequestBehavior.AllowGet);
+                }
+            }
+
+            msg = "Đã có sự cố xảy ra. Vui lòng thử lại!";
+
+            return Json(new { success = false, mess = msg }, JsonRequestBehavior.AllowGet);
         }
     }
 }
