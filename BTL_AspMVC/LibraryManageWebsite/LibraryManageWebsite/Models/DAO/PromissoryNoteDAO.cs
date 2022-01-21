@@ -68,7 +68,7 @@ namespace LibraryManageWebsite.Models.DAO
                 t => t.Reader.Name.Contains(keyword) && 
                 t.OwnerId == ownerId && 
                 t.Status == 0
-                ).OrderBy(t => t.Reader.Name).ToListAsync();
+                ).OrderByDescending(t => t.BorrowedDate).ToListAsync();
         }
 
         // phân trang cho danh sách chứa những phiếu đang mượn
@@ -165,7 +165,7 @@ namespace LibraryManageWebsite.Models.DAO
                 t => t.Reader.Name.Contains(keyword) &&
                 t.OwnerId == ownerId &&
                 t.Status == 1
-                ).OrderBy(t => t.Reader.Name).ToListAsync();
+                ).OrderByDescending(t => t.BorrowedDate).ToListAsync();
         }
 
         // phân trang cho danh sách chứa những phiếu đã được trả
@@ -183,7 +183,7 @@ namespace LibraryManageWebsite.Models.DAO
                 t => t.Reader.Name.Contains(keyword) &&
                 t.OwnerId == ownerId &&
                 t.Status == 2
-                ).OrderBy(t => t.Reader.Name).ToListAsync();
+                ).OrderByDescending(t => t.BorrowedDate).ToListAsync();
         }
 
         // phân trang cho danh sách chứa những phiếu đã trễ hạn
